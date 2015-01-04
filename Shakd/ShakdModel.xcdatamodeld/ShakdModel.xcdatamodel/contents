@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14A314h" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="ZSSFriendRequest" representedClassName="ZSSFriendRequest" syncable="YES">
+        <attribute name="confirmed" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="dateConfirmed" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="dateSent" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="lastSynced" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="objectId" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="receiver" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ZSSUser" inverseName="receivedFriendRequests" inverseEntity="ZSSUser" syncable="YES"/>
+        <relationship name="sender" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ZSSUser" inverseName="sentFriendRequests" inverseEntity="ZSSUser" syncable="YES"/>
+    </entity>
+    <entity name="ZSSMessage" representedClassName="ZSSMessage" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="dateReceived" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="dateSent" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="dateViewed" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="lastSynced" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="messageInfo" optional="YES" attributeType="Transformable" valueTransformerName="ZSSDictionaryTransformer" syncable="YES"/>
+        <attribute name="objectId" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="receiver" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ZSSUser" inverseName="receievedMessages" inverseEntity="ZSSUser" syncable="YES"/>
+        <relationship name="sender" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ZSSUser" inverseName="sentMessages" inverseEntity="ZSSUser" syncable="YES"/>
+    </entity>
+    <entity name="ZSSUser" representedClassName="ZSSUser" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastSynced" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="objectId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="friends" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ZSSUser" inverseName="friends" inverseEntity="ZSSUser" syncable="YES"/>
+        <relationship name="receievedMessages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ZSSMessage" inverseName="receiver" inverseEntity="ZSSMessage" syncable="YES"/>
+        <relationship name="receivedFriendRequests" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ZSSFriendRequest" inverseName="receiver" inverseEntity="ZSSFriendRequest" syncable="YES"/>
+        <relationship name="sentFriendRequests" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ZSSFriendRequest" inverseName="sender" inverseEntity="ZSSFriendRequest" syncable="YES"/>
+        <relationship name="sentMessages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ZSSMessage" inverseName="sender" inverseEntity="ZSSMessage" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="ZSSFriendRequest" positionX="-36" positionY="72" width="128" height="165"/>
+        <element name="ZSSMessage" positionX="-54" positionY="27" width="128" height="180"/>
+        <element name="ZSSUser" positionX="-63" positionY="-18" width="128" height="195"/>
+    </elements>
+</model>

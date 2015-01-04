@@ -1,0 +1,16 @@
+PODS:
+  - AAPullToRefresh (1.0.2)
+  - Activity (1.0)
+  - Google-Mobile-Ads-SDK (6.12.2)
+
+DEPENDENCIES:
+  - AAPullToRefresh
+  - Activity
+  - Google-Mobile-Ads-SDK (~> 6.10)
+
+SPEC CHECKSUMS:
+  AAPullToRefresh: 87c33c4e0527930ba7dcc698edce6c49c9a0b2af
+  Activity: b0a0be4b06943b51c9d643437a041f6fc81b1c61
+  Google-Mobile-Ads-SDK: 9761186eb5dc5e1493e71dcce2b525159f763d42
+
+COCOAPODS: 0.35.0
