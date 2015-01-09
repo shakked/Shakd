@@ -15,9 +15,6 @@
 		4A45C22A1A5F4CEE00080F1B /* ZSSFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A45C2281A5F4CEE00080F1B /* ZSSFriendCell.m */; };
 		4A45C22B1A5F4CEE00080F1B /* ZSSFriendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2291A5F4CEE00080F1B /* ZSSFriendCell.xib */; };
 		4A45C2361A5F4D1800080F1B /* UIBarButtonItem+MyBarButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A45C2351A5F4D1800080F1B /* UIBarButtonItem+MyBarButtons.m */; };
-		4A45C23A1A5F4D6300080F1B /* ZSSFriendRequestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A45C2381A5F4D6300080F1B /* ZSSFriendRequestCell.m */; };
-		4A45C23B1A5F4D6300080F1B /* ZSSFriendRequestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2391A5F4D6300080F1B /* ZSSFriendRequestCell.xib */; };
-		4A45C23E1A5F5B2500080F1B /* RKDropdownAlert+CommonAlerts.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A45C23D1A5F5B2500080F1B /* RKDropdownAlert+CommonAlerts.m */; };
 		4A45C2421A5F5D6400080F1B /* meeting-30.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C23F1A5F5D6400080F1B /* meeting-30.png */; };
 		4A45C2431A5F5D6400080F1B /* meeting-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2401A5F5D6400080F1B /* meeting-60.png */; };
 		4A45C2441A5F5D6400080F1B /* meeting-90.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2411A5F5D6400080F1B /* meeting-90.png */; };
@@ -30,8 +27,11 @@
 		4A45C2541A5F629400080F1B /* neutral_decision-30.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C24B1A5F629400080F1B /* neutral_decision-30.png */; };
 		4A45C2551A5F629400080F1B /* neutral_decision-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C24C1A5F629400080F1B /* neutral_decision-60.png */; };
 		4A45C2561A5F629400080F1B /* neutral_decision-90.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C24D1A5F629400080F1B /* neutral_decision-90.png */; };
-		4A45C25A1A5F6F5500080F1B /* ZSSAddFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A45C2581A5F6F5500080F1B /* ZSSAddFriendViewController.m */; };
-		4A45C25B1A5F6F5500080F1B /* ZSSAddFriendViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2591A5F6F5500080F1B /* ZSSAddFriendViewController.xib */; };
+		4A45C25F1A5F757E00080F1B /* ZSSFriendRequestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A45C25D1A5F757E00080F1B /* ZSSFriendRequestCell.m */; };
+		4A45C2601A5F757E00080F1B /* ZSSFriendRequestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C25E1A5F757E00080F1B /* ZSSFriendRequestCell.xib */; };
+		4A45C2641A5F759000080F1B /* ZSSAddFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A45C2621A5F759000080F1B /* ZSSAddFriendViewController.m */; };
+		4A45C2651A5F759000080F1B /* ZSSAddFriendViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2631A5F759000080F1B /* ZSSAddFriendViewController.xib */; };
+		4A45C2681A5F75A000080F1B /* RKDropdownAlert+CommonAlerts.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A45C2671A5F75A000080F1B /* RKDropdownAlert+CommonAlerts.m */; };
 		4A6380D51A59C61F00D56AA4 /* RKDropdownAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6380D41A59C61F00D56AA4 /* RKDropdownAlert.m */; };
 		4A6380D61A59C61F00D56AA4 /* RKDropdownAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6380D41A59C61F00D56AA4 /* RKDropdownAlert.m */; };
 		4A6380D91A59CCED00D56AA4 /* NSString+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6380D81A59CCED00D56AA4 /* NSString+Extras.m */; };
@@ -170,11 +170,6 @@
 		4A45C2291A5F4CEE00080F1B /* ZSSFriendCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ZSSFriendCell.xib; path = Shakd/ZSSFriendCell.xib; sourceTree = "<group>"; };
 		4A45C2341A5F4D1800080F1B /* UIBarButtonItem+MyBarButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+MyBarButtons.h"; sourceTree = "<group>"; };
 		4A45C2351A5F4D1800080F1B /* UIBarButtonItem+MyBarButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+MyBarButtons.m"; sourceTree = "<group>"; };
-		4A45C2371A5F4D6300080F1B /* ZSSFriendRequestCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSSFriendRequestCell.h; sourceTree = "<group>"; };
-		4A45C2381A5F4D6300080F1B /* ZSSFriendRequestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSSFriendRequestCell.m; sourceTree = "<group>"; };
-		4A45C2391A5F4D6300080F1B /* ZSSFriendRequestCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZSSFriendRequestCell.xib; sourceTree = "<group>"; };
-		4A45C23C1A5F5B2500080F1B /* RKDropdownAlert+CommonAlerts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "RKDropdownAlert+CommonAlerts.h"; path = "../RKDropdownAlert+CommonAlerts.h"; sourceTree = "<group>"; };
-		4A45C23D1A5F5B2500080F1B /* RKDropdownAlert+CommonAlerts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "RKDropdownAlert+CommonAlerts.m"; path = "../RKDropdownAlert+CommonAlerts.m"; sourceTree = "<group>"; };
 		4A45C23F1A5F5D6400080F1B /* meeting-30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "meeting-30.png"; sourceTree = "<group>"; };
 		4A45C2401A5F5D6400080F1B /* meeting-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "meeting-60.png"; sourceTree = "<group>"; };
 		4A45C2411A5F5D6400080F1B /* meeting-90.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "meeting-90.png"; sourceTree = "<group>"; };
@@ -187,9 +182,14 @@
 		4A45C24B1A5F629400080F1B /* neutral_decision-30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "neutral_decision-30.png"; sourceTree = "<group>"; };
 		4A45C24C1A5F629400080F1B /* neutral_decision-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "neutral_decision-60.png"; sourceTree = "<group>"; };
 		4A45C24D1A5F629400080F1B /* neutral_decision-90.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "neutral_decision-90.png"; sourceTree = "<group>"; };
-		4A45C2571A5F6F5500080F1B /* ZSSAddFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSSAddFriendViewController.h; sourceTree = "<group>"; };
-		4A45C2581A5F6F5500080F1B /* ZSSAddFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSSAddFriendViewController.m; sourceTree = "<group>"; };
-		4A45C2591A5F6F5500080F1B /* ZSSAddFriendViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZSSAddFriendViewController.xib; sourceTree = "<group>"; };
+		4A45C25C1A5F757E00080F1B /* ZSSFriendRequestCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZSSFriendRequestCell.h; path = Shakd/ZSSFriendRequestCell.h; sourceTree = "<group>"; };
+		4A45C25D1A5F757E00080F1B /* ZSSFriendRequestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZSSFriendRequestCell.m; path = Shakd/ZSSFriendRequestCell.m; sourceTree = "<group>"; };
+		4A45C25E1A5F757E00080F1B /* ZSSFriendRequestCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ZSSFriendRequestCell.xib; path = Shakd/ZSSFriendRequestCell.xib; sourceTree = "<group>"; };
+		4A45C2611A5F759000080F1B /* ZSSAddFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZSSAddFriendViewController.h; path = Shakd/ZSSAddFriendViewController.h; sourceTree = "<group>"; };
+		4A45C2621A5F759000080F1B /* ZSSAddFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZSSAddFriendViewController.m; path = Shakd/ZSSAddFriendViewController.m; sourceTree = "<group>"; };
+		4A45C2631A5F759000080F1B /* ZSSAddFriendViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ZSSAddFriendViewController.xib; path = Shakd/ZSSAddFriendViewController.xib; sourceTree = "<group>"; };
+		4A45C2661A5F75A000080F1B /* RKDropdownAlert+CommonAlerts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RKDropdownAlert+CommonAlerts.h"; sourceTree = "<group>"; };
+		4A45C2671A5F75A000080F1B /* RKDropdownAlert+CommonAlerts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RKDropdownAlert+CommonAlerts.m"; sourceTree = "<group>"; };
 		4A6380D31A59C61F00D56AA4 /* RKDropdownAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKDropdownAlert.h; sourceTree = "<group>"; };
 		4A6380D41A59C61F00D56AA4 /* RKDropdownAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKDropdownAlert.m; sourceTree = "<group>"; };
 		4A6380D71A59CCED00D56AA4 /* NSString+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extras.h"; sourceTree = "<group>"; };
@@ -486,12 +486,12 @@
 				4A45C2291A5F4CEE00080F1B /* ZSSFriendCell.xib */,
 				4A45C2241A5F4CE200080F1B /* ZSSFriendRequestsTableViewController.h */,
 				4A45C2251A5F4CE200080F1B /* ZSSFriendRequestsTableViewController.m */,
-				4A45C2371A5F4D6300080F1B /* ZSSFriendRequestCell.h */,
-				4A45C2381A5F4D6300080F1B /* ZSSFriendRequestCell.m */,
-				4A45C2391A5F4D6300080F1B /* ZSSFriendRequestCell.xib */,
-				4A45C2571A5F6F5500080F1B /* ZSSAddFriendViewController.h */,
-				4A45C2581A5F6F5500080F1B /* ZSSAddFriendViewController.m */,
-				4A45C2591A5F6F5500080F1B /* ZSSAddFriendViewController.xib */,
+				4A45C25C1A5F757E00080F1B /* ZSSFriendRequestCell.h */,
+				4A45C25D1A5F757E00080F1B /* ZSSFriendRequestCell.m */,
+				4A45C25E1A5F757E00080F1B /* ZSSFriendRequestCell.xib */,
+				4A45C2611A5F759000080F1B /* ZSSAddFriendViewController.h */,
+				4A45C2621A5F759000080F1B /* ZSSAddFriendViewController.m */,
+				4A45C2631A5F759000080F1B /* ZSSAddFriendViewController.xib */,
 			);
 			name = Friends;
 			path = ..;
@@ -542,8 +542,8 @@
 			children = (
 				4A45C2341A5F4D1800080F1B /* UIBarButtonItem+MyBarButtons.h */,
 				4A45C2351A5F4D1800080F1B /* UIBarButtonItem+MyBarButtons.m */,
-				4A45C23C1A5F5B2500080F1B /* RKDropdownAlert+CommonAlerts.h */,
-				4A45C23D1A5F5B2500080F1B /* RKDropdownAlert+CommonAlerts.m */,
+				4A45C2661A5F75A000080F1B /* RKDropdownAlert+CommonAlerts.h */,
+				4A45C2671A5F75A000080F1B /* RKDropdownAlert+CommonAlerts.m */,
 				4A6380D71A59CCED00D56AA4 /* NSString+Extras.h */,
 				4A6380D81A59CCED00D56AA4 /* NSString+Extras.m */,
 				4A6380D31A59C61F00D56AA4 /* RKDropdownAlert.h */,
@@ -729,6 +729,8 @@
 				4A45C24E1A5F629400080F1B /* approve-30.png in Resources */,
 				4A45C2441A5F5D6400080F1B /* meeting-90.png in Resources */,
 				4AA71FF71A5C5ECA000A8B8E /* ZSSWelcomeViewController.xib in Resources */,
+				4A45C2601A5F757E00080F1B /* ZSSFriendRequestCell.xib in Resources */,
+				4A45C2651A5F759000080F1B /* ZSSAddFriendViewController.xib in Resources */,
 				4AA71FFE1A5C5EDD000A8B8E /* ZSSHomeViewController.xib in Resources */,
 				4A823B631A5DF7BC00FDD58D /* group-60.png in Resources */,
 				4A45C24F1A5F629400080F1B /* approve-60.png in Resources */,
@@ -745,7 +747,6 @@
 				4A823B641A5DF7BC00FDD58D /* group-90.png in Resources */,
 				4A45C22B1A5F4CEE00080F1B /* ZSSFriendCell.xib in Resources */,
 				4A45C2421A5F5D6400080F1B /* meeting-30.png in Resources */,
-				4A45C23B1A5F4D6300080F1B /* ZSSFriendRequestCell.xib in Resources */,
 				4AA71FF01A5C5EAB000A8B8E /* ZSSLoginViewController.xib in Resources */,
 				4AFCD13A1A4FC2E400543CE1 /* LaunchScreen.xib in Resources */,
 				4AFCD1371A4FC2E400543CE1 /* Images.xcassets in Resources */,
@@ -753,7 +754,6 @@
 				4A45C2431A5F5D6400080F1B /* meeting-60.png in Resources */,
 				4A45C2561A5F629400080F1B /* neutral_decision-90.png in Resources */,
 				4A45C2521A5F629400080F1B /* good_decision-60.png in Resources */,
-				4A45C25B1A5F6F5500080F1B /* ZSSAddFriendViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -813,13 +813,13 @@
 				4AFCD1AE1A506B1A00543CE1 /* ZSSLocalFactory.m in Sources */,
 				4A4218091A50EDD3004B999B /* UIColor+ShakdColors.m in Sources */,
 				4AA720251A5C8819000A8B8E /* ActionSheetStringPicker.m in Sources */,
-				4A45C25A1A5F6F5500080F1B /* ZSSAddFriendViewController.m in Sources */,
 				4AA720271A5C8819000A8B8E /* SWActionSheet.m in Sources */,
 				4A45C2261A5F4CE200080F1B /* ZSSFriendRequestsTableViewController.m in Sources */,
 				4AFCD1321A4FC2E400543CE1 /* ViewController.m in Sources */,
 				4AA720261A5C8819000A8B8E /* DistancePickerView.m in Sources */,
 				4AA720031A5C5EF7000A8B8E /* ZSSCloudQuerier.m in Sources */,
-				4A45C23E1A5F5B2500080F1B /* RKDropdownAlert+CommonAlerts.m in Sources */,
+				4A45C25F1A5F757E00080F1B /* ZSSFriendRequestCell.m in Sources */,
+				4A45C2681A5F75A000080F1B /* RKDropdownAlert+CommonAlerts.m in Sources */,
 				4AA720241A5C8819000A8B8E /* ActionSheetLocalePicker.m in Sources */,
 				4AFCD12F1A4FC2E400543CE1 /* AppDelegate.m in Sources */,
 				4AFCD1A01A50695D00543CE1 /* ZSSFriendRequest.m in Sources */,
@@ -834,6 +834,7 @@
 				4AFCD1A11A50695D00543CE1 /* ZSSUser.m in Sources */,
 				4AA71FDD1A5C520C000A8B8E /* ZSSForgotPasswordViewController.m in Sources */,
 				4AFCD18F1A50641F00543CE1 /* ShakdModel.xcdatamodeld in Sources */,
+				4A45C2641A5F759000080F1B /* ZSSAddFriendViewController.m in Sources */,
 				4A45C22A1A5F4CEE00080F1B /* ZSSFriendCell.m in Sources */,
 				4A4218011A50E68A004B999B /* UIView+Borders.m in Sources */,
 				4AA720201A5C8819000A8B8E /* AbstractActionSheetPicker.m in Sources */,
@@ -843,7 +844,6 @@
 				4AA71FEE1A5C5EAB000A8B8E /* ZSSLoginViewController.m in Sources */,
 				4A6380D51A59C61F00D56AA4 /* RKDropdownAlert.m in Sources */,
 				4AA720231A5C8819000A8B8E /* ActionSheetDistancePicker.m in Sources */,
-				4A45C23A1A5F4D6300080F1B /* ZSSFriendRequestCell.m in Sources */,
 				4AA71FE71A5C5E9B000A8B8E /* ZSSSignUpViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
