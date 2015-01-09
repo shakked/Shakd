@@ -7,7 +7,10 @@
 //
 
 #import "ZSSCloudQuerier.h"
+#import "RKDropdownAlert+CommonAlerts.h"
+#import "UIColor+ShakdColors.h"
 
+static int THROTTLE_TIME = 2;
 @interface ZSSCloudQuerier ()
 
 @property (nonatomic, strong) NSDate *timeOfLastFriendRequestFetch;
@@ -15,7 +18,7 @@
 @property (nonatomic, strong) NSDate *timeOfLastLogInAttempt;
 @property (nonatomic, strong) NSDate *timeOfLastSignUpAttempt;
 @property (nonatomic, strong) NSDate *timeOfLastPasswordResetAttempt;
-
+@property (nonatomic, strong) NSDate *timeOfLastSendFriendRequestAttempt;
 @end
 
 @implementation ZSSCloudQuerier
@@ -57,6 +60,10 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
         } else {
             [self throwAlreadyLoggedInException];
         }
+        self.timeOfLastLogInAttempt = [NSDate date];
+    } else {
+        NSError *error = [self throttleError];
+        completionBlock(nil, error);
     }
 }
 
@@ -69,7 +76,38 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
         } else {
             [self throwAlreadyLoggedInException];
         }
+        self.timeOfLastSignUpAttempt = [NSDate date];
+    } else {
+        NSError *error = [self throttleError];
+        completionBlock(NO, error);
     }
+    
+}
+
+- (void)sendFriendRequestToUsername:(NSString *)username inBackgroundWithCompletionBlock:(void (^)(BOOL, NSError *))completionBlock {
+    if ([self hasBeenFiveSecondsSince:self.timeOfLastSendFriendRequestAttempt]) {
+        if ([self userIsLoggedIn]) {
+            PFQuery *userQuery = [PFUser query];
+            [userQuery whereKey:@"username" equalTo:username];
+            [userQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                if (!error && [objects count] == 1) {
+                    PFObject *friendRequest = [self friendRequestToReceiver:(PFUser *)[objects firstObject]];
+                    [friendRequest saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                        completionBlock(succeeded, error);
+                    }];
+                } else if ([objects count] == 0){
+                    completionBlock(NO, error);
+                } else {
+                    [self throwMoreObjectsThanExpectedException];
+                }
+            }];
+        }
+        self.timeOfLastSendFriendRequestAttempt = [NSDate date];
+    } else {
+        NSError *error = [self throttleError];
+        completionBlock(NO, error);
+    }
+
 }
 
 - (void)resetPasswordForEmail:(NSString *)email inBackgroundWithCompletionBlock:(void (^)(BOOL, NSError *))completionBlock {
@@ -93,9 +131,24 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
     }
 }
 
+- (PFObject *)friendRequestToReceiver:(PFUser *)receiver {
+    PFObject *friendRequest = [PFObject objectWithClassName:@"ZSSFriendRequest"];
+    friendRequest[@"sender"] = [PFUser currentUser];
+    friendRequest[@"receiver"] = receiver;
+    friendRequest[@"confirmed"] = @NO;
+    friendRequest[@"dateSent"] = [NSDate date];
+    return friendRequest;
+}
+
 - (void)throwQueryNotPossibleException {
     @throw [NSException exceptionWithName:@"QueryNotPossible"
                                    reason:@"[PFUser currentUser] does not exist"
+                                 userInfo:nil];
+}
+
+- (void)throwMoreObjectsThanExpectedException {
+    @throw [NSException exceptionWithName:@"MoreObjectsThanExpected"
+                                   reason:@"More objects returned than expected"
                                  userInfo:nil];
 }
 
@@ -109,6 +162,11 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
     @throw [NSException exceptionWithName:@"QueryFailed"
                                    reason:[error localizedDescription]
                                  userInfo:nil];
+}
+
+- (NSError *)throttleError{
+    NSError *error = [NSError errorWithDomain:@"Throttle" code:123 userInfo:@{@"error": @"Try again in a few seconds."}];
+    return error;
 }
 
 - (PFQuery *)messagesQuery {
@@ -154,7 +212,7 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
 
     NSTimeInterval secs = [currentTime timeIntervalSinceDate:time];
     NSLog(@"SECS: %f", secs);
-    if (secs > 5) {
+    if (secs > THROTTLE_TIME) {
         NSLog(@"It's been five seconds..");
         return YES;
     } else {
@@ -172,6 +230,7 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
         _timeOfLastLogInAttempt = [NSDate dateWithTimeIntervalSince1970:NSTimeIntervalSince1970];
         _timeOfLastSignUpAttempt = [NSDate dateWithTimeIntervalSince1970:NSTimeIntervalSince1970];
         _timeOfLastPasswordResetAttempt = [NSDate dateWithTimeIntervalSince1970:NSTimeIntervalSince1970];
+        _timeOfLastSendFriendRequestAttempt = [NSDate dateWithTimeIntervalSince1970:NSTimeIntervalSince1970];
     }
     return self;
 }

@@ -19,5 +19,6 @@
 InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock;
 - (void)signUpUser:(PFUser *)user inBackgroundWithCompletionBlock:(void (^)(BOOL, NSError *))completionBlock;
 - (void)resetPasswordForEmail:(NSString *)email inBackgroundWithCompletionBlock:(void (^)(BOOL, NSError *))completionBlock;
+- (void)sendFriendRequestToUsername:(NSString *)username inBackgroundWithCompletionBlock:(void (^)(BOOL,NSError *))completionBlock;
 
 @end

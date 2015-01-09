@@ -6,6 +6,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ZSSAddFriendViewController">
             <connections>
+                <outlet property="dismissButton" destination="KM5-rC-cPv" id="2QA-fP-Inb"/>
+                <outlet property="sendFriendRequestButton" destination="miX-lJ-57f" id="gRL-kz-Poh"/>
+                <outlet property="usernameTextField" destination="iQ2-Dh-jAH" id="8sZ-Jc-fqz"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -34,6 +37,9 @@
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="dismissButtonPressed:" destination="-1" eventType="touchUpInside" id="Keb-dm-Sqj"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="miX-lJ-57f">
                     <rect key="frame" x="10" y="130" width="580" height="50"/>
@@ -46,6 +52,9 @@
                     <state key="normal" title="Send Friend Request">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="sendFriendRequestButton:" destination="-1" eventType="touchUpInside" id="pj2-vL-ZTW"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" red="0.23137254900000001" green="0.23137254900000001" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>

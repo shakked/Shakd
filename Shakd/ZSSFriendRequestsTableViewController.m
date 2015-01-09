@@ -19,6 +19,7 @@
 #import "ZSSFriendRequest.h"
 #import "ZSSFriendRequestCell.h"
 #import "RKDropdownAlert+CommonAlerts.h"
+#import "ZSSAddFriendViewController.h"
 
 static NSString *FRIEND_REQUEST_CELL_CLASS = @"ZSSFriendRequestCell";
 static NSString *CELL_IDENTIFIER = @"cell";
@@ -64,8 +65,19 @@ static NSString *CELL_IDENTIFIER = @"cell";
 
 - (void)configureNavBar {
     self.navigationItem.title = @"Friend Requests";
+    [self configureNavBarButtons];
+}
+
+- (void)configureNavBarButtons {
     UIBarButtonItem *backButton = [UIBarButtonItem backBarButtonForVC:self];
     self.navigationItem.leftBarButtonItem = backButton;
+    
+    UIButton *addFriendButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    addFriendButton.bounds = CGRectMake(0, 0, 30, 30);
+    [addFriendButton setBackgroundImage:[UIImage imageNamed:@"AddFriendIcon"] forState:UIControlStateNormal];
+    [addFriendButton addTarget:self action:@selector(showAddFriendView) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *addFriendBarButton = [[UIBarButtonItem alloc] initWithCustomView:addFriendButton];
+    self.navigationItem.rightBarButtonItem = addFriendBarButton;
 }
 
 - (void)loadFriendRequestData {
@@ -158,6 +170,11 @@ static NSString *CELL_IDENTIFIER = @"cell";
 
 - (void)showPreviousView {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)showAddFriendView {
+    ZSSAddFriendViewController *afvc = [[ZSSAddFriendViewController alloc] init];
+    [self presentViewController:afvc animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -32,8 +32,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self configureViews];
     [self setDelegates];
+    [self configureViews];
 }
 
 - (IBAction)dismissButtonPressed:(id)sender {
@@ -56,17 +56,24 @@
     [self presentViewController:fpvc animated:YES completion:nil];
 }
 
+- (void)setDelegates {
+    [self.usernameTextField setDelegate:self];
+    [self.passwordTextField setDelegate:self];
+}
+
+
 - (void)configureViews {
     [self configureTextFields];
 }
 
-- (void)setDelegates {
-    self.usernameTextField.delegate = self;
-    self.passwordTextField.delegate = self;
+- (void)configureTextFields {
+    [self.usernameTextField addLeftBorder:5.0 withColor:[UIColor lighterGrayColor]];
+    [self.usernameTextField setClipsToBounds:YES];
+    [self.passwordTextField addLeftBorder:5.0 withColor:[UIColor lighterGrayColor]];
+    [self.passwordTextField setClipsToBounds:YES];
 }
 
 - (void)logInUser {
-#warning THROTTLE LOG IN REQUESTS
     BOOL preparedForLogInAttempt = [self preparedForLogInAttempt];
     if (preparedForLogInAttempt) {
          [[ZSSCloudQuerier sharedQuerier] logInUserWithUsername:self.usernameTextField.text
@@ -115,13 +122,6 @@
     ZSSHomeViewController *hvc = [[ZSSHomeViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:hvc];
     [self presentViewController:nav animated:YES completion:nil];
-}
-
-- (void)configureTextFields {
-    [self.usernameTextField addLeftBorder:5.0 withColor:[UIColor lighterGrayColor]];
-    [self.usernameTextField setClipsToBounds:YES];
-    [self.passwordTextField addLeftBorder:5.0 withColor:[UIColor lighterGrayColor]];
-    [self.passwordTextField setClipsToBounds:YES];
 }
 
 - (BOOL)textFieldsAreFilledOut {
