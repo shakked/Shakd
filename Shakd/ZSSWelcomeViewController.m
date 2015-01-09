@@ -25,11 +25,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    [self.loginButton addLowerBorder:5.0 withColor:[UIColor lighterGrayColor]];
-    [self.loginButton setClipsToBounds:YES];
-    [self.signUpButton addLowerBorder:5.0 withColor:[UIColor lighterGrayColor]];
-    [self.signUpButton setClipsToBounds:YES];
+    [self configureViews];
 }
 - (IBAction)logInPressed:(id)sender {
     [self showLoginView];
@@ -48,6 +44,17 @@
     ZSSSignUpViewController *signUpViewController = [[ZSSSignUpViewController alloc] init];
     [self presentViewController:signUpViewController animated:YES completion:nil];
 }
+
+- (void)configureViews {
+    [self.loginButton addLowerBorder:5.0 withColor:[UIColor lighterGrayColor]];
+    [self.loginButton setClipsToBounds:YES];
+    [self.signUpButton addLowerBorder:5.0 withColor:[UIColor lighterGrayColor]];
+    [self.signUpButton setClipsToBounds:YES];
+}
+
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -12,15 +12,21 @@
 #define COCOAPODS_VERSION_MINOR_AAPullToRefresh 0
 #define COCOAPODS_VERSION_PATCH_AAPullToRefresh 2
 
-// Activity
-#define COCOAPODS_POD_AVAILABLE_Activity
-#define COCOAPODS_VERSION_MAJOR_Activity 1
-#define COCOAPODS_VERSION_MINOR_Activity 0
-#define COCOAPODS_VERSION_PATCH_Activity 0
-
 // Google-Mobile-Ads-SDK
 #define COCOAPODS_POD_AVAILABLE_Google_Mobile_Ads_SDK
 #define COCOAPODS_VERSION_MAJOR_Google_Mobile_Ads_SDK 6
 #define COCOAPODS_VERSION_MINOR_Google_Mobile_Ads_SDK 12
 #define COCOAPODS_VERSION_PATCH_Google_Mobile_Ads_SDK 2
+
+// JFMinimalNotifications
+#define COCOAPODS_POD_AVAILABLE_JFMinimalNotifications
+#define COCOAPODS_VERSION_MAJOR_JFMinimalNotifications 0
+#define COCOAPODS_VERSION_MINOR_JFMinimalNotifications 0
+#define COCOAPODS_VERSION_PATCH_JFMinimalNotifications 2
+
+// KVNProgress
+#define COCOAPODS_POD_AVAILABLE_KVNProgress
+#define COCOAPODS_VERSION_MAJOR_KVNProgress 2
+#define COCOAPODS_VERSION_MINOR_KVNProgress 1
+#define COCOAPODS_VERSION_PATCH_KVNProgress 5
 

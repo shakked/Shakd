@@ -7,7 +7,15 @@
 //
 
 #import "RKDropdownAlert+CommonAlerts.h"
+#import "NSString+Extras.h"
+#import "UIColor+ShakdColors.h"
 
 @implementation RKDropdownAlert (CommonAlerts)
+
++ (void)error:(NSError *)error {
+    NSString *errorMessage = [error userInfo][@"error"];
+   [self title:[errorMessage capitalString] backgroundColor:[UIColor salmonColor] textColor:[UIColor whiteColor]];
+    
+}
 
 @end

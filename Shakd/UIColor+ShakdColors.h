@@ -11,7 +11,7 @@
 @interface UIColor (ShakdColors)
 
 + (UIColor *)charcoalColor;
-+ (UIColor *)lightGrayColor;
++ (UIColor *)lighterGrayColor;
 + (UIColor *)salmonColor;
 + (UIColor *)turquoiseColor;
 

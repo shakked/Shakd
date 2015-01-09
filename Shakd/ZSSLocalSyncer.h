@@ -13,7 +13,7 @@
 
 + (instancetype)sharedSyncer;
 - (void)syncMessagesWithCompletionBlock:(void (^)(NSError *))completionBlock;
-- (void)syncFriendRequestsWithCompletionBlock:(void (^)(NSError *))completionBlock;
+- (void)syncFriendRequestsWithCompletionBlock:(void (^)(NSArray*, NSError *))completionBlock;
 
 
 @end

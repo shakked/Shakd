@@ -10,4 +10,11 @@
 
 @interface ZSSFriendsTableViewController : UITableViewController
 
+typedef NS_ENUM(NSInteger, ZSSFriendsTableState) {
+    ZSSFriendsTableStateViewing,
+    ZSSFriendsTableStateSendingMessage
+};
+
+@property (nonatomic) ZSSFriendsTableState state;
+
 @end

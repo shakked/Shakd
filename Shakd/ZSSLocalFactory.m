@@ -18,9 +18,10 @@
 + (instancetype)sharedFactory {
     
     static ZSSLocalFactory *sharedFactory = nil;
-    if (!sharedFactory) {
+    static dispatch_once_t onceToken; // onceToken = 0
+    dispatch_once(&onceToken, ^{
         sharedFactory = [[self alloc] initPrivate];
-    }
+    });
     return sharedFactory;
 }
 

@@ -17,7 +17,7 @@
                            alpha:1.0];
 }
 
-+ (UIColor *)lightGrayColor {
++ (UIColor *)lighterGrayColor {
     return [UIColor colorWithRed:200.0/255
                            green:200.0/255
                             blue:200.0/255

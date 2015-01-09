@@ -30,9 +30,10 @@
 + (instancetype)sharedStore {
 
     static ZSSLocalStore *sharedStore = nil;
-    if (!sharedStore) {
+    static dispatch_once_t onceToken; // onceToken = 0
+    dispatch_once(&onceToken, ^{
         sharedStore = [[self alloc] initPrivate];
-    }
+    });
     return sharedStore;
 }
 

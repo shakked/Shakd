@@ -9,12 +9,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-Shakd-Activity.xcscheme</key>
+		<key>Pods-Shakd-Google-Mobile-Ads-SDK.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-Shakd-Google-Mobile-Ads-SDK.xcscheme</key>
+		<key>Pods-Shakd-JFMinimalNotifications.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Shakd-KVNProgress.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -27,22 +32,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>704CDC80349A683CDB3E67C5</key>
+		<key>5FB077F9894603CE3D50CDA0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C6F0D4883966C6CA5AF5B9C2</key>
+		<key>7E2CA8694445A026AC79D4EE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>ED1C9894ED312319AD9C72E6</key>
+		<key>8E7DC6826EBFD0B57D0E15FA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F0A010ABF5E6A1FCDC8E1D83</key>
+		<key>9E88DE121DE1E2BBBCB19C35</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FB3F3BCE5B7331CB18E647AA</key>
 		<dict>
 			<key>primary</key>
 			<true/>

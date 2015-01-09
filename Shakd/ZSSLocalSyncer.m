@@ -22,19 +22,20 @@
 
 @implementation ZSSLocalSyncer
 
-#warning Finish Working on This
 #warning Remember to get rid of exceptions in CloudQuery methods to not crash app when no network is available
 
 + (instancetype)sharedSyncer {
     static ZSSLocalSyncer *sharedSyncer = nil;
-    if (!sharedSyncer) {
+    static dispatch_once_t onceToken; // onceToken = 0
+    dispatch_once(&onceToken, ^{
         sharedSyncer = [[self alloc] initPrivate];
-    }
+    });
     return sharedSyncer;
 }
 
 - (void)syncMessagesWithCompletionBlock:(void (^)(NSError *))completionBlock {
     [[ZSSCloudQuerier sharedQuerier] fetchMessagesInBackgroundWithCompletionBlock:^(NSArray *messages, NSError *error) {
+        
         if (!error) {
             for (PFObject *message in messages) {
                 [[ZSSLocalQuerier sharedQuerier] localMessageForCloudMessage:message];
@@ -42,10 +43,12 @@
             [[ZSSLocalStore sharedStore] saveCoreDataChanges];
         }
         completionBlock(error);
+        
     }];
 }
 
-- (void)syncSentFriendRequestsWithCompletionBlock:(void (^)(NSError *))completionBlock {
+- (void)syncFriendRequestsWithCompletionBlock:(void (^)(NSArray *,NSError *))completionBlock {
+    
     [[ZSSCloudQuerier sharedQuerier] fetchFriendRequestsInBackgroundWithCompletionBlock:^(NSArray *friendRequests, NSError *error) {
         if (!error) {
             for (PFObject *friendRequest in friendRequests) {
@@ -53,7 +56,8 @@
             }
             [[ZSSLocalStore sharedStore] saveCoreDataChanges];
         }
-        completionBlock(error);
+        
+        completionBlock(friendRequests, error);
     }];
 }
 

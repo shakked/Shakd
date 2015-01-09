@@ -8,6 +8,8 @@
 
 #import "testZSSCloudQuerier.h"
 #import "ZSSCloudQuerier.h"
+#import "ZSSLocalQuerier.h"
+#import "ZSSLocalSyncer.h"
 
 @implementation testZSSCloudQuerier
 //+ (instancetype)sharedQuerier;
@@ -31,6 +33,7 @@
 }
 
 - (void)testFetchMessages {
+
     [[ZSSCloudQuerier sharedQuerier] fetchMessagesInBackgroundWithCompletionBlock:^(NSArray *messages, NSError *error) {
         XCTAssertNotNil(messages);
         XCTAssertFalse([messages count] == 0);
@@ -38,11 +41,13 @@
             XCTAssertTrue([messages[i] isKindOfClass:[PFObject class]]);
             XCTAssertNotNil([[messages[i] valueForKey:@"receiver"] valueForKey:@"username"]);
         }
+        
     }];
 }
 
 - (void)testFetchFriendRequests {
     [[ZSSCloudQuerier sharedQuerier] fetchFriendRequestsInBackgroundWithCompletionBlock:^(NSArray *sentFriendRequests, NSError *error) {
+
         XCTAssertNotNil(sentFriendRequests);
         XCTAssertFalse([sentFriendRequests count] == 0);
         for (int i = 0; i < sentFriendRequests.count; i++) {

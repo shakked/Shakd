@@ -12,10 +12,11 @@
 #import "ZSSCloudQuerier.h"
 #import "RKDropdownAlert.h"
 #import "NSString+Extras.h"
-#import "KVNProgress/KVNProgress.h"
 #import "ZSSSignUpViewController.h"
 #import "AppDelegate.h"
 #import "ZSSForgotPasswordViewController.h"
+#import "ZSSHomeViewController.h"
+#import "RKDropdownAlert+CommonAlerts.h"
 
 @interface ZSSLoginViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
@@ -72,9 +73,10 @@
                                                     andPassword:self.passwordTextField.text
                                 InBackgroundWithCompletionBlock:^(PFUser *user, NSError *error) {
                                     if (!error) {
-#warning TODO: Add home page
+                                        
+                                        [self presentHomeViewController];
                                     } else {
-                                        [self showLogInError:error];
+                                        [RKDropdownAlert error:error];
                                         [self readyViewforAnotherLogInAttempt];
                                     }
                                 }];
@@ -83,6 +85,8 @@
     }
     
 }
+
+
 
 - (BOOL)preparedForLogInAttempt {
     [self.logInButton setEnabled:NO];
@@ -105,6 +109,12 @@
     [self.signUpButton setEnabled:YES];
     [self.forgotPasswordButton setEnabled:YES];
     [self.dismissButton setEnabled:YES];
+}
+
+- (void)presentHomeViewController {
+    ZSSHomeViewController *hvc = [[ZSSHomeViewController alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:hvc];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)configureTextFields {

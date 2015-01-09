@@ -31,11 +31,7 @@
 }
 
 - (IBAction)dismissButtonPressed:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:^{
-        ZSSSignUpViewController *svc = [[ZSSSignUpViewController alloc] init];
-
-        
-    }];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)signUpButtonPressed:(id)sender {

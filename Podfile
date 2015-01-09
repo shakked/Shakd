@@ -7,7 +7,8 @@ target 'Shakd' do
 
 pod 'Google-Mobile-Ads-SDK', '~> 6.10'
 pod 'AAPullToRefresh'
-pod 'Activity'
+pod 'KVNProgress'
+pod 'JFMinimalNotifications', '~> 0.0.2'
 
 end
 

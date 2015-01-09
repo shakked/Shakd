@@ -18,7 +18,7 @@ static int X_BUFFER = 10; //buffer distance on each side for the text
 static int Y_BUFFER = 10; //buffer distance on top/bottom for the text
 static int TIME = 3; //default time in seconds before the view is hidden
 static int STATUS_BAR_HEIGHT = 10;
-static int FONT_SIZE = 14;
+static int FONT_SIZE = 16;
 NSString *DEFAULT_TITLE;
 
 @implementation RKDropdownAlert{
@@ -59,7 +59,7 @@ NSString *DEFAULT_TITLE;
         
         //%%% title setup (the bolded text at the top of the view)
         titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(X_BUFFER, STATUS_BAR_HEIGHT, frame.size.width-2*X_BUFFER, 30)];
-        [titleLabel setFont:[UIFont fontWithName:@"Avenir-Heavy" size:FONT_SIZE]];
+        [titleLabel setFont:[UIFont fontWithName:@"Avenir" size:FONT_SIZE]];
         titleLabel.textColor = defaultTextColor;
         titleLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:titleLabel];

@@ -8,63 +8,85 @@
 
 #import "ZSSCloudQuerier.h"
 
+@interface ZSSCloudQuerier ()
+
+@property (nonatomic, strong) NSDate *timeOfLastFriendRequestFetch;
+@property (nonatomic, strong) NSDate *timeOfLastMessageFetch;
+@property (nonatomic, strong) NSDate *timeOfLastLogInAttempt;
+@property (nonatomic, strong) NSDate *timeOfLastSignUpAttempt;
+@property (nonatomic, strong) NSDate *timeOfLastPasswordResetAttempt;
+
+@end
+
 @implementation ZSSCloudQuerier
 
 + (instancetype)sharedQuerier {
     static ZSSCloudQuerier *sharedQuerier = nil;
-    if (!sharedQuerier) {
+    static dispatch_once_t onceToken; // onceToken = 0
+    dispatch_once(&onceToken, ^{
         sharedQuerier = [[self alloc] initPrivate];
-    }
+    });
+    
     return sharedQuerier;
 }
 
 - (void)fetchMessagesInBackgroundWithCompletionBlock:(void (^)(NSArray *, NSError *))completionBlock {
-    PFQuery *sentMessagesQuery = [self sentMessagesQuery];
-    PFQuery *receivedMessagesQuery = [self receivedMessagesQuery];
-    PFQuery *messageQuery = [PFQuery orQueryWithSubqueries:@[sentMessagesQuery, receivedMessagesQuery]];
-    [self executeQuery:messageQuery withCompletionBlock:completionBlock];
+    if ([self hasBeenFiveSecondsSince:self.timeOfLastMessageFetch]) {
+        PFQuery *messagesQuery = [self messagesQuery];
+        [self executeQuery:messagesQuery withCompletionBlock:completionBlock];
+        self.timeOfLastMessageFetch = [NSDate date];
+    }
 }
 
 - (void)fetchFriendRequestsInBackgroundWithCompletionBlock:(void (^)(NSArray *, NSError *))completionBlock {
-    PFQuery *sentFriendRequestQuery = [self sentFriendRequestsQuery];
-    PFQuery *receivedFriendRequestsQuery = [self receivedFriendRequestQuery];
-    PFQuery *friendRequestQuery = [PFQuery orQueryWithSubqueries:@[sentFriendRequestQuery, receivedFriendRequestsQuery]];
-    [self executeQuery:friendRequestQuery withCompletionBlock:completionBlock];
+    if ([self hasBeenFiveSecondsSince:self.timeOfLastFriendRequestFetch]) {
+        PFQuery *friendRequestsQuery = [self friendRequestsQuery];
+        [self executeQuery:friendRequestsQuery withCompletionBlock:completionBlock];
+        self.timeOfLastFriendRequestFetch = [NSDate date];
+    }
 }
 
 - (void)logInUserWithUsername:(NSString *)username
                   andPassword:(NSString *)password
 InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
-    if (![self userIsLoggedIn]) {
-        [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser *user, NSError *error) {
-            completionBlock(user, error);
-        }];
-    } else {
-        [self throwAlreadyLoggedInException];
+    if ([self hasBeenFiveSecondsSince:self.timeOfLastLogInAttempt]) {
+        if (![self userIsLoggedIn]) {
+            [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser *user, NSError *error) {
+                completionBlock(user, error);
+            }];
+        } else {
+            [self throwAlreadyLoggedInException];
+        }
     }
 }
 
 - (void)signUpUser:(PFUser *)user inBackgroundWithCompletionBlock:(void (^)(BOOL, NSError *))completionBlock {
-    if (![self userIsLoggedIn]) {
-        [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            completionBlock(succeeded, error);
-        }];
-    } else {
-        [self throwAlreadyLoggedInException];
+    if ([self hasBeenFiveSecondsSince:self.timeOfLastSignUpAttempt]) {
+        if (![self userIsLoggedIn]) {
+            [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                completionBlock(succeeded, error);
+            }];
+        } else {
+            [self throwAlreadyLoggedInException];
+        }
     }
 }
 
 - (void)resetPasswordForEmail:(NSString *)email inBackgroundWithCompletionBlock:(void (^)(BOOL, NSError *))completionBlock {
-    [PFUser requestPasswordResetForEmailInBackground:email block:^(BOOL succeeded, NSError *error) {
-        completionBlock(succeeded, error);
-    }];
+    if ([self hasBeenFiveSecondsSince:self.timeOfLastPasswordResetAttempt]) {
+        [PFUser requestPasswordResetForEmailInBackground:email block:^(BOOL succeeded, NSError *error) {
+            completionBlock(succeeded, error);
+        }];
+    }
 };
 
 - (void)executeQuery:(PFQuery *)query withCompletionBlock:(void (^)(NSArray *, NSError *))completionBlock {
     
     if ([self userIsLoggedIn]) {
+        
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             completionBlock(objects, error);
+            
         }];
     } else {
         [self throwQueryNotPossibleException];
@@ -89,45 +111,35 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
                                  userInfo:nil];
 }
 
-
-- (PFQuery *)sentMessagesQuery {
+- (PFQuery *)messagesQuery {
     PFQuery *sentMessagesQuery = [PFQuery queryWithClassName:@"ZSSMessage"];
     [sentMessagesQuery whereKey:@"sender" equalTo:[PFUser currentUser]];
-    [sentMessagesQuery orderByDescending:@"createdAt"];
-    [sentMessagesQuery setLimit:100];
-    [sentMessagesQuery includeKey:@"receiver"];
-    return sentMessagesQuery;
-}
-
-- (PFQuery *)receivedMessagesQuery {
+    
     PFQuery *receivedMessagesQuery = [PFQuery queryWithClassName:@"ZSSMessage"];
     [receivedMessagesQuery whereKey:@"receiver" equalTo:[PFUser currentUser]];
-    [receivedMessagesQuery orderByDescending:@"createdAt"];
-    [receivedMessagesQuery setLimit:100];
-    [receivedMessagesQuery includeKey:@"sender"];
-    return receivedMessagesQuery;
+    
+    PFQuery *messagesQuery = [PFQuery orQueryWithSubqueries:@[sentMessagesQuery, receivedMessagesQuery]];
+    [messagesQuery setLimit:100];
+    [messagesQuery orderByDescending:@"createdAt"];
+    [messagesQuery includeKey:@"sender"];
+    [messagesQuery includeKey:@"receiver"];
+    return messagesQuery;
 }
 
-- (PFQuery *)sentFriendRequestsQuery {
-    PFQuery *sentFriendRequestQuery = [PFQuery queryWithClassName:@"ZSSFriendRequest"];
-    [sentFriendRequestQuery whereKey:@"sender" equalTo:[PFUser currentUser]];
-    [sentFriendRequestQuery orderByDescending:@"createdAt"];
-    [sentFriendRequestQuery setLimit:100];
-    [sentFriendRequestQuery includeKey:@"receiver"];
-    return sentFriendRequestQuery;
+- (PFQuery *)friendRequestsQuery {
+    PFQuery *sentFriendRequestsQuery = [PFQuery queryWithClassName:@"ZSSFriendRequest"];
+    [sentFriendRequestsQuery whereKey:@"sender" equalTo:[PFUser currentUser]];
+    
+    PFQuery *receivedFriendRequestsQuery = [PFQuery queryWithClassName:@"ZSSFriendRequest"];
+    [receivedFriendRequestsQuery whereKey:@"receiver" equalTo:[PFUser currentUser]];
+    
+    PFQuery *friendRequestsQuery = [PFQuery orQueryWithSubqueries:@[sentFriendRequestsQuery, receivedFriendRequestsQuery]];
+    [friendRequestsQuery includeKey:@"sender"];
+    [friendRequestsQuery includeKey:@"receiver"];
+    [friendRequestsQuery setLimit:100];
+    [friendRequestsQuery orderByDescending:@"createdAt"];
+    return friendRequestsQuery;
 }
-
-- (PFQuery *)receivedFriendRequestQuery {
-    PFQuery *receivedFriendRequestQuery = [PFQuery queryWithClassName:@"ZSSFriendRequest"];
-    [receivedFriendRequestQuery whereKey:@"receiver" equalTo:[PFUser currentUser]];
-    [receivedFriendRequestQuery orderByDescending:@"createdAt"];
-    [receivedFriendRequestQuery setLimit:100];
-    [receivedFriendRequestQuery includeKey:@"sender"];
-    return receivedFriendRequestQuery;
-}
-
-
-
 
 - (BOOL)userIsLoggedIn {
     if ([PFUser currentUser]) {
@@ -137,11 +149,29 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
     }
 }
 
+- (BOOL)hasBeenFiveSecondsSince:(NSDate *)time {
+    NSDate *currentTime = [NSDate date];
+
+    NSTimeInterval secs = [currentTime timeIntervalSinceDate:time];
+    NSLog(@"SECS: %f", secs);
+    if (secs > 5) {
+        NSLog(@"It's been five seconds..");
+        return YES;
+    } else {
+        NSLog(@"NOPE");
+        return NO;
+    }
+}
+
 - (instancetype)initPrivate {
     
     self = [super init];
     if (self) {
-
+        _timeOfLastMessageFetch = [NSDate dateWithTimeIntervalSince1970:NSTimeIntervalSince1970];
+        _timeOfLastFriendRequestFetch = [NSDate dateWithTimeIntervalSince1970:NSTimeIntervalSince1970];
+        _timeOfLastLogInAttempt = [NSDate dateWithTimeIntervalSince1970:NSTimeIntervalSince1970];
+        _timeOfLastSignUpAttempt = [NSDate dateWithTimeIntervalSince1970:NSTimeIntervalSince1970];
+        _timeOfLastPasswordResetAttempt = [NSDate dateWithTimeIntervalSince1970:NSTimeIntervalSince1970];
     }
     return self;
 }

@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ZSSFriendRequestCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *friendLabel;
+@property (weak, nonatomic) IBOutlet UIButton *friendRequestButton;
 
 @end

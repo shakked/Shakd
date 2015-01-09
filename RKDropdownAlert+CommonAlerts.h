@@ -10,4 +10,6 @@
 
 @interface RKDropdownAlert (CommonAlerts)
 
++ (void)error:(NSError *)error;
+
 @end

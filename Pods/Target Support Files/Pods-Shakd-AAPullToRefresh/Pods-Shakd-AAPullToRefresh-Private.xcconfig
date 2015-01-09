@@ -1,5 +1,5 @@
 #include "Pods-Shakd-AAPullToRefresh.xcconfig"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Build" "${PODS_ROOT}/Headers/Build/AAPullToRefresh" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AAPullToRefresh" "${PODS_ROOT}/Headers/Public/Activity" "${PODS_ROOT}/Headers/Public/Google-Mobile-Ads-SDK"
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Build" "${PODS_ROOT}/Headers/Build/AAPullToRefresh" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AAPullToRefresh" "${PODS_ROOT}/Headers/Public/Google-Mobile-Ads-SDK" "${PODS_ROOT}/Headers/Public/JFMinimalNotifications" "${PODS_ROOT}/Headers/Public/KVNProgress"
 OTHER_LDFLAGS = -ObjC
 PODS_ROOT = ${SRCROOT}
