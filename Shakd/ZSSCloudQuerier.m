@@ -38,7 +38,7 @@ static int THROTTLE_TIME = 2;
 }
 
 - (void)fetchMessagesInBackgroundWithCompletionBlock:(void (^)(NSArray *, NSError *))completionBlock {
-    if ([self hasBeenFiveSecondsSince:self.timeOfLastMessageFetch]) {
+    if ([self hasBeenXSecondsSince:self.timeOfLastMessageFetch]) {
         PFQuery *messagesQuery = [self messagesQuery];
         [self executeQuery:messagesQuery withCompletionBlock:completionBlock];
         self.timeOfLastMessageFetch = [NSDate date];
@@ -46,7 +46,7 @@ static int THROTTLE_TIME = 2;
 }
 
 - (void)fetchFriendRequestsInBackgroundWithCompletionBlock:(void (^)(NSArray *, NSError *))completionBlock {
-    if ([self hasBeenFiveSecondsSince:self.timeOfLastFriendRequestFetch]) {
+    if ([self hasBeenXSecondsSince:self.timeOfLastFriendRequestFetch]) {
         PFQuery *friendRequestsQuery = [self friendRequestsQuery];
         [self executeQuery:friendRequestsQuery withCompletionBlock:completionBlock];
         self.timeOfLastFriendRequestFetch = [NSDate date];
@@ -56,7 +56,7 @@ static int THROTTLE_TIME = 2;
 - (void)logInUserWithUsername:(NSString *)username
                   andPassword:(NSString *)password
 InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
-    if ([self hasBeenFiveSecondsSince:self.timeOfLastLogInAttempt]) {
+    if ([self hasBeenXSecondsSince:self.timeOfLastLogInAttempt]) {
         if (![self userIsLoggedIn]) {
             [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser *user, NSError *error) {
                 completionBlock(user, error);
@@ -72,7 +72,7 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
 }
 
 - (void)signUpUser:(PFUser *)user inBackgroundWithCompletionBlock:(void (^)(BOOL, NSError *))completionBlock {
-    if ([self hasBeenFiveSecondsSince:self.timeOfLastSignUpAttempt]) {
+    if ([self hasBeenXSecondsSince:self.timeOfLastSignUpAttempt]) {
         if (![self userIsLoggedIn]) {
             [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 completionBlock(succeeded, error);
@@ -89,7 +89,7 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
 }
 
 - (void)resetPasswordForEmail:(NSString *)email inBackgroundWithCompletionBlock:(void (^)(BOOL, NSError *))completionBlock {
-    if ([self hasBeenFiveSecondsSince:self.timeOfLastPasswordResetAttempt]) {
+    if ([self hasBeenXSecondsSince:self.timeOfLastPasswordResetAttempt]) {
         [PFUser requestPasswordResetForEmailInBackground:email block:^(BOOL succeeded, NSError *error) {
             completionBlock(succeeded, error);
         }];
@@ -97,7 +97,7 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
 };
 
 - (void)sendFriendRequestToUsername:(NSString *)username inBackgroundWithCompletionBlock:(void (^)(BOOL, NSError *))completionBlock {
-    if ([self hasBeenFiveSecondsSince:self.timeOfLastSendFriendRequestAttempt]) {
+    if ([self hasBeenXSecondsSince:self.timeOfLastSendFriendRequestAttempt]) {
         if ([self userIsLoggedIn]) {
             PFQuery *userQuery = [PFUser query];
             [userQuery whereKey:@"username" equalTo:username];
@@ -119,6 +119,27 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
         NSError *error = [self throttleError];
         completionBlock(NO, error);
     }
+}
+
+- (void)acceptFriendRequest:(ZSSFriendRequest *)localFriendRequest inBackgroundWithCompletionBlock:(void (^)(BOOL, NSError *))completionBlock {
+    PFQuery *friendRequestQuery = [PFQuery queryWithClassName:@"ZSSFriendRequest"];
+    [friendRequestQuery whereKey:@"objectId" equalTo:localFriendRequest.objectId];
+    [friendRequestQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error && [objects count] == 1) {
+            PFObject *cloudFriendRequest = [objects firstObject];
+            NSDate *now = [NSDate date];
+            cloudFriendRequest[@"confirmed"] = @YES;
+            cloudFriendRequest[@"dateConfirmed"] = now;
+            [cloudFriendRequest saveInBackground];
+            localFriendRequest.confirmed = @YES;
+            localFriendRequest.dateConfirmed = now;
+            
+        } else if ([objects count] > 1) {
+            [RKDropdownAlert title:@"Invalid object count"];
+        } else {
+            [RKDropdownAlert error:error];
+        }
+    }];
 }
 
 - (void)viewMessage:(ZSSMessage *)localMessage inBackgroundWithCompletionBlock:(void (^)(BOOL, NSError *))completionBlock {
@@ -286,7 +307,7 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
     }
 }
 
-- (BOOL)hasBeenFiveSecondsSince:(NSDate *)time {
+- (BOOL)hasBeenXSecondsSince:(NSDate *)time {
     NSDate *currentTime = [NSDate date];
 
     NSTimeInterval secs = [currentTime timeIntervalSinceDate:time];

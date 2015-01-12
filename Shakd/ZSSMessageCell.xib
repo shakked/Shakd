@@ -57,7 +57,7 @@
                             <constraint firstAttribute="height" constant="122" id="YYg-CA-dnc"/>
                         </constraints>
                         <string key="text">You smell so bad dude. Like it's time for you to go and be responsible and take a damn shower. I honestly don't even know what to say anymore. A) Learn what a shower is... B) Take twenty five thousand of them C) kill yourself D)Kill yourself again.mojhbkj kh k kh khj kh ikh kjh ikh ih ih ih ih ih ih ih ih ih </string>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="15"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Press, hold and listen" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="no4-TG-xdQ">

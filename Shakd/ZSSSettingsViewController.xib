@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14A314h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ZSSSettingsViewController">
+            <connections>
+                <outlet property="greetingLabel" destination="8H9-xv-Ld4" id="X0k-l0-JmS"/>
+                <outlet property="logOutButton" destination="6ED-OH-vPv" id="5ea-mr-dw0"/>
+                <outlet property="submitFeedbackButton" destination="bfk-Ab-VCR" id="47j-iF-9Gw"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ED-OH-vPv">
+                    <rect key="frame" x="10" y="540" width="580" height="50"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="XT4-sp-pXB"/>
+                        <constraint firstAttribute="height" constant="50" id="ddn-1c-efo"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="22"/>
+                    <color key="tintColor" red="0.23137254900000001" green="0.23137254900000001" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" title="Log Out">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="logOutButtonPressed:" destination="-1" eventType="touchUpInside" id="QNd-nv-CAD"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bfk-Ab-VCR">
+                    <rect key="frame" x="10" y="480" width="580" height="50"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="c72-57-Ayl"/>
+                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="50" id="iEL-l7-jdC"/>
+                        <constraint firstAttribute="height" constant="50" id="jx7-X9-7rP"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="22"/>
+                    <color key="tintColor" red="0.23137254900000001" green="0.23137254900000001" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" title="Submit Feedback">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="submitFeedbackButtonPressed:" destination="-1" eventType="touchUpInside" id="Ceu-ft-EzU"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shakd" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w2d-rI-ub0">
+                    <rect key="frame" x="225" y="247" width="150" height="106"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="106" id="Ahx-pN-34v"/>
+                        <constraint firstAttribute="width" constant="150" id="z6J-mK-pSF"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="50"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gV1-jN-eVm">
+                    <rect key="frame" x="560" y="30" width="30" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="XBo-7S-BoO"/>
+                        <constraint firstAttribute="width" constant="30" id="mu8-hc-DQG"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="38"/>
+                    <state key="normal" title="X">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="dismissButtonPressed:" destination="-1" eventType="touchUpInside" id="sje-wr-NRw"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="God this font is glorious, am I right buddy?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8H9-xv-Ld4">
+                    <rect key="frame" x="10" y="70" width="580" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="v9N-uY-CX2"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="16"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="0.23137254900000001" green="0.23137254900000001" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="centerX" secondItem="w2d-rI-ub0" secondAttribute="centerX" id="1K4-S2-gPB"/>
+                <constraint firstItem="8H9-xv-Ld4" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="3Xi-pn-rGV"/>
+                <constraint firstItem="6ED-OH-vPv" firstAttribute="top" secondItem="bfk-Ab-VCR" secondAttribute="bottom" constant="10" id="7dz-Ky-WeW"/>
+                <constraint firstAttribute="trailing" secondItem="bfk-Ab-VCR" secondAttribute="trailing" constant="10" id="9e1-lh-EHZ"/>
+                <constraint firstAttribute="bottom" secondItem="6ED-OH-vPv" secondAttribute="bottom" constant="10" id="Iay-d1-0WV"/>
+                <constraint firstItem="6ED-OH-vPv" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="Yeu-MB-8Cu"/>
+                <constraint firstItem="bfk-Ab-VCR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="aQK-RL-wit"/>
+                <constraint firstAttribute="trailing" secondItem="gV1-jN-eVm" secondAttribute="trailing" constant="10" id="eU9-ce-6XI"/>
+                <constraint firstItem="8H9-xv-Ld4" firstAttribute="top" secondItem="gV1-jN-eVm" secondAttribute="bottom" constant="10" id="gw3-o1-tGX"/>
+                <constraint firstAttribute="trailing" secondItem="6ED-OH-vPv" secondAttribute="trailing" constant="10" id="o3I-Fz-erL"/>
+                <constraint firstItem="gV1-jN-eVm" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="30" id="oO3-DQ-eEw"/>
+                <constraint firstAttribute="trailing" secondItem="8H9-xv-Ld4" secondAttribute="trailing" constant="10" id="rFc-on-1yR"/>
+                <constraint firstAttribute="centerY" secondItem="w2d-rI-ub0" secondAttribute="centerY" id="yWi-NK-I9B"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

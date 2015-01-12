@@ -15,6 +15,7 @@
 @dynamic objectId;
 @dynamic sender;
 @dynamic receiver;
+@dynamic friendRequestInfo;
 @dynamic confirmed;
 @dynamic dateSent;
 @dynamic dateConfirmed;

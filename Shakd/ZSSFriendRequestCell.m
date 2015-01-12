@@ -13,6 +13,9 @@
 - (void)awakeFromNib {
     // Initialization code
 }
+- (IBAction)selectFriendRequestButtonPressed:(id)sender {
+    self.selectFriendRequestButtonBlock();
+}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

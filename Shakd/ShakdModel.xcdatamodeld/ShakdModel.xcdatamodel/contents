@@ -5,6 +5,7 @@
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="dateConfirmed" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="dateSent" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="friendRequestInfo" optional="YES" attributeType="Transformable" valueTransformerName="ZSSDictionaryTransformer" syncable="YES"/>
         <attribute name="lastSynced" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="objectId" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="receiver" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ZSSUser" inverseName="receivedFriendRequests" inverseEntity="ZSSUser" syncable="YES"/>
@@ -34,7 +35,7 @@
         <relationship name="sentMessages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ZSSMessage" inverseName="sender" inverseEntity="ZSSMessage" syncable="YES"/>
     </entity>
     <elements>
-        <element name="ZSSFriendRequest" positionX="-36" positionY="72" width="128" height="165"/>
+        <element name="ZSSFriendRequest" positionX="-36" positionY="72" width="128" height="180"/>
         <element name="ZSSMessage" positionX="-54" positionY="27" width="128" height="180"/>
         <element name="ZSSUser" positionX="-63" positionY="-18" width="128" height="195"/>
     </elements>

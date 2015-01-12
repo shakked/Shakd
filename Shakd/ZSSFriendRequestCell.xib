@@ -14,8 +14,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CPM-tV-2bd">
-                        <rect key="frame" x="18" y="24" width="346" height="31"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CPM-tV-2bd">
+                        <rect key="frame" x="18" y="24" width="356" height="31"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="31" id="BZS-hZ-77N"/>
                         </constraints>
@@ -31,10 +31,13 @@
                             <constraint firstAttribute="width" constant="30" id="mPV-yO-4Hs"/>
                         </constraints>
                         <color key="tintColor" red="0.23137254900000001" green="0.23137254900000001" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <state key="normal">
-                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        <state key="normal" backgroundImage="FriendRequestApprove">
+                            <color key="titleColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="titleShadowColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
+                        <connections>
+                            <action selector="selectFriendRequestButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="rtH-hH-LMS"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>
@@ -53,9 +56,12 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="friendLabel" destination="CPM-tV-2bd" id="22Q-S2-Fjl"/>
-                <outlet property="friendRequestButton" destination="fhb-Pr-lY9" id="DrH-LH-p6c"/>
+                <outlet property="selectFriendRequestButton" destination="fhb-Pr-lY9" id="87w-Ci-U4A"/>
             </connections>
             <point key="canvasLocation" x="403" y="389.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="FriendRequestApprove" width="30" height="30"/>
+    </resources>
 </document>

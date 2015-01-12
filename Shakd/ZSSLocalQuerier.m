@@ -192,6 +192,7 @@
     localFriendRequest.sender = [self localUserForCloudUser:cloudFriendRequest[@"sender"]];
     localFriendRequest.receiver = [self localUserForCloudUser:cloudFriendRequest[@"receiver"]];
     localFriendRequest.confirmed = cloudFriendRequest[@"confirmed"];
+    localFriendRequest.friendRequestInfo = cloudFriendRequest[@"friendRequestInfo"];
     localFriendRequest.dateSent = cloudFriendRequest[@"dateSent"];
     localFriendRequest.dateConfirmed = cloudFriendRequest[@"dateConfirmed"];
     localFriendRequest.lastSynced = cloudFriendRequest[@"lastSynced"];

@@ -23,6 +23,7 @@
 @implementation ZSSLocalSyncer
 
 #warning Remember to get rid of exceptions in CloudQuery methods to not crash app when no network is available
+#warning Remember friendRequest sender rejected case
 
 + (instancetype)sharedSyncer {
     static ZSSLocalSyncer *sharedSyncer = nil;

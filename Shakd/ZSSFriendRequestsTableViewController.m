@@ -99,58 +99,96 @@ static NSString *CELL_IDENTIFIER = @"cell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZSSFriendRequest *friendRequest = self.friendRequests[indexPath.row];
     ZSSFriendRequestCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER];
-
-    BOOL isSentFriendRequest = [self isSentFriendRequest:friendRequest];
-    BOOL isReceivedFriendRequest = [self isReceivedFriendRequest:friendRequest];
+    cell.friendRequest = friendRequest;
+    [cell.selectFriendRequestButton setHidden:NO];
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
-    if (isSentFriendRequest) {
-        cell = [self configureCell:cell forSentFriendRequest:friendRequest];
-    } else if (isReceivedFriendRequest) {
-        cell = [self configureCell:cell forReceivedFriendRequest:friendRequest];
-    } else {
-        [self throwInvalidFriendRequestException];
-    }
-    
-    cell = [self configureCell:cell forStatusOfFriendRequest:friendRequest];
-    [[cell.friendRequestButton layer] setCornerRadius:5.0];
+     
+    [self assignCellCorrectState:cell];
+    [self configureBlocks:cell];
+    [self configureCell:cell];
     
     return cell;
 }
 
-- (ZSSFriendRequestCell *)configureCell:(ZSSFriendRequestCell *)cell forSentFriendRequest:(ZSSFriendRequest *)friendRequest {
-    [cell.friendLabel setText:friendRequest.receiver.username];
-    [cell.friendRequestButton setImage:[UIImage imageNamed:@"FriendRequestPending"] forState:UIControlStateNormal];
-    return cell;
-}
-
-- (ZSSFriendRequestCell *)configureCell:(ZSSFriendRequestCell *)cell forReceivedFriendRequest:(ZSSFriendRequest *)friendRequest {
-    [cell.friendLabel setText:friendRequest.sender.username];
-    [cell.friendRequestButton setImage:[UIImage imageNamed:@"FriendRequestApprove"] forState:UIControlStateNormal];
-    return cell;
-}
-
-- (ZSSFriendRequestCell *)configureCell:(ZSSFriendRequestCell *)cell forStatusOfFriendRequest:(ZSSFriendRequest *)friendRequest {
-    if ([self isConfirmedFriendRequest:friendRequest]) {
-        [cell.friendRequestButton setImage:[UIImage imageNamed:@"FriendRequestConfirmed"] forState:UIControlStateNormal];
-    } else {
-    }
-    return cell;
-}
-
-
-- (BOOL)isSentFriendRequest:(ZSSFriendRequest *)friendRequest {
+- (void)assignCellCorrectState:(ZSSFriendRequestCell *)cell {
+    ZSSFriendRequest *friendRequest = cell.friendRequest;
     if ([friendRequest.sender isEqual:self.currentLocalUser]) {
-        return YES;
-    } else {
-        return NO;
+        if ([friendRequest.confirmed isEqual:@YES]) {
+            cell.state = ZSSFriendRequestCellSentConfirmedState;
+        } else {
+            cell.state = ZSSFriendRequestCellSentDeniedState;
+        }
+    } else if ([friendRequest.receiver isEqual:self.currentLocalUser]){
+        if ([friendRequest.confirmed isEqual:@YES]) {
+            cell.state = ZSSFriendRequestCellReceivedConfirmedState;
+        } else {
+            cell.state = ZSSFriendRequestCellReceivedDeniedState;
+        }
     }
 }
 
-- (BOOL)isReceivedFriendRequest:(ZSSFriendRequest *)friendRequest {
-    if ([friendRequest.receiver isEqual:self.currentLocalUser]) {
-        return YES;
+- (void)configureBlocks:(ZSSFriendRequestCell *)cell {
+    if (cell.state == ZSSFriendRequestCellSentDeniedState || cell.state == ZSSFriendRequestCellSentConfirmedState || cell.state == ZSSFriendRequestCellReceivedConfirmedState) {
+        __weak ZSSFriendRequestCell *weakCell = cell;
+        cell.selectFriendRequestButtonBlock = ^{
+            ZSSFriendRequestCell *strongCell = weakCell;
+            [self showAlertController:strongCell];
+        };
+    } else if (cell.state == ZSSFriendRequestCellReceivedDeniedState) {
+        __weak ZSSFriendRequestCell *weakCell = cell;
+        cell.selectFriendRequestButtonBlock = ^{
+            ZSSFriendRequestCell *strongCell = weakCell;
+            [self confirmFriendRequestForCell:strongCell];
+        };
+    }
+}
+
+- (void)showAlertController:(ZSSFriendRequestCell *)cell {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Delete Friend Request?" message:@"Do you want to delete this friend request?" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete Friend Request"
+                                                     style:UIAlertActionStyleDestructive
+                                                   handler:^(UIAlertAction *action) {
+                                                       [self deleteFriendRequestForCell:cell];
+                                                   }];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel"
+                                                     style:UIAlertActionStyleCancel
+                                                   handler:^(UIAlertAction *action) {
+                                                       [alertController dismissViewControllerAnimated:YES completion:nil];
+                                                   }];
+    [alertController addAction:delete];
+    [alertController addAction:cancel];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)confirmFriendRequestForCell:(ZSSFriendRequestCell *)cell {
+    [RKDropdownAlert title:@"WOULD CONFIRM FQ" backgroundColor:[UIColor turquoiseColor] textColor:[UIColor whiteColor]];
+}
+
+- (void)deleteFriendRequestForCell:(ZSSFriendRequestCell *)cell {
+    [RKDropdownAlert title:@"WOULD DELETE FQ"];
+}
+
+- (void)configureCell:(ZSSFriendRequestCell *)cell {
+    if (cell.state == ZSSFriendRequestCellSentConfirmedState) {
+        [cell.selectFriendRequestButton setBackgroundImage:[UIImage imageNamed:@"FriendRequestConfirmed"] forState:UIControlStateNormal];
+        [cell.friendLabel setText:cell.friendRequest.receiver.username];
+        
+    } else if (cell.state == ZSSFriendRequestCellReceivedConfirmedState) {
+        [cell.selectFriendRequestButton setBackgroundImage:[UIImage imageNamed:@"FriendRequestConfirmed"] forState:UIControlStateNormal];
+        [cell.friendLabel setText:cell.friendRequest.sender.username];
+        
+    } else if (cell.state == ZSSFriendRequestCellReceivedDeniedState) {
+        [cell.selectFriendRequestButton setBackgroundImage:[UIImage imageNamed:@"FriendRequestApprove"] forState:UIControlStateNormal];
+        [cell.friendLabel setText:cell.friendRequest.sender.username];
+        
+    } else if (cell.state == ZSSFriendRequestCellSentDeniedState) {
+        [cell.selectFriendRequestButton setBackgroundImage:[UIImage imageNamed:@"FriendRequestPending"] forState:UIControlStateNormal];
+        [cell.friendLabel setText:cell.friendRequest.receiver.username];
+        
     } else {
-        return NO;
+        [RKDropdownAlert title:@"State not set for cell"];
     }
 }
 

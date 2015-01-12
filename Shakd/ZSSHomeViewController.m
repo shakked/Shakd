@@ -15,7 +15,7 @@
 #import "ZSSCloudQuerier.h"
 #import "ZSSMessagesTableViewController.h"
 #import "RKNotificationHub.h"
-
+#import "ZSSSettingsViewController.h"
 @interface ZSSHomeViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextView *messageTextView;
@@ -86,8 +86,6 @@
     [friendsButton setBackgroundImage:[UIImage imageNamed:@"FriendsIcon"] forState:UIControlStateNormal];
     [friendsButton addTarget:self action:@selector(showFriendsView) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *friendsBarButton = [[UIBarButtonItem alloc] initWithCustomView:friendsButton];
-    
-    
 
     UIButton *messagesButton = [UIButton buttonWithType:UIButtonTypeCustom];
     messagesButton.bounds = CGRectMake(0, 0, 30, 30);
@@ -98,6 +96,13 @@
     [messagesButton addTarget:self action:@selector(showMessagesView) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *messagesBarButton = [[UIBarButtonItem alloc] initWithCustomView:messagesButton];
     
+    UIButton *settingsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    settingsButton.bounds = CGRectMake(0, 0, 30, 30);
+    [settingsButton setBackgroundImage:[UIImage imageNamed:@"SettingsIcon"] forState:UIControlStateNormal];
+    [settingsButton addTarget:self action:@selector(showSettingsView) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *settingsBarButton = [[UIBarButtonItem alloc] initWithCustomView:settingsButton];
+    
+    self.navigationItem.leftBarButtonItem = settingsBarButton;
     self.navigationItem.rightBarButtonItems = @[friendsBarButton, messagesBarButton];
 }
 
@@ -153,6 +158,11 @@
     [utterance setPitchMultiplier:pitchMultiplier];
     [utterance setRate:rate];
     [self.speaker speakUtterance:utterance];
+}
+
+- (void)showSettingsView {
+    ZSSSettingsViewController *svc = [[ZSSSettingsViewController alloc] init];
+    [self presentViewController:svc animated:YES completion:nil];
 }
 
 - (void)showFriendsView {

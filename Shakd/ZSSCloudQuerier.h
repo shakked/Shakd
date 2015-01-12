@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
 @class ZSSMessage;
+@class ZSSFriendRequest;
 
 @interface ZSSCloudQuerier : NSObject
 
@@ -21,7 +22,8 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock;
 - (void)signUpUser:(PFUser *)user inBackgroundWithCompletionBlock:(void (^)(BOOL, NSError *))completionBlock;
 - (void)resetPasswordForEmail:(NSString *)email inBackgroundWithCompletionBlock:(void (^)(BOOL, NSError *))completionBlock;
 - (void)sendFriendRequestToUsername:(NSString *)username inBackgroundWithCompletionBlock:(void (^)(BOOL,NSError *))completionBlock;
-- (void)viewMessage:(ZSSMessage *)objectId inBackgroundWithCompletionBlock:(void (^)(BOOL, NSError *))completionBlock;
+- (void)viewMessage:(ZSSMessage *)message inBackgroundWithCompletionBlock:(void (^)(BOOL, NSError *))completionBlock;
+- (void)acceptFriendRequest:(ZSSFriendRequest *)friendRequest inBackgroundWithCompletionBlock:(void (^)(BOOL,NSError *))completionBlock;
 - (void)sendMessageToUsers:(NSArray *)users
            withMessageInfo:(NSDictionary *)messageInfo
        withCompletionBlock:(void (^)(BOOL, NSError *))completionBlock;
