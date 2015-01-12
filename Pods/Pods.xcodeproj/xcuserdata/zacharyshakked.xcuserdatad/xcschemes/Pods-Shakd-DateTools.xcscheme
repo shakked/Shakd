@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A71E9904483F96CF9CC4A99B"
+               BlueprintIdentifier = "7A431E8CF335C66C8ECB6FA0"
                BuildableName = "libPods-Shakd-DateTools.a"
                BlueprintName = "Pods-Shakd-DateTools"
                ReferencedContainer = "container:Pods.xcodeproj">

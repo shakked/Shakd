@@ -39,40 +39,60 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-ShakdTests-RKNotificationHub.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-ShakdTests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0B71FF76DB6B01BD70A56DA2</key>
+		<key>24E8421F2FCAB4265B2EA3FC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1ADC48714AF04E9AB09AD2EE</key>
+		<key>45AC84F514D6CCEEB9F064B9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7DECABE5E2ED4141DC0EDAAA</key>
+		<key>4F1E846E888C38CC66E183CD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A71E9904483F96CF9CC4A99B</key>
+		<key>68E3EEE4AEC79C3B1650B263</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B1CD0F3371244ACFDD2F1152</key>
+		<key>7A431E8CF335C66C8ECB6FA0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DB77DAACB687C2CF34506D62</key>
+		<key>8397EDDE6929863D09303275</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FCD5355B0281734458996446</key>
+		<key>89502D4A632AE6A987FDDFF2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AC982FC58F19C1A5BB0B7BC8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FE332C4A5B8AB12EE279B130</key>
 		<dict>
 			<key>primary</key>
 			<true/>

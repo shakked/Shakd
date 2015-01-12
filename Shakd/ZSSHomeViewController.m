@@ -14,6 +14,7 @@
 #import "ZSSFriendsTableViewController.h"
 #import "ZSSCloudQuerier.h"
 #import "ZSSMessagesTableViewController.h"
+#import "RKNotificationHub.h"
 
 @interface ZSSHomeViewController ()
 
@@ -28,6 +29,8 @@
 @property (nonatomic, strong) NSArray *voicesFullNames;
 @property (nonatomic) NSInteger indexOfSelectedVoice;
 
+@property (nonatomic, strong) RKNotificationHub *hub;
+
 @end
 
 @implementation ZSSHomeViewController
@@ -37,6 +40,12 @@
     [self configureViews];
     [self configureSpeechSynthesizer];
     [self configureAccents];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.hub setCount:(int)[[PFInstallation currentInstallation] badge]];
+    
 }
 
 - (IBAction)accentsButtonPressed:(id)sender {
@@ -78,8 +87,13 @@
     [friendsButton addTarget:self action:@selector(showFriendsView) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *friendsBarButton = [[UIBarButtonItem alloc] initWithCustomView:friendsButton];
     
+    
+
     UIButton *messagesButton = [UIButton buttonWithType:UIButtonTypeCustom];
     messagesButton.bounds = CGRectMake(0, 0, 30, 30);
+    self.hub = [[RKNotificationHub alloc] initWithView:messagesButton];
+    [self.hub scaleCircleSizeBy:0.6];
+    [self.hub setCount:(int)[[PFInstallation currentInstallation] badge]];
     [messagesButton setBackgroundImage:[UIImage imageNamed:@"MessagesIcon"] forState:UIControlStateNormal];
     [messagesButton addTarget:self action:@selector(showMessagesView) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *messagesBarButton = [[UIBarButtonItem alloc] initWithCustomView:messagesButton];

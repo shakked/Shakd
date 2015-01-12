@@ -11,10 +11,11 @@ pod 'KVNProgress'
 pod 'JFMinimalNotifications', '~> 0.0.2'
 pod 'RKNotificationHub'
 pod 'DateTools'
+pod 'RKNotificationHub'
 
 end
 
 target 'ShakdTests' do
-
+pod 'RKNotificationHub'
 end
 
