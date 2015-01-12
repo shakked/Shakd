@@ -22,16 +22,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Shakd/ZSSMessagesTableViewController.m"
+            timestampString = "442682972.703804"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "211"
+            endingLineNumber = "211"
+            landmarkName = "-playUnviewedMessage:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Shakd/ZSSCloudQuerier.m"
-            timestampString = "442472000.572285"
+            filePath = "Shakd/ZSSMessagesTableViewController.m"
+            timestampString = "442682972.703804"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
-            landmarkName = "-sendFriendRequestToUsername:inBackgroundWithCompletionBlock:"
+            startingLineNumber = "270"
+            endingLineNumber = "270"
+            landmarkName = "-speechSynthesizer:didFinishSpeechUtterance:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

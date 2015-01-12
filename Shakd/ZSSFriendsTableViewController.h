@@ -16,5 +16,6 @@ typedef NS_ENUM(NSInteger, ZSSFriendsTableState) {
 };
 
 @property (nonatomic) ZSSFriendsTableState state;
+- (instancetype)initWithState:(ZSSFriendsTableState)state andMessageInfo:(NSDictionary *)messageInfo;
 
 @end

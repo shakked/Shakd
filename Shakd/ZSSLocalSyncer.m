@@ -33,16 +33,15 @@
     return sharedSyncer;
 }
 
-- (void)syncMessagesWithCompletionBlock:(void (^)(NSError *))completionBlock {
+- (void)syncMessagesWithCompletionBlock:(void (^)(NSArray *,NSError *))completionBlock {
     [[ZSSCloudQuerier sharedQuerier] fetchMessagesInBackgroundWithCompletionBlock:^(NSArray *messages, NSError *error) {
-        
         if (!error) {
             for (PFObject *message in messages) {
                 [[ZSSLocalQuerier sharedQuerier] localMessageForCloudMessage:message];
             }
             [[ZSSLocalStore sharedStore] saveCoreDataChanges];
         }
-        completionBlock(error);
+        completionBlock(messages, error);
         
     }];
 }

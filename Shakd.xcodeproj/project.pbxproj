@@ -35,6 +35,27 @@
 		4A45C26C1A5F89EF00080F1B /* add_user-30.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2691A5F89EF00080F1B /* add_user-30.png */; };
 		4A45C26D1A5F89EF00080F1B /* add_user-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C26A1A5F89EF00080F1B /* add_user-60.png */; };
 		4A45C26E1A5F89EF00080F1B /* add_user-90.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C26B1A5F89EF00080F1B /* add_user-90.png */; };
+		4A45C2711A60730500080F1B /* ZSSMessagesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A45C2701A60730500080F1B /* ZSSMessagesTableViewController.m */; };
+		4A45C2761A607CF500080F1B /* ZSSMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A45C2741A607CF500080F1B /* ZSSMessageCell.m */; };
+		4A45C2771A607CF500080F1B /* ZSSMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2751A607CF500080F1B /* ZSSMessageCell.xib */; };
+		4A45C28D1A6186AC00080F1B /* speech_bubble-30.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C28A1A6186AC00080F1B /* speech_bubble-30.png */; };
+		4A45C28E1A6186AC00080F1B /* speech_bubble-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C28B1A6186AC00080F1B /* speech_bubble-60.png */; };
+		4A45C28F1A6186AC00080F1B /* speech_bubble-90.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C28C1A6186AC00080F1B /* speech_bubble-90.png */; };
+		4A45C2B11A62247F00080F1B /* play-20.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2AE1A62247F00080F1B /* play-20.png */; };
+		4A45C2B21A62247F00080F1B /* play-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2AF1A62247F00080F1B /* play-40.png */; };
+		4A45C2B31A62247F00080F1B /* play-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2B01A62247F00080F1B /* play-60.png */; };
+		4A45C2B71A6224A400080F1B /* sent-20.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2B41A6224A400080F1B /* sent-20.png */; };
+		4A45C2B81A6224A400080F1B /* sent-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2B51A6224A400080F1B /* sent-40.png */; };
+		4A45C2B91A6224A400080F1B /* sent-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2B61A6224A400080F1B /* sent-60.png */; };
+		4A45C2BD1A6224C400080F1B /* voice_recognition_scan-20.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2BA1A6224C400080F1B /* voice_recognition_scan-20.png */; };
+		4A45C2BE1A6224C400080F1B /* voice_recognition_scan-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2BB1A6224C400080F1B /* voice_recognition_scan-40.png */; };
+		4A45C2BF1A6224C400080F1B /* voice_recognition_scan-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2BC1A6224C400080F1B /* voice_recognition_scan-60.png */; };
+		4A45C2C61A62277F00080F1B /* left2-20.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2C01A62277F00080F1B /* left2-20.png */; };
+		4A45C2C71A62277F00080F1B /* left2-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2C11A62277F00080F1B /* left2-40.png */; };
+		4A45C2C81A62277F00080F1B /* left2-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2C21A62277F00080F1B /* left2-60.png */; };
+		4A45C2C91A62277F00080F1B /* right2-20.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2C31A62277F00080F1B /* right2-20.png */; };
+		4A45C2CA1A62277F00080F1B /* right2-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2C41A62277F00080F1B /* right2-40.png */; };
+		4A45C2CB1A62277F00080F1B /* right2-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2C51A62277F00080F1B /* right2-60.png */; };
 		4A6380D51A59C61F00D56AA4 /* RKDropdownAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6380D41A59C61F00D56AA4 /* RKDropdownAlert.m */; };
 		4A6380D61A59C61F00D56AA4 /* RKDropdownAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6380D41A59C61F00D56AA4 /* RKDropdownAlert.m */; };
 		4A6380D91A59CCED00D56AA4 /* NSString+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6380D81A59CCED00D56AA4 /* NSString+Extras.m */; };
@@ -196,6 +217,29 @@
 		4A45C2691A5F89EF00080F1B /* add_user-30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_user-30.png"; sourceTree = "<group>"; };
 		4A45C26A1A5F89EF00080F1B /* add_user-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_user-60.png"; sourceTree = "<group>"; };
 		4A45C26B1A5F89EF00080F1B /* add_user-90.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_user-90.png"; sourceTree = "<group>"; };
+		4A45C26F1A60730500080F1B /* ZSSMessagesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZSSMessagesTableViewController.h; path = Shakd/ZSSMessagesTableViewController.h; sourceTree = "<group>"; };
+		4A45C2701A60730500080F1B /* ZSSMessagesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZSSMessagesTableViewController.m; path = Shakd/ZSSMessagesTableViewController.m; sourceTree = "<group>"; };
+		4A45C2731A607CF500080F1B /* ZSSMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZSSMessageCell.h; path = Shakd/ZSSMessageCell.h; sourceTree = "<group>"; };
+		4A45C2741A607CF500080F1B /* ZSSMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZSSMessageCell.m; path = Shakd/ZSSMessageCell.m; sourceTree = "<group>"; };
+		4A45C2751A607CF500080F1B /* ZSSMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ZSSMessageCell.xib; path = Shakd/ZSSMessageCell.xib; sourceTree = "<group>"; };
+		4A45C28A1A6186AC00080F1B /* speech_bubble-30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "speech_bubble-30.png"; sourceTree = "<group>"; };
+		4A45C28B1A6186AC00080F1B /* speech_bubble-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "speech_bubble-60.png"; sourceTree = "<group>"; };
+		4A45C28C1A6186AC00080F1B /* speech_bubble-90.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "speech_bubble-90.png"; sourceTree = "<group>"; };
+		4A45C2AE1A62247F00080F1B /* play-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play-20.png"; sourceTree = "<group>"; };
+		4A45C2AF1A62247F00080F1B /* play-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play-40.png"; sourceTree = "<group>"; };
+		4A45C2B01A62247F00080F1B /* play-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play-60.png"; sourceTree = "<group>"; };
+		4A45C2B41A6224A400080F1B /* sent-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sent-20.png"; sourceTree = "<group>"; };
+		4A45C2B51A6224A400080F1B /* sent-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sent-40.png"; sourceTree = "<group>"; };
+		4A45C2B61A6224A400080F1B /* sent-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sent-60.png"; sourceTree = "<group>"; };
+		4A45C2BA1A6224C400080F1B /* voice_recognition_scan-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "voice_recognition_scan-20.png"; sourceTree = "<group>"; };
+		4A45C2BB1A6224C400080F1B /* voice_recognition_scan-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "voice_recognition_scan-40.png"; sourceTree = "<group>"; };
+		4A45C2BC1A6224C400080F1B /* voice_recognition_scan-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "voice_recognition_scan-60.png"; sourceTree = "<group>"; };
+		4A45C2C01A62277F00080F1B /* left2-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left2-20.png"; sourceTree = "<group>"; };
+		4A45C2C11A62277F00080F1B /* left2-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left2-40.png"; sourceTree = "<group>"; };
+		4A45C2C21A62277F00080F1B /* left2-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left2-60.png"; sourceTree = "<group>"; };
+		4A45C2C31A62277F00080F1B /* right2-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right2-20.png"; sourceTree = "<group>"; };
+		4A45C2C41A62277F00080F1B /* right2-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right2-40.png"; sourceTree = "<group>"; };
+		4A45C2C51A62277F00080F1B /* right2-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right2-60.png"; sourceTree = "<group>"; };
 		4A6380D31A59C61F00D56AA4 /* RKDropdownAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKDropdownAlert.h; sourceTree = "<group>"; };
 		4A6380D41A59C61F00D56AA4 /* RKDropdownAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKDropdownAlert.m; sourceTree = "<group>"; };
 		4A6380D71A59CCED00D56AA4 /* NSString+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extras.h"; sourceTree = "<group>"; };
@@ -410,6 +454,19 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		4A45C2721A60730A00080F1B /* Messages */ = {
+			isa = PBXGroup;
+			children = (
+				4A45C26F1A60730500080F1B /* ZSSMessagesTableViewController.h */,
+				4A45C2701A60730500080F1B /* ZSSMessagesTableViewController.m */,
+				4A45C2731A607CF500080F1B /* ZSSMessageCell.h */,
+				4A45C2741A607CF500080F1B /* ZSSMessageCell.m */,
+				4A45C2751A607CF500080F1B /* ZSSMessageCell.xib */,
+			);
+			name = Messages;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		4A7D505F1A5201E200C57F51 /* Cloud */ = {
 			isa = PBXGroup;
 			children = (
@@ -424,6 +481,9 @@
 		4A823B651A5DF7EE00FDD58D /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				4A45C28A1A6186AC00080F1B /* speech_bubble-30.png */,
+				4A45C28B1A6186AC00080F1B /* speech_bubble-60.png */,
+				4A45C28C1A6186AC00080F1B /* speech_bubble-90.png */,
 				4A823B5F1A5DF7BC00FDD58D /* group-30.png */,
 				4A823B601A5DF7BC00FDD58D /* group-60.png */,
 				4A823B611A5DF7BC00FDD58D /* group-90.png */,
@@ -445,6 +505,21 @@
 				4A45C2691A5F89EF00080F1B /* add_user-30.png */,
 				4A45C26A1A5F89EF00080F1B /* add_user-60.png */,
 				4A45C26B1A5F89EF00080F1B /* add_user-90.png */,
+				4A45C2AE1A62247F00080F1B /* play-20.png */,
+				4A45C2AF1A62247F00080F1B /* play-40.png */,
+				4A45C2B01A62247F00080F1B /* play-60.png */,
+				4A45C2B41A6224A400080F1B /* sent-20.png */,
+				4A45C2B51A6224A400080F1B /* sent-40.png */,
+				4A45C2B61A6224A400080F1B /* sent-60.png */,
+				4A45C2BA1A6224C400080F1B /* voice_recognition_scan-20.png */,
+				4A45C2BB1A6224C400080F1B /* voice_recognition_scan-40.png */,
+				4A45C2BC1A6224C400080F1B /* voice_recognition_scan-60.png */,
+				4A45C2C01A62277F00080F1B /* left2-20.png */,
+				4A45C2C11A62277F00080F1B /* left2-40.png */,
+				4A45C2C21A62277F00080F1B /* left2-60.png */,
+				4A45C2C31A62277F00080F1B /* right2-20.png */,
+				4A45C2C41A62277F00080F1B /* right2-40.png */,
+				4A45C2C51A62277F00080F1B /* right2-60.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -540,6 +615,7 @@
 				4AFCD1A51A506A6700543CE1 /* CoreData */,
 				4A4217FE1A50DFA5004B999B /* Startup */,
 				4AA7200D1A5C6039000A8B8E /* Home */,
+				4A45C2721A60730A00080F1B /* Messages */,
 				4AA7202F1A5CA64C000A8B8E /* Friends */,
 				4AFCD1291A4FC2E400543CE1 /* Supporting Files */,
 			);
@@ -736,24 +812,42 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A45C24E1A5F629400080F1B /* approve-30.png in Resources */,
+				4A45C2BF1A6224C400080F1B /* voice_recognition_scan-60.png in Resources */,
 				4A45C2441A5F5D6400080F1B /* meeting-90.png in Resources */,
+				4A45C2C71A62277F00080F1B /* left2-40.png in Resources */,
+				4A45C2B71A6224A400080F1B /* sent-20.png in Resources */,
+				4A45C2B21A62247F00080F1B /* play-40.png in Resources */,
 				4AA71FF71A5C5ECA000A8B8E /* ZSSWelcomeViewController.xib in Resources */,
+				4A45C28D1A6186AC00080F1B /* speech_bubble-30.png in Resources */,
+				4A45C28F1A6186AC00080F1B /* speech_bubble-90.png in Resources */,
+				4A45C2BD1A6224C400080F1B /* voice_recognition_scan-20.png in Resources */,
 				4A45C2601A5F757E00080F1B /* ZSSFriendRequestCell.xib in Resources */,
 				4A45C2651A5F759000080F1B /* ZSSAddFriendViewController.xib in Resources */,
 				4AA71FFE1A5C5EDD000A8B8E /* ZSSHomeViewController.xib in Resources */,
 				4A823B631A5DF7BC00FDD58D /* group-60.png in Resources */,
 				4A45C24F1A5F629400080F1B /* approve-60.png in Resources */,
+				4A45C2771A607CF500080F1B /* ZSSMessageCell.xib in Resources */,
 				4A45C26C1A5F89EF00080F1B /* add_user-30.png in Resources */,
 				4A45C2501A5F629400080F1B /* approve-90.png in Resources */,
 				4A45C2551A5F629400080F1B /* neutral_decision-60.png in Resources */,
 				4AA71FE91A5C5E9B000A8B8E /* ZSSSignUpViewController.xib in Resources */,
+				4A45C2B81A6224A400080F1B /* sent-40.png in Resources */,
+				4A45C2CB1A62277F00080F1B /* right2-60.png in Resources */,
 				4A823B6B1A5E36E600FDD58D /* left-90.png in Resources */,
 				4A45C2511A5F629400080F1B /* good_decision-30.png in Resources */,
+				4A45C2C81A62277F00080F1B /* left2-60.png in Resources */,
+				4A45C2CA1A62277F00080F1B /* right2-40.png in Resources */,
 				4A45C26D1A5F89EF00080F1B /* add_user-60.png in Resources */,
 				4A823B691A5E36E600FDD58D /* left-30.png in Resources */,
 				4A45C2541A5F629400080F1B /* neutral_decision-30.png in Resources */,
+				4A45C2B31A62247F00080F1B /* play-60.png in Resources */,
+				4A45C2C61A62277F00080F1B /* left2-20.png in Resources */,
+				4A45C2B91A6224A400080F1B /* sent-60.png in Resources */,
 				4A45C2531A5F629400080F1B /* good_decision-90.png in Resources */,
+				4A45C2C91A62277F00080F1B /* right2-20.png in Resources */,
 				4A823B621A5DF7BC00FDD58D /* group-30.png in Resources */,
+				4A45C28E1A6186AC00080F1B /* speech_bubble-60.png in Resources */,
+				4A45C2B11A62247F00080F1B /* play-20.png in Resources */,
 				4A823B6A1A5E36E600FDD58D /* left-60.png in Resources */,
 				4A823B641A5DF7BC00FDD58D /* group-90.png in Resources */,
 				4A45C22B1A5F4CEE00080F1B /* ZSSFriendCell.xib in Resources */,
@@ -761,6 +855,7 @@
 				4AA71FF01A5C5EAB000A8B8E /* ZSSLoginViewController.xib in Resources */,
 				4AFCD13A1A4FC2E400543CE1 /* LaunchScreen.xib in Resources */,
 				4AFCD1371A4FC2E400543CE1 /* Images.xcassets in Resources */,
+				4A45C2BE1A6224C400080F1B /* voice_recognition_scan-40.png in Resources */,
 				4AA71FDE1A5C520C000A8B8E /* ZSSForgotPasswordViewController.xib in Resources */,
 				4A45C2431A5F5D6400080F1B /* meeting-60.png in Resources */,
 				4A45C26E1A5F89EF00080F1B /* add_user-90.png in Resources */,
@@ -831,9 +926,11 @@
 				4AA720261A5C8819000A8B8E /* DistancePickerView.m in Sources */,
 				4AA720031A5C5EF7000A8B8E /* ZSSCloudQuerier.m in Sources */,
 				4A45C25F1A5F757E00080F1B /* ZSSFriendRequestCell.m in Sources */,
+				4A45C2761A607CF500080F1B /* ZSSMessageCell.m in Sources */,
 				4A45C2681A5F75A000080F1B /* RKDropdownAlert+CommonAlerts.m in Sources */,
 				4AA720241A5C8819000A8B8E /* ActionSheetLocalePicker.m in Sources */,
 				4AFCD12F1A4FC2E400543CE1 /* AppDelegate.m in Sources */,
+				4A45C2711A60730500080F1B /* ZSSMessagesTableViewController.m in Sources */,
 				4AFCD1A01A50695D00543CE1 /* ZSSFriendRequest.m in Sources */,
 				4AA7202E1A5CA537000A8B8E /* ZSSFriendsTableViewController.m in Sources */,
 				4A6380D91A59CCED00D56AA4 /* NSString+Extras.m in Sources */,

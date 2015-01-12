@@ -10,6 +10,8 @@
 #import "ZSSCloudQuerier.h"
 #import "ZSSLocalQuerier.h"
 #import "ZSSLocalSyncer.h"
+#import "ZSSMessage.h"
+#import "ZSSLocalStore.h"
 
 @implementation testZSSCloudQuerier
 //+ (instancetype)sharedQuerier;
@@ -36,6 +38,7 @@
 
     [[ZSSCloudQuerier sharedQuerier] fetchMessagesInBackgroundWithCompletionBlock:^(NSArray *messages, NSError *error) {
         XCTAssertNotNil(messages);
+        XCTAssertNil(messages);
         XCTAssertFalse([messages count] == 0);
         for (int i = 0; i < messages.count; i++) {
             XCTAssertTrue([messages[i] isKindOfClass:[PFObject class]]);
@@ -46,9 +49,11 @@
 }
 
 - (void)testFetchFriendRequests {
+    
     [[ZSSCloudQuerier sharedQuerier] fetchFriendRequestsInBackgroundWithCompletionBlock:^(NSArray *sentFriendRequests, NSError *error) {
-
+        CFRunLoopStop(CFRunLoopGetCurrent());
         XCTAssertNotNil(sentFriendRequests);
+        XCTAssertNil(sentFriendRequests);
         XCTAssertFalse([sentFriendRequests count] == 0);
         for (int i = 0; i < sentFriendRequests.count; i++) {
             XCTAssertTrue([sentFriendRequests[i] isKindOfClass:[PFObject class]]);
@@ -78,6 +83,23 @@
         XCTAssertNil(error);
         XCTAssert(succeeded);
         [test_user delete];
+    }];
+}
+
+- (void)testViewMessage {
+    PFObject *cloudMessage = [PFObject objectWithClassName:@"ZSSMessage"];
+    [cloudMessage save];
+    ZSSMessage *localMessage = [[ZSSLocalQuerier sharedQuerier] localMessageForCloudMessage:cloudMessage];
+    [[ZSSCloudQuerier sharedQuerier] viewMessage:localMessage inBackgroundWithCompletionBlock:^(BOOL succeeded, NSError *error) {
+        XCTAssert(succeeded);
+        XCTAssertNotNil(cloudMessage[@"dateViewed"]);
+        XCTAssertNotNil(localMessage.dateViewed);
+        XCTAssertEqual(cloudMessage[@"dateViewed"], localMessage.dateViewed);
+        XCTAssertNil(cloudMessage[@"dateViewed"]);
+        [[ZSSLocalStore sharedStore] deleteMessage:localMessage];
+        [[ZSSLocalStore sharedStore] saveCoreDataChanges];
+        [cloudMessage delete];
+        [cloudMessage save];
     }];
 }
 

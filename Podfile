@@ -9,6 +9,8 @@ pod 'Google-Mobile-Ads-SDK', '~> 6.10'
 pod 'AAPullToRefresh'
 pod 'KVNProgress'
 pod 'JFMinimalNotifications', '~> 0.0.2'
+pod 'RKNotificationHub'
+pod 'DateTools'
 
 end
 

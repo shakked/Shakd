@@ -17,10 +17,11 @@
 @property (nonatomic, retain) NSDate * dateSent;
 @property (nonatomic, retain) NSDate * dateReceived;
 @property (nonatomic, retain) NSDate * dateViewed;
-@property (nonatomic, retain) id messageInfo;
+@property (nonatomic, retain) NSDictionary *messageInfo;
 @property (nonatomic, retain) NSString * objectId;
 @property (nonatomic, retain) NSDate * lastSynced;
 @property (nonatomic, retain) ZSSUser *sender;
 @property (nonatomic, retain) ZSSUser *receiver;
+- (BOOL)hasBeenViewed;
 
 @end

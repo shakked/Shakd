@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-Shakd-DateTools.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Shakd-Google-Mobile-Ads-SDK.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -24,6 +29,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-Shakd-RKNotificationHub.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Shakd.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,27 +42,37 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>5FB077F9894603CE3D50CDA0</key>
+		<key>0B71FF76DB6B01BD70A56DA2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7E2CA8694445A026AC79D4EE</key>
+		<key>1ADC48714AF04E9AB09AD2EE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8E7DC6826EBFD0B57D0E15FA</key>
+		<key>7DECABE5E2ED4141DC0EDAAA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9E88DE121DE1E2BBBCB19C35</key>
+		<key>A71E9904483F96CF9CC4A99B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FB3F3BCE5B7331CB18E647AA</key>
+		<key>B1CD0F3371244ACFDD2F1152</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DB77DAACB687C2CF34506D62</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FCD5355B0281734458996446</key>
 		<dict>
 			<key>primary</key>
 			<true/>

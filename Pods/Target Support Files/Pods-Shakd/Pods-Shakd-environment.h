@@ -12,6 +12,12 @@
 #define COCOAPODS_VERSION_MINOR_AAPullToRefresh 0
 #define COCOAPODS_VERSION_PATCH_AAPullToRefresh 2
 
+// DateTools
+#define COCOAPODS_POD_AVAILABLE_DateTools
+#define COCOAPODS_VERSION_MAJOR_DateTools 1
+#define COCOAPODS_VERSION_MINOR_DateTools 4
+#define COCOAPODS_VERSION_PATCH_DateTools 3
+
 // Google-Mobile-Ads-SDK
 #define COCOAPODS_POD_AVAILABLE_Google_Mobile_Ads_SDK
 #define COCOAPODS_VERSION_MAJOR_Google_Mobile_Ads_SDK 6
@@ -29,4 +35,10 @@
 #define COCOAPODS_VERSION_MAJOR_KVNProgress 2
 #define COCOAPODS_VERSION_MINOR_KVNProgress 1
 #define COCOAPODS_VERSION_PATCH_KVNProgress 5
+
+// RKNotificationHub
+#define COCOAPODS_POD_AVAILABLE_RKNotificationHub
+#define COCOAPODS_VERSION_MAJOR_RKNotificationHub 1
+#define COCOAPODS_VERSION_MINOR_RKNotificationHub 0
+#define COCOAPODS_VERSION_PATCH_RKNotificationHub 2
 

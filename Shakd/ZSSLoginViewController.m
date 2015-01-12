@@ -165,29 +165,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-#warning GET RID OF THIS EVENTUALLY
-//- (void)showMinimalNotificationWithStyle:(JFMinimalNotificationStytle)style title:(NSString *)title subtitle:(NSString *)subtitle backgroundColor:(UIColor *)color {
-//    [self resetMinimalNotification];
-//    self.minimalNotification = [JFMinimalNotification notificationWithStyle:style
-//                                                                      title:title
-//                                                                   subTitle:subtitle
-//                                                             dismissalDelay:2.0];
-//    [self.view addSubview:self.minimalNotification];
-//    [self.minimalNotification setPresentFromTop:YES];
-//    [self configureMinimalNotificationFonts];
-//    [self.minimalNotification setBackgroundColor:color];
-//    [self.minimalNotification show];
-//}
-//
-//- (void)configureMinimalNotificationFonts {
-//    [self.minimalNotification setTitleFont:[UIFont fontWithName:@"Avenir-Heavy" size:22.0]];
-//    [self.minimalNotification setSubTitleFont:[UIFont fontWithName:@"Avenir" size:16.0]];
-//}
-//
-//- (void)resetMinimalNotification {
-//    [self.minimalNotification removeFromSuperview];
-//    self.minimalNotification = nil;
-//}
 
 
 @end

@@ -22,4 +22,12 @@
 @dynamic dateViewed;
 @dynamic lastSynced;
 
+- (BOOL)hasBeenViewed {
+    if (self.dateViewed) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 @end

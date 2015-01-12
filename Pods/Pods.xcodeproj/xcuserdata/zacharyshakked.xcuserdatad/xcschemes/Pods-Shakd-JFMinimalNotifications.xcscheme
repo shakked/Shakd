@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7E2CA8694445A026AC79D4EE"
+               BlueprintIdentifier = "FCD5355B0281734458996446"
                BuildableName = "libPods-Shakd-JFMinimalNotifications.a"
                BlueprintName = "Pods-Shakd-JFMinimalNotifications"
                ReferencedContainer = "container:Pods.xcodeproj">

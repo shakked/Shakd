@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+@class ZSSUser;
 
 @interface ZSSFriendCell : UITableViewCell
 
+@property (nonatomic, strong) ZSSUser *friend;
 @property (weak, nonatomic) IBOutlet UILabel *friendLabel;
 @property (weak, nonatomic) IBOutlet UIButton *selectFriendButton;
+@property (nonatomic, strong) void (^selectFriendButtonPressedBlock)(void);
 @end

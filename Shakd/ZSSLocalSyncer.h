@@ -7,13 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Parse/Parse.h>
 @class ZSSUser;
 
 @interface ZSSLocalSyncer : NSObject
 
 + (instancetype)sharedSyncer;
-- (void)syncMessagesWithCompletionBlock:(void (^)(NSError *))completionBlock;
+- (void)syncMessagesWithCompletionBlock:(void (^)(NSArray *, NSError *))completionBlock;
 - (void)syncFriendRequestsWithCompletionBlock:(void (^)(NSArray*, NSError *))completionBlock;
-
 
 @end

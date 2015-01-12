@@ -15,7 +15,7 @@
 }
 
 - (IBAction)selectFriendButtonPushed:(id)sender {
-    
+    self.selectFriendButtonPressedBlock();
 }
 
 

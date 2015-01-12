@@ -18,6 +18,8 @@
 #import <Parse/Parse.h>
 #import "UIBarButtonItem+MyBarButtons.h"
 #import "ZSSFriendRequestsTableViewController.h"
+#import "UIView+Borders.h"
+#import "RKDropdownAlert+CommonAlerts.h"
 
 static NSString *FRIEND_CELL_CLASS = @"ZSSFriendCell";
 static NSString *CELL_IDENTIFIER = @"cell";
@@ -25,6 +27,8 @@ static NSString *CELL_IDENTIFIER = @"cell";
 @interface ZSSFriendsTableViewController ()
 
 @property (nonatomic,strong) NSArray *friends;
+@property (nonatomic, strong) NSMutableArray *sendList;
+@property (nonatomic, strong) NSDictionary *messageInfo;
 
 @end
 
@@ -39,20 +43,21 @@ static NSString *CELL_IDENTIFIER = @"cell";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [[ZSSLocalSyncer sharedSyncer] syncFriendRequestsWithCompletionBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            [self loadFriendData];
-            [self.tableView reloadData];
-        } else {
-            [self showSyncError:error];
-        }
-    }];
+//    [[ZSSLocalSyncer sharedSyncer] syncFriendRequestsWithCompletionBlock:^(NSArray *objects, NSError *error) {
+//        if (!error) {
+//            [self loadFriendData];
+//            [self.tableView reloadData];
+//        } else {
+//            [self showSyncError:error];
+//        }
+//    }];
 
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self loadFriendData];
+    [self showToolbarIfNecessary];
 }
 
 - (void)configureViews {
@@ -63,6 +68,7 @@ static NSString *CELL_IDENTIFIER = @"cell";
 - (void)configureNavBar {
     self.navigationItem.title = @"Friends";
     [self configureNavBarButtons];
+    [self configureToolbar];
 }
 
 - (void)configureNavBarButtons {
@@ -99,29 +105,122 @@ static NSString *CELL_IDENTIFIER = @"cell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZSSUser *friend = self.friends[indexPath.row];
     ZSSFriendCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER forIndexPath:indexPath];
-    cell = [self configureCell:cell ForFriend:friend];
+    [cell setFriend:friend];
+    [self configureCell:cell ForFriend:friend];
     return cell;
 }
 
-- (ZSSFriendCell *)configureCell:(ZSSFriendCell *)cell ForFriend:(ZSSUser *)friend {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.state == ZSSFriendsTableStateSendingMessage) {
+        ZSSFriendCell *cell = (ZSSFriendCell *)[tableView cellForRowAtIndexPath:indexPath];
+        ZSSUser *friend = cell.friend;
+        if ([self.sendList containsObject:friend]) {
+            [self.sendList removeObject:friend];
+            [self configureUnselectedCell:cell];
+        } else {
+            [self.sendList addObject:friend];
+            [self configureSelectedCell:cell];
+        }
+        [self showToolbarIfNecessary];
+    }
+}
+
+
+- (void)configureCell:(ZSSFriendCell *)cell ForFriend:(ZSSUser *)friend {
     
     [cell.friendLabel setText:friend.username];
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     if (self.state == ZSSFriendsTableStateViewing) {
-        cell = [self configureCellForViewingState:cell];
+        [self configureCellForViewingState:cell];
     } else {
-        cell = [self configureCellForSendingMessageState:cell];
+        [self configureCellForSendingMessageState:cell];
     }
-    return cell;
 }
 
-- (ZSSFriendCell *)configureCellForViewingState:(ZSSFriendCell *)cell {
+- (void)configureCellForViewingState:(ZSSFriendCell *)cell {
     [cell.selectFriendButton setHidden:YES];
-    return cell;
 }
 
-- (ZSSFriendCell *)configureCellForSendingMessageState:(ZSSFriendCell *)cell {
+- (void)configureCellForSendingMessageState:(ZSSFriendCell *)cell {
     [cell.selectFriendButton setHidden:NO];
-    return cell;
+    [[cell.selectFriendButton layer] setCornerRadius:5.0];
+    if ([self.sendList containsObject:cell.friend]) {
+        [self configureSelectedCell:cell];
+    } else {
+        [self configureUnselectedCell:cell];
+    }
+    
+    [self configureCellBlocksForSendingMessageState:cell];
+}
+
+- (void)configureSelectedCell:(ZSSFriendCell *)cell {
+    [cell.selectFriendButton setBackgroundColor:[UIColor charcoalColor]];
+    [cell.friendLabel setFont:[UIFont fontWithName:@"Avenir-Heavy" size:22.0]];
+}
+
+- (void)configureUnselectedCell:(ZSSFriendCell *)cell {
+    [cell.selectFriendButton setBackgroundColor:[UIColor whiteColor]];
+    [[cell.selectFriendButton layer] setBorderColor:[UIColor charcoalColor].CGColor];
+    [[cell.selectFriendButton layer] setBorderWidth:2.0];
+    [cell.friendLabel setFont:[UIFont fontWithName:@"Avenir" size:22.0]];
+}
+
+- (void)configureCellBlocksForSendingMessageState:(ZSSFriendCell *)cell {
+    __weak ZSSFriendCell *weakCell = cell;
+    cell.selectFriendButtonPressedBlock = ^{
+        ZSSFriendCell *strongCell = weakCell;
+        ZSSUser *friend = strongCell.friend;
+        if ([self.sendList containsObject:friend]) {
+            [self.sendList removeObject:friend];
+            [self configureUnselectedCell:strongCell];
+        } else {
+            [self.sendList addObject:friend];
+            [self configureSelectedCell:strongCell];
+        }
+        
+        [self showToolbarIfNecessary];
+    };
+}
+
+- (void)showToolbarIfNecessary {
+    if ([self.sendList count] > 0) {
+        [self.navigationController setToolbarHidden:NO animated:YES];
+    } else {
+        [self.navigationController setToolbarHidden:YES animated:YES];
+    }
+}
+
+- (void)configureToolbar {
+    UIBarButtonItem *flexibleSpaceBarButton = [[UIBarButtonItem alloc]
+                                               initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                               target:nil
+                                               action:nil];
+    
+    UIButton *sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [sendButton setTitle:@"Send" forState:UIControlStateNormal];
+    [sendButton.titleLabel setFont:[UIFont fontWithName:@"Avenir-Heavy" size:16.0]];
+    sendButton.bounds = CGRectMake(0, 0, 40, 30);
+    [sendButton setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+    [sendButton addTarget:self action:@selector(sendMessages) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *sendBarButton = [[UIBarButtonItem alloc] initWithCustomView:sendButton];
+    
+    [self setToolbarItems:@[flexibleSpaceBarButton, sendBarButton] animated:NO];
+    self.navigationController.toolbar.barTintColor = [UIColor charcoalColor];
+    self.navigationController.toolbar.translucent = NO;
+    self.navigationController.toolbar.tintColor = [UIColor whiteColor];
+}
+
+- (void)sendMessage {
+    [[ZSSCloudQuerier sharedQuerier] sendMessageToUsers:self.sendList withMessageInfo:self.messageInfo withCompletionBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded && !error) {
+            [RKDropdownAlert title:@"Messages sent!" backgroundColor:[UIColor turquoiseColor] textColor:[UIColor whiteColor]];
+        } else if (!succeeded && error) {
+            [RKDropdownAlert error:error];
+        } else {
+            [RKDropdownAlert title:@"Somethign went wrong" backgroundColor:[UIColor charcoalColor] textColor:[UIColor whiteColor]];
+        }
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
 }
 
 - (void)showPreviousView {
@@ -142,6 +241,24 @@ static NSString *CELL_IDENTIFIER = @"cell";
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _sendList = [[NSMutableArray alloc] init];
+    }
+    return self;
+}
+
+- (instancetype)initWithState:(ZSSFriendsTableState)state andMessageInfo:(NSDictionary *)messageInfo {
+    self = [super init];
+    if (self) {
+        _state = state;
+        _sendList = [[NSMutableArray alloc] init];
+        _messageInfo = [[NSDictionary alloc] initWithDictionary:messageInfo];
+    }
+    return self;
 }
 
 @end

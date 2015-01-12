@@ -148,6 +148,7 @@
 }
 
 - (ZSSUser *)updateLocalUser:(ZSSUser *)localUser withDataOfCloudUser:(PFUser *)cloudUser {
+    [cloudUser pinInBackground];
     localUser.objectId = [cloudUser objectId];
     localUser.username = cloudUser[@"username"];
     localUser.email = cloudUser[@"email"];

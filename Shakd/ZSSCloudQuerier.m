@@ -9,6 +9,9 @@
 #import "ZSSCloudQuerier.h"
 #import "RKDropdownAlert+CommonAlerts.h"
 #import "UIColor+ShakdColors.h"
+#import "ZSSMessage.h"
+#import "ZSSLocalQuerier.h"
+#import "ZSSLocalStore.h"
 
 static int THROTTLE_TIME = 2;
 @interface ZSSCloudQuerier ()
@@ -19,6 +22,7 @@ static int THROTTLE_TIME = 2;
 @property (nonatomic, strong) NSDate *timeOfLastSignUpAttempt;
 @property (nonatomic, strong) NSDate *timeOfLastPasswordResetAttempt;
 @property (nonatomic, strong) NSDate *timeOfLastSendFriendRequestAttempt;
+
 @end
 
 @implementation ZSSCloudQuerier
@@ -84,6 +88,14 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
     
 }
 
+- (void)resetPasswordForEmail:(NSString *)email inBackgroundWithCompletionBlock:(void (^)(BOOL, NSError *))completionBlock {
+    if ([self hasBeenFiveSecondsSince:self.timeOfLastPasswordResetAttempt]) {
+        [PFUser requestPasswordResetForEmailInBackground:email block:^(BOOL succeeded, NSError *error) {
+            completionBlock(succeeded, error);
+        }];
+    }
+};
+
 - (void)sendFriendRequestToUsername:(NSString *)username inBackgroundWithCompletionBlock:(void (^)(BOOL, NSError *))completionBlock {
     if ([self hasBeenFiveSecondsSince:self.timeOfLastSendFriendRequestAttempt]) {
         if ([self userIsLoggedIn]) {
@@ -107,16 +119,46 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
         NSError *error = [self throttleError];
         completionBlock(NO, error);
     }
-
 }
 
-- (void)resetPasswordForEmail:(NSString *)email inBackgroundWithCompletionBlock:(void (^)(BOOL, NSError *))completionBlock {
-    if ([self hasBeenFiveSecondsSince:self.timeOfLastPasswordResetAttempt]) {
-        [PFUser requestPasswordResetForEmailInBackground:email block:^(BOOL succeeded, NSError *error) {
+- (void)viewMessage:(ZSSMessage *)localMessage inBackgroundWithCompletionBlock:(void (^)(BOOL, NSError *))completionBlock {
+    PFQuery *messageQuery = [self messageQueryForObjectId:localMessage.objectId];
+    [messageQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error && [objects count] == 1) {
+            PFObject *cloudMessage = [objects firstObject];
+            NSDate *now = [NSDate date];
+            cloudMessage[@"dateViewed"] = now;
+            [cloudMessage saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+ 
+                completionBlock(succeeded, error);
+                localMessage.dateViewed = now;
+                [[ZSSLocalStore sharedStore] saveCoreDataChanges];
+            }];
+        } else if ([objects count] == 0){
+            completionBlock(NO, error);
+        } else {
+            [self throwMoreObjectsThanExpectedException];
+        }
+    }];
+}
+
+- (void)sendMessageToUsers:(NSArray *)users withMessageInfo:(NSDictionary *)messageInfo withCompletionBlock:(void (^)(BOOL, NSError *))completionBlock {
+    PFQuery *usersQuery = [PFUser query];
+    [usersQuery fromLocalDatastore];
+    [usersQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        NSArray *sendlist = [self filterUsers:[users mutableCopy] forSendlist:objects];
+        NSMutableArray *messages = [[NSMutableArray alloc] init];
+
+        for (PFUser *receiver in sendlist) {
+            PFObject *message = [self messageToUser:receiver withMessageInfo:messageInfo];
+            [messages addObject:message];
+        }
+        
+        [PFObject saveAllInBackground:messages block:^(BOOL succeeded, NSError *error) {
             completionBlock(succeeded, error);
         }];
-    }
-};
+    }];
+}
 
 - (void)executeQuery:(PFQuery *)query withCompletionBlock:(void (^)(NSArray *, NSError *))completionBlock {
     
@@ -138,6 +180,34 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
     friendRequest[@"confirmed"] = @NO;
     friendRequest[@"dateSent"] = [NSDate date];
     return friendRequest;
+}
+
+- (NSArray *)filterUsers:(NSMutableArray *)users forSendlist:(NSArray *)sendlist {
+
+    NSArray *sendlistObjectIds = [self objectIds:sendlist];
+    for (PFUser *user in users) {
+        if (![sendlistObjectIds containsObject:user.objectId]) {
+            [users removeObject:user];
+        }
+    }
+    return users;
+}
+
+- (NSArray *)objectIds:(NSArray *)objects {
+    NSMutableArray *objectIds = [[NSMutableArray alloc] init];
+    for (id object in objects) {
+        [objectIds addObject:object[@"objectId"]];
+    }
+    return objectIds;
+}
+
+- (PFObject *)messageToUser:(PFUser *)receiver withMessageInfo:(NSDictionary *)messageInfo {
+    PFObject *message = [PFObject objectWithClassName:@"ZSSMessage"];
+    message[@"dateSent"] = [NSDate date];
+    message[@"messageInfo"] = messageInfo;
+    message[@"sender"] = [PFUser currentUser];
+    message[@"receiver"] = receiver;
+    return message;
 }
 
 - (void)throwQueryNotPossibleException {
@@ -181,6 +251,12 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
     [messagesQuery orderByDescending:@"createdAt"];
     [messagesQuery includeKey:@"sender"];
     [messagesQuery includeKey:@"receiver"];
+    return messagesQuery;
+}
+
+- (PFQuery *)messageQueryForObjectId:(NSString *)objectId {
+    PFQuery *messagesQuery = [self messagesQuery];
+    [messagesQuery whereKey:@"objectId" equalTo:objectId];
     return messagesQuery;
 }
 

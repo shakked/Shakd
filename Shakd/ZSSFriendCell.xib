@@ -15,26 +15,20 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dIP-EC-XyT">
-                        <rect key="frame" x="18" y="26" width="333" height="31"/>
+                        <rect key="frame" x="18" y="26" width="348" height="31"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="21" id="ZrN-H9-9yW"/>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="evN-SB-mXd"/>
+                            <constraint firstAttribute="height" constant="31" id="ME7-8T-PaD"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="22"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="ZrN-H9-9yW"/>
-                            </mask>
-                        </variation>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SFo-No-nkt">
-                        <rect key="frame" x="361" y="21" width="40" height="40"/>
+                        <rect key="frame" x="376" y="29" width="25" height="25"/>
                         <color key="backgroundColor" red="0.23137254900000001" green="0.23137254900000001" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="40" id="83w-VL-RWr"/>
-                            <constraint firstAttribute="width" constant="40" id="ivJ-O6-GFF"/>
+                            <constraint firstAttribute="width" constant="25" id="0wg-q7-jZ2"/>
+                            <constraint firstAttribute="height" constant="25" id="mcQ-Dh-ER5"/>
                         </constraints>
                         <state key="normal">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -45,12 +39,12 @@
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="centerY" secondItem="SFo-No-nkt" secondAttribute="centerY" id="3hI-Hc-gX7"/>
                     <constraint firstItem="dIP-EC-XyT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="9oq-hh-Z3z"/>
-                    <constraint firstAttribute="centerY" secondItem="dIP-EC-XyT" secondAttribute="centerY" id="dB0-le-cGh"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="SFo-No-nkt" secondAttribute="trailing" constant="10" id="g4b-Hn-hd4"/>
-                    <constraint firstItem="dIP-EC-XyT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="hon-l3-Olg"/>
-                    <constraint firstItem="SFo-No-nkt" firstAttribute="leading" secondItem="dIP-EC-XyT" secondAttribute="trailing" constant="10" id="xCv-t9-kTd"/>
+                    <constraint firstItem="dIP-EC-XyT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="Lr3-X2-AVB"/>
+                    <constraint firstAttribute="centerY" secondItem="SFo-No-nkt" secondAttribute="centerY" id="M0q-Ls-f6M"/>
+                    <constraint firstAttribute="centerY" secondItem="dIP-EC-XyT" secondAttribute="centerY" id="TJ3-B3-vJg"/>
+                    <constraint firstItem="SFo-No-nkt" firstAttribute="leading" secondItem="dIP-EC-XyT" secondAttribute="trailing" constant="10" id="dTh-hp-Hl7"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="SFo-No-nkt" secondAttribute="trailing" constant="10" id="znx-Af-7Jh"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
