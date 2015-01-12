@@ -57,6 +57,7 @@
 		4A45C2CA1A62277F00080F1B /* right2-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2C41A62277F00080F1B /* right2-40.png */; };
 		4A45C2CB1A62277F00080F1B /* right2-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2C51A62277F00080F1B /* right2-60.png */; };
 		4A45C2CD1A63A2E500080F1B /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2CC1A63A2E500080F1B /* Keys.plist */; };
+		4A45C2CF1A63A67E00080F1B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A45C2CE1A63A67E00080F1B /* AppDelegate.m */; };
 		4A6380D51A59C61F00D56AA4 /* RKDropdownAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6380D41A59C61F00D56AA4 /* RKDropdownAlert.m */; };
 		4A6380D61A59C61F00D56AA4 /* RKDropdownAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6380D41A59C61F00D56AA4 /* RKDropdownAlert.m */; };
 		4A6380D91A59CCED00D56AA4 /* NSString+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6380D81A59CCED00D56AA4 /* NSString+Extras.m */; };
@@ -127,7 +128,6 @@
 		4ACF3E381A524A2D0030C07E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFCD1711A4FC65C00543CE1 /* CoreLocation.framework */; };
 		4ACF3E391A524A3F0030C07E /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFCD1851A4FC8F900543CE1 /* libstdc++.6.dylib */; };
 		4AFCD12C1A4FC2E400543CE1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCD12B1A4FC2E400543CE1 /* main.m */; };
-		4AFCD12F1A4FC2E400543CE1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCD12E1A4FC2E400543CE1 /* AppDelegate.m */; };
 		4AFCD1321A4FC2E400543CE1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCD1311A4FC2E400543CE1 /* ViewController.m */; };
 		4AFCD1371A4FC2E400543CE1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AFCD1361A4FC2E400543CE1 /* Images.xcassets */; };
 		4AFCD13A1A4FC2E400543CE1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4AFCD1381A4FC2E400543CE1 /* LaunchScreen.xib */; };
@@ -242,6 +242,7 @@
 		4A45C2C41A62277F00080F1B /* right2-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right2-40.png"; sourceTree = "<group>"; };
 		4A45C2C51A62277F00080F1B /* right2-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right2-60.png"; sourceTree = "<group>"; };
 		4A45C2CC1A63A2E500080F1B /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		4A45C2CE1A63A67E00080F1B /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		4A6380D31A59C61F00D56AA4 /* RKDropdownAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKDropdownAlert.h; sourceTree = "<group>"; };
 		4A6380D41A59C61F00D56AA4 /* RKDropdownAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKDropdownAlert.m; sourceTree = "<group>"; };
 		4A6380D71A59CCED00D56AA4 /* NSString+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extras.h"; sourceTree = "<group>"; };
@@ -300,7 +301,6 @@
 		4AFCD12A1A4FC2E400543CE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4AFCD12B1A4FC2E400543CE1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4AFCD12D1A4FC2E400543CE1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		4AFCD12E1A4FC2E400543CE1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		4AFCD1301A4FC2E400543CE1 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		4AFCD1311A4FC2E400543CE1 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		4AFCD1361A4FC2E400543CE1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -608,7 +608,7 @@
 			children = (
 				4A823B651A5DF7EE00FDD58D /* Images */,
 				4AFCD12D1A4FC2E400543CE1 /* AppDelegate.h */,
-				4AFCD12E1A4FC2E400543CE1 /* AppDelegate.m */,
+				4A45C2CE1A63A67E00080F1B /* AppDelegate.m */,
 				4AFCD1301A4FC2E400543CE1 /* ViewController.h */,
 				4AFCD1311A4FC2E400543CE1 /* ViewController.m */,
 				4AFCD1361A4FC2E400543CE1 /* Images.xcassets */,
@@ -933,13 +933,13 @@
 				4A45C2761A607CF500080F1B /* ZSSMessageCell.m in Sources */,
 				4A45C2681A5F75A000080F1B /* RKDropdownAlert+CommonAlerts.m in Sources */,
 				4AA720241A5C8819000A8B8E /* ActionSheetLocalePicker.m in Sources */,
-				4AFCD12F1A4FC2E400543CE1 /* AppDelegate.m in Sources */,
 				4A45C2711A60730500080F1B /* ZSSMessagesTableViewController.m in Sources */,
 				4AFCD1A01A50695D00543CE1 /* ZSSFriendRequest.m in Sources */,
 				4AA7202E1A5CA537000A8B8E /* ZSSFriendsTableViewController.m in Sources */,
 				4A6380D91A59CCED00D56AA4 /* NSString+Extras.m in Sources */,
 				4A45C2361A5F4D1800080F1B /* UIBarButtonItem+MyBarButtons.m in Sources */,
 				4AFCD12C1A4FC2E400543CE1 /* main.m in Sources */,
+				4A45C2CF1A63A67E00080F1B /* AppDelegate.m in Sources */,
 				4AFCD1AB1A506B0300543CE1 /* ZSSLocalStore.m in Sources */,
 				4AA71FF51A5C5ECA000A8B8E /* ZSSWelcomeViewController.m in Sources */,
 				4AA71FFC1A5C5EDD000A8B8E /* ZSSHomeViewController.m in Sources */,
