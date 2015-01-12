@@ -134,34 +134,55 @@
     [self.privateFriendRequests removeObject:friendRequest];
 }
 
-- (ZSSUser *)fetchUserWithObjectId:(NSString *)objectId {
-    for (ZSSUser *user in self.privateUsers) {
-        if ([user.objectId isEqual:objectId]) {
-            return user;
-        }
+- (ZSSUser *)fetchUserWithObjectId:(NSString *)identifier{
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(objectId == %@)",identifier];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setPredicate:predicate];
+    NSEntityDescription *e = [NSEntityDescription entityForName:@"ZSSUser" inManagedObjectContext:self.context];
+    request.entity = e;
+    
+    NSError *error;
+    ZSSUser *user = [[self.context executeFetchRequest:request error:&error] firstObject];
+    if (!user) {
+        NSLog(@"ZSSUser not found for identifier: %@", identifier);
+        return nil;
     }
-    [self throwUserDoesNotExistException:objectId];
-    return nil;
+    return user;
 }
 
-- (ZSSMessage *)fetchMessageWithObjectId:(NSString *)objectId {
-    for (ZSSMessage *message in self.privateMessages) {
-        if ([message.objectId isEqual:objectId]) {
-            return message;
-        }
+- (ZSSMessage *)fetchMessageWithObjectId:(NSString *)identifier{
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(objectId == %@)",identifier];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setPredicate:predicate];
+    NSEntityDescription *e = [NSEntityDescription entityForName:@"ZSSMessage" inManagedObjectContext:self.context];
+    request.entity = e;
+    
+    NSError *error;
+    ZSSMessage *message = [[self.context executeFetchRequest:request error:&error] firstObject];
+    if (!message) {
+        return nil;
     }
-    [self throwMessageDoesNotExistException:objectId];
-    return nil;
+    return message;
 }
 
-- (ZSSFriendRequest *)fetchFriendRequestWithObjectId:(NSString *)objectId {
-    for (ZSSFriendRequest *friendRequest in self.privateFriendRequests) {
-        if ([friendRequest.objectId isEqual:objectId]) {
-            return friendRequest;
-        }
+
+- (ZSSFriendRequest *)fetchFriendRequestWithObjectId:(NSString *)identifier{
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(objectId == %@)",identifier];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setPredicate:predicate];
+    NSEntityDescription *e = [NSEntityDescription entityForName:@"ZSSFriendRequest" inManagedObjectContext:self.context];
+    request.entity = e;
+    
+    NSError *error;
+    ZSSFriendRequest *friendRequest = [[self.context executeFetchRequest:request error:&error] firstObject];
+    if (!friendRequest) {
+        NSLog(@"ZSSFriendRequest not found for identifier: %@", identifier);
+        return nil;
     }
-    [self throwFriendRequestDoesNotExistException:objectId];
-    return nil;
+    return friendRequest;
 }
 
 - (void)throwUserDoesNotExistException:(NSString *)objectId {

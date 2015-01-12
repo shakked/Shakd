@@ -51,19 +51,12 @@
 }
 
 - (ZSSMessage *)localMessageForCloudMessage:(PFObject *)cloudMessage {
-    
-    ZSSMessage *messageInSearchOf;
-    NSArray *messages = [[ZSSLocalStore sharedStore] messages];
-    for (ZSSMessage *message in messages) {
-        if ([message.objectId isEqual:cloudMessage.objectId]) {
-            messageInSearchOf = message;
-        }
-    }
+    ZSSMessage *messageInSearchOf = [[ZSSLocalStore sharedStore] fetchMessageWithObjectId:cloudMessage.objectId];
     
     if (!messageInSearchOf) {
         messageInSearchOf = [[ZSSLocalFactory sharedFactory] createMessage];
     }
-    
+
     return [self updateLocalMessage:messageInSearchOf withDataOfCloudMessage:cloudMessage];
 }
 
@@ -104,7 +97,11 @@
             [sentMessages addObject:message];
         }
     }
-    return sentMessages;
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"dateSent"
+                                                                   ascending:NO];
+    
+    return [sentMessages sortedArrayUsingDescriptors:@[sortDescriptor]];;
 }
 
 - (NSArray *)receivedMessages {
@@ -116,7 +113,10 @@
             [receivedMessages addObject:message];
         }
     }
-    return receivedMessages;
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"dateSent"
+                                                                   ascending:NO];
+    
+    return [receivedMessages sortedArrayUsingDescriptors:@[sortDescriptor]];;
 }
 
 - (NSArray *)sentFriendRequests {
@@ -148,13 +148,13 @@
 }
 
 - (ZSSUser *)updateLocalUser:(ZSSUser *)localUser withDataOfCloudUser:(PFUser *)cloudUser {
-    [cloudUser pinInBackground];
+    NSDate *startTime = [NSDate date];
     localUser.objectId = [cloudUser objectId];
     localUser.username = cloudUser[@"username"];
     localUser.email = cloudUser[@"email"];
     localUser.createdAt = [cloudUser createdAt];
     localUser.lastSynced = cloudUser[@"lastSynced"];
-    [[ZSSLocalStore sharedStore] saveCoreDataChanges];
+
     return localUser;
 }
 
@@ -170,8 +170,9 @@
     localMessage.dateReceived = cloudMessage[@"dateReceived"];
     localMessage.dateViewed = cloudMessage[@"dateViewed"];
     localMessage.lastSynced = cloudMessage[@"lastSynced"];
-    [[ZSSLocalStore sharedStore] saveCoreDataChanges];
+
     return localMessage;
+    
 }
 
 
@@ -184,7 +185,6 @@
     localFriendRequest.dateConfirmed = cloudFriendRequest[@"dateConfirmed"];
     localFriendRequest.lastSynced = cloudFriendRequest[@"lastSynced"];
     localFriendRequest.createdAt = [cloudFriendRequest createdAt];
-    [[ZSSLocalStore sharedStore] saveCoreDataChanges];
     return localFriendRequest;
 }
 

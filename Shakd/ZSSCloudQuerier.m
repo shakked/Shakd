@@ -132,7 +132,6 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
  
                 completionBlock(succeeded, error);
                 localMessage.dateViewed = now;
-                [[ZSSLocalStore sharedStore] saveCoreDataChanges];
             }];
         } else if ([objects count] == 0){
             completionBlock(NO, error);
@@ -144,12 +143,12 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
 
 - (void)sendMessageToUsers:(NSArray *)users withMessageInfo:(NSDictionary *)messageInfo withCompletionBlock:(void (^)(BOOL, NSError *))completionBlock {
     PFQuery *usersQuery = [PFUser query];
-    [usersQuery fromLocalDatastore];
-    [usersQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        NSArray *sendlist = [self filterUsers:[users mutableCopy] forSendlist:objects];
+    NSArray *userIds = [self userObjectIds:users];
+    [usersQuery whereKey:@"objectId" containedIn:userIds];
+    [usersQuery findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
         NSMutableArray *messages = [[NSMutableArray alloc] init];
 
-        for (PFUser *receiver in sendlist) {
+        for (PFUser *receiver in users) {
             PFObject *message = [self messageToUser:receiver withMessageInfo:messageInfo];
             [messages addObject:message];
         }
@@ -162,11 +161,9 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
 
 - (void)executeQuery:(PFQuery *)query withCompletionBlock:(void (^)(NSArray *, NSError *))completionBlock {
     
-    if ([self userIsLoggedIn]) {
-        
+    if ([self userIsLoggedIn]) { 
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             completionBlock(objects, error);
-            
         }];
     } else {
         [self throwQueryNotPossibleException];
@@ -184,7 +181,7 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
 
 - (NSArray *)filterUsers:(NSMutableArray *)users forSendlist:(NSArray *)sendlist {
 
-    NSArray *sendlistObjectIds = [self objectIds:sendlist];
+    NSArray *sendlistObjectIds = [self userObjectIds:sendlist];
     for (PFUser *user in users) {
         if (![sendlistObjectIds containsObject:user.objectId]) {
             [users removeObject:user];
@@ -193,10 +190,10 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
     return users;
 }
 
-- (NSArray *)objectIds:(NSArray *)objects {
+- (NSArray *)userObjectIds:(NSArray *)users {
     NSMutableArray *objectIds = [[NSMutableArray alloc] init];
-    for (id object in objects) {
-        [objectIds addObject:object[@"objectId"]];
+    for (ZSSUser *user in users) {
+        [objectIds addObject:user.objectId];
     }
     return objectIds;
 }
@@ -287,12 +284,9 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
     NSDate *currentTime = [NSDate date];
 
     NSTimeInterval secs = [currentTime timeIntervalSinceDate:time];
-    NSLog(@"SECS: %f", secs);
     if (secs > THROTTLE_TIME) {
-        NSLog(@"It's been five seconds..");
         return YES;
     } else {
-        NSLog(@"NOPE");
         return NO;
     }
 }

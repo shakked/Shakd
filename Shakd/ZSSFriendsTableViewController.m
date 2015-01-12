@@ -43,14 +43,14 @@ static NSString *CELL_IDENTIFIER = @"cell";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-//    [[ZSSLocalSyncer sharedSyncer] syncFriendRequestsWithCompletionBlock:^(NSArray *objects, NSError *error) {
-//        if (!error) {
-//            [self loadFriendData];
-//            [self.tableView reloadData];
-//        } else {
-//            [self showSyncError:error];
-//        }
-//    }];
+    [[ZSSLocalSyncer sharedSyncer] syncFriendRequestsWithCompletionBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            [self loadFriendData];
+            [self.tableView reloadData];
+        } else {
+            [self showSyncError:error];
+        }
+    }];
 
 }
 
@@ -210,7 +210,7 @@ static NSString *CELL_IDENTIFIER = @"cell";
     self.navigationController.toolbar.tintColor = [UIColor whiteColor];
 }
 
-- (void)sendMessage {
+- (void)sendMessages {
     [[ZSSCloudQuerier sharedQuerier] sendMessageToUsers:self.sendList withMessageInfo:self.messageInfo withCompletionBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded && !error) {
             [RKDropdownAlert title:@"Messages sent!" backgroundColor:[UIColor turquoiseColor] textColor:[UIColor whiteColor]];

@@ -39,7 +39,6 @@
             for (PFObject *message in messages) {
                 [[ZSSLocalQuerier sharedQuerier] localMessageForCloudMessage:message];
             }
-            [[ZSSLocalStore sharedStore] saveCoreDataChanges];
         }
         completionBlock(messages, error);
         
@@ -50,10 +49,11 @@
     
     [[ZSSCloudQuerier sharedQuerier] fetchFriendRequestsInBackgroundWithCompletionBlock:^(NSArray *friendRequests, NSError *error) {
         if (!error) {
-            for (PFObject *friendRequest in friendRequests) {
-                [[ZSSLocalQuerier sharedQuerier] localFriendRequestForCloudFriendRequest:friendRequest];
-            }
-            [[ZSSLocalStore sharedStore] saveCoreDataChanges];
+                // Perform long running process
+                for (PFObject *friendRequest in friendRequests) {
+                    [[ZSSLocalQuerier sharedQuerier] localFriendRequestForCloudFriendRequest:friendRequest];
+                }
+                [[ZSSLocalStore sharedStore] saveCoreDataChanges];
         }
         
         completionBlock(friendRequests, error);

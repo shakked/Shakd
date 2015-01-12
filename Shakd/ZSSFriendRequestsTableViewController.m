@@ -43,14 +43,14 @@ static NSString *CELL_IDENTIFIER = @"cell";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-//    [[ZSSLocalSyncer sharedSyncer] syncFriendRequestsWithCompletionBlock:^(NSArray *friendRequests, NSError *error) {
-//        if (!error) {
-//            [self loadFriendRequestData];
-//            [self.tableView reloadData];
-//        } else {
-//            [RKDropdownAlert error:error];
-//        }
-//    }];
+    [[ZSSLocalSyncer sharedSyncer] syncFriendRequestsWithCompletionBlock:^(NSArray *friendRequests, NSError *error) {
+        if (!error) {
+            [self loadFriendRequestData];
+            [self.tableView reloadData];
+        } else {
+            [RKDropdownAlert error:error];
+        }
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
