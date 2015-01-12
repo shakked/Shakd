@@ -25,5 +25,6 @@
 - (NSArray *)sentFriendRequests;
 - (NSArray *)receivedFriendRequests;
 - (NSArray *)friendRequests;
+- (NSArray *)unreadMessages;
 
 @end

@@ -132,6 +132,7 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
  
                 completionBlock(succeeded, error);
                 localMessage.dateViewed = now;
+                [self adjustBadge];
             }];
         } else if ([objects count] == 0){
             completionBlock(NO, error);
@@ -157,6 +158,11 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
             completionBlock(succeeded, error);
         }];
     }];
+}
+
+- (void)adjustBadge {
+    NSInteger unreadMessagesCount = [[[ZSSLocalQuerier sharedQuerier] unreadMessages] count];
+    [[PFInstallation currentInstallation] setBadge:unreadMessagesCount];
 }
 
 - (void)executeQuery:(PFQuery *)query withCompletionBlock:(void (^)(NSArray *, NSError *))completionBlock {

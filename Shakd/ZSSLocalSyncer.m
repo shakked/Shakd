@@ -41,7 +41,7 @@
             }
         }
         completionBlock(messages, error);
-        
+        [[ZSSCloudQuerier sharedQuerier] adjustBadge];
     }];
 }
 

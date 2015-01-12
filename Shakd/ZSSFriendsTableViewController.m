@@ -217,8 +217,9 @@ static NSString *CELL_IDENTIFIER = @"cell";
         } else if (!succeeded && error) {
             [RKDropdownAlert error:error];
         } else {
-            [RKDropdownAlert title:@"Somethign went wrong" backgroundColor:[UIColor charcoalColor] textColor:[UIColor whiteColor]];
+            [RKDropdownAlert title:@"Something went wrong" backgroundColor:[UIColor charcoalColor] textColor:[UIColor whiteColor]];
         }
+        [self.navigationController setToolbarHidden:YES animated:YES];
         [self.navigationController popViewControllerAnimated:YES];
     }];
 }

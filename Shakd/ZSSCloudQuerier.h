@@ -25,4 +25,5 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock;
 - (void)sendMessageToUsers:(NSArray *)users
            withMessageInfo:(NSDictionary *)messageInfo
        withCompletionBlock:(void (^)(BOOL, NSError *))completionBlock;
+- (void)adjustBadge;
 @end

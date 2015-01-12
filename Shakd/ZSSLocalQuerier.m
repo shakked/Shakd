@@ -147,6 +147,17 @@
     return [[ZSSLocalStore sharedStore] friendRequests];
 }
 
+- (NSArray *)unreadMessages {
+    NSMutableArray *unreadMessages = [[NSMutableArray alloc] init];
+    NSArray *receivedMessages = [self receivedMessages];
+    for (ZSSMessage *message in receivedMessages) {
+        if (!message.dateViewed) {
+            [unreadMessages addObject:message];
+        }
+    }
+    return unreadMessages;
+}
+
 - (ZSSUser *)updateLocalUser:(ZSSUser *)localUser withDataOfCloudUser:(PFUser *)cloudUser {
     NSDate *startTime = [NSDate date];
     localUser.objectId = [cloudUser objectId];
