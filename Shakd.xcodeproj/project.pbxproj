@@ -56,7 +56,6 @@
 		4A45C2C91A62277F00080F1B /* right2-20.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2C31A62277F00080F1B /* right2-20.png */; };
 		4A45C2CA1A62277F00080F1B /* right2-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2C41A62277F00080F1B /* right2-40.png */; };
 		4A45C2CB1A62277F00080F1B /* right2-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2C51A62277F00080F1B /* right2-60.png */; };
-		4A45C2CD1A63A2E500080F1B /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2CC1A63A2E500080F1B /* Keys.plist */; };
 		4A45C2CF1A63A67E00080F1B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A45C2CE1A63A67E00080F1B /* AppDelegate.m */; };
 		4A6380D51A59C61F00D56AA4 /* RKDropdownAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6380D41A59C61F00D56AA4 /* RKDropdownAlert.m */; };
 		4A6380D61A59C61F00D56AA4 /* RKDropdownAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6380D41A59C61F00D56AA4 /* RKDropdownAlert.m */; };
@@ -241,7 +240,6 @@
 		4A45C2C31A62277F00080F1B /* right2-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right2-20.png"; sourceTree = "<group>"; };
 		4A45C2C41A62277F00080F1B /* right2-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right2-40.png"; sourceTree = "<group>"; };
 		4A45C2C51A62277F00080F1B /* right2-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right2-60.png"; sourceTree = "<group>"; };
-		4A45C2CC1A63A2E500080F1B /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		4A45C2CE1A63A67E00080F1B /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		4A6380D31A59C61F00D56AA4 /* RKDropdownAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKDropdownAlert.h; sourceTree = "<group>"; };
 		4A6380D41A59C61F00D56AA4 /* RKDropdownAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKDropdownAlert.m; sourceTree = "<group>"; };
@@ -639,7 +637,6 @@
 				4A4218001A50E68A004B999B /* UIView+Borders.m */,
 				4A4218071A50EDD3004B999B /* UIColor+ShakdColors.h */,
 				4A4218081A50EDD3004B999B /* UIColor+ShakdColors.m */,
-				4A45C2CC1A63A2E500080F1B /* Keys.plist */,
 				4AA720281A5C8826000A8B8E /* ActionSheetPicker */,
 				4AFCD12A1A4FC2E400543CE1 /* Info.plist */,
 				4AFCD12B1A4FC2E400543CE1 /* main.m */,
@@ -826,7 +823,6 @@
 				4A45C2BD1A6224C400080F1B /* voice_recognition_scan-20.png in Resources */,
 				4A45C2601A5F757E00080F1B /* ZSSFriendRequestCell.xib in Resources */,
 				4A45C2651A5F759000080F1B /* ZSSAddFriendViewController.xib in Resources */,
-				4A45C2CD1A63A2E500080F1B /* Keys.plist in Resources */,
 				4AA71FFE1A5C5EDD000A8B8E /* ZSSHomeViewController.xib in Resources */,
 				4A823B631A5DF7BC00FDD58D /* group-60.png in Resources */,
 				4A45C24F1A5F629400080F1B /* approve-60.png in Resources */,
