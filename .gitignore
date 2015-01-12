@@ -19,3 +19,4 @@ DerivedData
 *.plist
 # Pods - for those of you who use CocoaPods
 Pods
+Shakd/Keys.plist
