@@ -10,4 +10,6 @@
 
 @interface ZSSHomeViewController : UIViewController
 
+- (void)configureViewForMessageInfo:(NSDictionary *)messageInfo;
+
 @end

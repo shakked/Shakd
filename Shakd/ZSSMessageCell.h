@@ -10,7 +10,6 @@
 #import "ZSSMessage.h"
 
 @interface ZSSMessageCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *fromAndToLabel;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UITextView *messageTextView;
 @property (weak, nonatomic) IBOutlet UIButton *forwardButton;

@@ -10,14 +10,14 @@
 	<string>Shakd</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>7B87692E090F5D3AC680F530001E16771B272C1C</key>
+		<key>A876088F22F037D82F2B0F5E3BAD51994E04730E</key>
 		<string>https://github.com/shakked/Shakd.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Shakd.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>7B87692E090F5D3AC680F530001E16771B272C1C</key>
+		<key>A876088F22F037D82F2B0F5E3BAD51994E04730E</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -25,14 +25,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>7B87692E090F5D3AC680F530001E16771B272C1C</string>
+	<string>A876088F22F037D82F2B0F5E3BAD51994E04730E</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>7B87692E090F5D3AC680F530001E16771B272C1C</string>
+			<string>A876088F22F037D82F2B0F5E3BAD51994E04730E</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Shakd</string>
 		</dict>

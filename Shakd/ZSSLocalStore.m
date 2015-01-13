@@ -208,24 +208,46 @@
     self = [super init];
     
     if (self) {
+        
+        
         _model = [NSManagedObjectModel mergedModelFromBundles:nil];
         NSPersistentStoreCoordinator *psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:_model];
         NSString *path = [self itemArchivePath];
         NSURL *storeURL = [NSURL fileURLWithPath:path];
         NSError *error = nil;
         
-        if (![psc addPersistentStoreWithType:NSSQLiteStoreType
-                               configuration:nil
-                                         URL:storeURL
-                                     options:nil
-                                       error:&error]) {
-            @throw [NSException exceptionWithName:@"OpenFailure"
-                                           reason:[error localizedDescription]
-                                         userInfo:nil];
-        }
-        
         _context = [[NSManagedObjectContext alloc] init];
         _context.persistentStoreCoordinator = psc;
+        
+        NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption: @YES,
+                                  NSInferMappingModelAutomaticallyOption: @YES
+                                  };
+        BOOL successOfAdding = [psc addPersistentStoreWithType:NSSQLiteStoreType
+                                                 configuration:nil
+                                                           URL:storeURL
+                                                       options:options
+                                                         error:&error] != nil;
+        if (successOfAdding == NO)
+        {
+            // Check if the database is there.
+            // If it is there, it most likely means that model has changed significantly.
+            if ([[NSFileManager defaultManager] fileExistsAtPath:storeURL.path])
+            {
+                // Delete the database
+                [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
+                // Trying to add a database to the coordinator again
+                successOfAdding = [psc addPersistentStoreWithType: NSSQLiteStoreType
+                                                    configuration:nil
+                                                              URL:storeURL
+                                                          options:nil
+                                                            error:&error] != nil;
+                if (successOfAdding == NO)
+                {
+                    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+                    abort();
+                }
+            }
+        }
         
         [self loadAllItems];
     }

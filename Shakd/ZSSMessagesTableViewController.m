@@ -23,6 +23,11 @@
 #import <AVFoundation/AVFoundation.h>
 #import "NSDate+DateTools.h"
 #import "UIView+Borders.h"
+#import "UILabel+Bold.h"
+#import "MHPrettyDate.h"
+#import "AAPullToRefresh.h"
+#import "ZSSHomeViewController.h"
+#import "ZSSPrepForSendViewController.h"
 
 static NSString *MESSAGE_CELL_CLASS = @"ZSSMessageCell";
 static NSString *CELL_IDENTIFIER = @"cell";
@@ -77,7 +82,29 @@ static NSString *CELL_IDENTIFIER = @"cell";
 
 - (void)configureViews {
     [self configureNavBar];
+    [self configurePullToRefresh];
     [self.tableView registerNib:[UINib nibWithNibName:MESSAGE_CELL_CLASS bundle:nil] forCellReuseIdentifier:CELL_IDENTIFIER];
+}
+
+- (void)configurePullToRefresh {
+    __weak ZSSMessagesTableViewController *weakSelf = self;
+    AAPullToRefresh *tv = [self.tableView addPullToRefreshPosition:AAPullToRefreshPositionTop ActionHandler:^(AAPullToRefresh *v){
+        ZSSMessagesTableViewController *strongSelf = weakSelf;
+        [[ZSSLocalSyncer sharedSyncer] syncMessagesWithCompletionBlock:^(NSArray *messages, NSError *error) {
+            if (!error) {
+                [strongSelf loadMessageData];
+                [strongSelf.tableView reloadData];
+            } else {
+                [RKDropdownAlert error:error];
+            }
+            [v performSelector:@selector(stopIndicatorAnimation) withObject:nil afterDelay:1.0f];
+        }];
+    }];
+    
+    tv.imageIcon = [UIImage imageNamed:@"ShakdIcon"];
+    tv.borderColor = [UIColor whiteColor];
+    tv.borderWidth = 3.0f;
+    tv.threshold = 60.0f;
 }
 
 - (void)configureNavBar {
@@ -123,7 +150,7 @@ static NSString *CELL_IDENTIFIER = @"cell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 205;
+    return 140;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -141,6 +168,7 @@ static NSString *CELL_IDENTIFIER = @"cell";
     ZSSMessage *message = self.messages[indexPath.row];
     ZSSMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER];
     cell.message = message;
+    [cell.messageTextView setText:cell.message.messageInfo[@"messageText"]];
     [cell setGestureRecognizers:nil];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -158,8 +186,10 @@ static NSString *CELL_IDENTIFIER = @"cell";
 }
 
 - (void)configureReceivedMessageCell:(ZSSMessageCell *)cell {
-    [cell.fromAndToLabel setText:@"from"];
-    [cell.usernameLabel setText:cell.message.sender.username];
+    
+    [cell.usernameLabel setText:[NSString stringWithFormat:@"from %@",cell.message.sender.username]];
+    [cell.usernameLabel boldSubstring:cell.message.sender.username];
+    
     [cell.timeLabel setText:[NSDate shortTimeAgoSinceDate:cell.message.dateSent]];
     
     if (![cell.message hasBeenViewed]) {
@@ -169,9 +199,9 @@ static NSString *CELL_IDENTIFIER = @"cell";
     }
     
 }
+
 - (void)configureUnviewedMessageCell:(ZSSMessageCell *)cell {
     [cell.messageTextView setHidden:YES];
-    [cell.messageTextView setTextColor:[UIColor lighterGrayColor]];
     [cell.pressAndHoldLabel setHidden:NO];
     
     [cell.forwardButton setHidden:YES];
@@ -189,8 +219,10 @@ static NSString *CELL_IDENTIFIER = @"cell";
 }
 
 - (void)configureViewedMessageCell:(ZSSMessageCell *)cell {
+    
     [cell.messageTextView setText:cell.message.messageInfo[@"messageText"]];
     [cell.messageTextView setTextColor:[UIColor charcoalColor]];
+    [cell.messageTextView setHidden:NO];
     [cell.pressAndHoldLabel setHidden:YES];
     [cell.forwardButton setHidden:NO];
     [cell.playButton setHidden:NO];
@@ -226,17 +258,20 @@ static NSString *CELL_IDENTIFIER = @"cell";
 
 
 - (void)configureSentMessageCell:(ZSSMessageCell *)cell {
-    [cell.fromAndToLabel setText:@"to"];
-    [cell.usernameLabel setText:cell.message.receiver.username];
+    [cell.usernameLabel setText:[NSString stringWithFormat:@"to %@",cell.message.receiver.username]];
+    [cell.usernameLabel boldSubstring:cell.message.receiver.username];
+    
     [cell.pressAndHoldLabel setHidden:YES];
     [cell.messageTextView setText:cell.message.messageInfo[@"messageText"]];
     [cell.messageTextView setTextColor:[UIColor charcoalColor]];
+    [cell.messageTextView setHidden:NO];
     [cell.forwardButton setHidden:NO];
     [cell.playButton setHidden:NO];
     [cell.replyButton setHidden:NO];
     
     if (cell.message.dateViewed) {
-        [cell.timeLabel setText:[cell.message.dateViewed formattedDateWithStyle:NSDateFormatterShortStyle]];
+        NSString *dateString = [MHPrettyDate prettyDateFromDate:cell.message.dateViewed withFormat:MHPrettyDateFormatWithTime];
+        [cell.timeLabel setText:[NSString stringWithFormat:@"Read %@", dateString]];
     } else {
         [cell.timeLabel setText:@"Not read"];
     }
@@ -246,8 +281,11 @@ static NSString *CELL_IDENTIFIER = @"cell";
     __weak ZSSMessageCell *weakCell = cell;
     
     cell.forwardButtonPressedBlock = ^{
-#warning TODO
-        [RKDropdownAlert title:@"Will Present FORWARD Screen"];
+        ZSSMessageCell *strongCell = weakCell;
+        ZSSPrepForSendViewController *pfsvc = [[ZSSPrepForSendViewController alloc] init];
+        [pfsvc setMessage:strongCell.message];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:pfsvc];
+        [self presentViewController:nav animated:YES completion:nil];
     };
     
     cell.playButtonPressedBlock = ^{
@@ -257,7 +295,9 @@ static NSString *CELL_IDENTIFIER = @"cell";
     };
     
     cell.replyButtonPressedBlock = ^{
-        [RKDropdownAlert title:@"Will Present REPLY Screen"];
+        ZSSPrepForSendViewController *pfsvc = [[ZSSPrepForSendViewController alloc] init];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:pfsvc];
+        [self presentViewController:nav animated:YES completion:nil];
     };
 }
 
@@ -266,13 +306,12 @@ static NSString *CELL_IDENTIFIER = @"cell";
 }
 
 - (void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer didFinishSpeechUtterance:(AVSpeechUtterance *)utterance {
+    [self configureViewedMessageCell:self.currentlyPlayingCell];
+    
     if (self.currentlyPlayingCell) {
         [[ZSSCloudQuerier sharedQuerier] viewMessage:self.currentlyPlayingCell.message inBackgroundWithCompletionBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded && !error) {
-                NSIndexPath *indexPath = [self.tableView indexPathForCell:self.currentlyPlayingCell];
-                self.currentlyPlayingCell.message.dateViewed = [NSDate date];
-#warning NSDate Date may not be right.
-                [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+
             } else {
                 [RKDropdownAlert error:error];
             }

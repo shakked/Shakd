@@ -63,10 +63,19 @@
 		4A45C2ED1A63D75C00080F1B /* neutral_decision-30 (1).png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2E41A63D75C00080F1B /* neutral_decision-30 (1).png */; };
 		4A45C2EE1A63D75C00080F1B /* neutral_decision-60 (1).png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2E51A63D75C00080F1B /* neutral_decision-60 (1).png */; };
 		4A45C2EF1A63D75C00080F1B /* neutral_decision-90 (1).png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2E61A63D75C00080F1B /* neutral_decision-90 (1).png */; };
+		4A45C2F31A64722B00080F1B /* clock-20.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2F01A64722B00080F1B /* clock-20.png */; };
+		4A45C2F41A64722B00080F1B /* clock-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2F11A64722B00080F1B /* clock-40.png */; };
+		4A45C2F51A64722B00080F1B /* clock-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A45C2F21A64722B00080F1B /* clock-60.png */; };
+		4A45C2F81A6474E900080F1B /* UILabel+Bold.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A45C2F71A6474E900080F1B /* UILabel+Bold.m */; };
+		4A45C2FB1A6478A700080F1B /* MHPrettyDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A45C2FA1A6478A700080F1B /* MHPrettyDate.m */; };
+		4A45C2FC1A6478A700080F1B /* MHPrettyDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A45C2FA1A6478A700080F1B /* MHPrettyDate.m */; };
 		4A6380D51A59C61F00D56AA4 /* RKDropdownAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6380D41A59C61F00D56AA4 /* RKDropdownAlert.m */; };
 		4A6380D61A59C61F00D56AA4 /* RKDropdownAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6380D41A59C61F00D56AA4 /* RKDropdownAlert.m */; };
 		4A6380D91A59CCED00D56AA4 /* NSString+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6380D81A59CCED00D56AA4 /* NSString+Extras.m */; };
 		4A6380DA1A59CCED00D56AA4 /* NSString+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6380D81A59CCED00D56AA4 /* NSString+Extras.m */; };
+		4A6A67341A64896E00AB28D4 /* Shakd.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A6A67311A64896E00AB28D4 /* Shakd.png */; };
+		4A6A67351A64896E00AB28D4 /* Shakd@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A6A67321A64896E00AB28D4 /* Shakd@2x.png */; };
+		4A6A67361A64896E00AB28D4 /* Shakd@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A6A67331A64896E00AB28D4 /* Shakd@3x.png */; };
 		4A7E803E1A54C3210032D202 /* ZSSLocalSyncer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7E803D1A54C3210032D202 /* ZSSLocalSyncer.m */; };
 		4A823B621A5DF7BC00FDD58D /* group-30.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A823B5F1A5DF7BC00FDD58D /* group-30.png */; };
 		4A823B631A5DF7BC00FDD58D /* group-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A823B601A5DF7BC00FDD58D /* group-60.png */; };
@@ -74,6 +83,11 @@
 		4A823B691A5E36E600FDD58D /* left-30.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A823B661A5E36E600FDD58D /* left-30.png */; };
 		4A823B6A1A5E36E600FDD58D /* left-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A823B671A5E36E600FDD58D /* left-60.png */; };
 		4A823B6B1A5E36E600FDD58D /* left-90.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A823B681A5E36E600FDD58D /* left-90.png */; };
+		4A9D14391A64B08D00AACFEC /* ZSSPrepForSendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A9D14371A64B08D00AACFEC /* ZSSPrepForSendViewController.m */; };
+		4A9D143A1A64B08D00AACFEC /* ZSSPrepForSendViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A9D14381A64B08D00AACFEC /* ZSSPrepForSendViewController.xib */; };
+		4A9D143E1A656E3C00AACFEC /* sent-30.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A9D143B1A656E3C00AACFEC /* sent-30.png */; };
+		4A9D143F1A656E3C00AACFEC /* sent-60 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A9D143C1A656E3C00AACFEC /* sent-60 2.png */; };
+		4A9D14401A656E3C00AACFEC /* sent-90.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A9D143D1A656E3C00AACFEC /* sent-90.png */; };
 		4AA71FDD1A5C520C000A8B8E /* ZSSForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA71FDB1A5C520C000A8B8E /* ZSSForgotPasswordViewController.m */; };
 		4AA71FDE1A5C520C000A8B8E /* ZSSForgotPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4AA71FDC1A5C520C000A8B8E /* ZSSForgotPasswordViewController.xib */; };
 		4AA71FE71A5C5E9B000A8B8E /* ZSSSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA71FE51A5C5E9B000A8B8E /* ZSSSignUpViewController.m */; };
@@ -255,10 +269,20 @@
 		4A45C2E41A63D75C00080F1B /* neutral_decision-30 (1).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "neutral_decision-30 (1).png"; sourceTree = "<group>"; };
 		4A45C2E51A63D75C00080F1B /* neutral_decision-60 (1).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "neutral_decision-60 (1).png"; sourceTree = "<group>"; };
 		4A45C2E61A63D75C00080F1B /* neutral_decision-90 (1).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "neutral_decision-90 (1).png"; sourceTree = "<group>"; };
+		4A45C2F01A64722B00080F1B /* clock-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock-20.png"; sourceTree = "<group>"; };
+		4A45C2F11A64722B00080F1B /* clock-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock-40.png"; sourceTree = "<group>"; };
+		4A45C2F21A64722B00080F1B /* clock-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock-60.png"; sourceTree = "<group>"; };
+		4A45C2F61A6474E900080F1B /* UILabel+Bold.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UILabel+Bold.h"; path = "Shakd/UILabel+Bold.h"; sourceTree = "<group>"; };
+		4A45C2F71A6474E900080F1B /* UILabel+Bold.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UILabel+Bold.m"; path = "Shakd/UILabel+Bold.m"; sourceTree = "<group>"; };
+		4A45C2F91A6478A700080F1B /* MHPrettyDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHPrettyDate.h; sourceTree = "<group>"; };
+		4A45C2FA1A6478A700080F1B /* MHPrettyDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHPrettyDate.m; sourceTree = "<group>"; };
 		4A6380D31A59C61F00D56AA4 /* RKDropdownAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKDropdownAlert.h; sourceTree = "<group>"; };
 		4A6380D41A59C61F00D56AA4 /* RKDropdownAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKDropdownAlert.m; sourceTree = "<group>"; };
 		4A6380D71A59CCED00D56AA4 /* NSString+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extras.h"; sourceTree = "<group>"; };
 		4A6380D81A59CCED00D56AA4 /* NSString+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extras.m"; sourceTree = "<group>"; };
+		4A6A67311A64896E00AB28D4 /* Shakd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Shakd.png; sourceTree = "<group>"; };
+		4A6A67321A64896E00AB28D4 /* Shakd@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Shakd@2x.png"; sourceTree = "<group>"; };
+		4A6A67331A64896E00AB28D4 /* Shakd@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Shakd@3x.png"; sourceTree = "<group>"; };
 		4A7E803C1A54C3210032D202 /* ZSSLocalSyncer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSSLocalSyncer.h; sourceTree = "<group>"; };
 		4A7E803D1A54C3210032D202 /* ZSSLocalSyncer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSSLocalSyncer.m; sourceTree = "<group>"; };
 		4A823B5F1A5DF7BC00FDD58D /* group-30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "group-30.png"; sourceTree = "<group>"; };
@@ -267,6 +291,12 @@
 		4A823B661A5E36E600FDD58D /* left-30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-30.png"; sourceTree = "<group>"; };
 		4A823B671A5E36E600FDD58D /* left-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-60.png"; sourceTree = "<group>"; };
 		4A823B681A5E36E600FDD58D /* left-90.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-90.png"; sourceTree = "<group>"; };
+		4A9D14361A64B08D00AACFEC /* ZSSPrepForSendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZSSPrepForSendViewController.h; path = Shakd/ZSSPrepForSendViewController.h; sourceTree = "<group>"; };
+		4A9D14371A64B08D00AACFEC /* ZSSPrepForSendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZSSPrepForSendViewController.m; path = Shakd/ZSSPrepForSendViewController.m; sourceTree = "<group>"; };
+		4A9D14381A64B08D00AACFEC /* ZSSPrepForSendViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ZSSPrepForSendViewController.xib; path = Shakd/ZSSPrepForSendViewController.xib; sourceTree = "<group>"; };
+		4A9D143B1A656E3C00AACFEC /* sent-30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sent-30.png"; sourceTree = "<group>"; };
+		4A9D143C1A656E3C00AACFEC /* sent-60 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sent-60 2.png"; sourceTree = "<group>"; };
+		4A9D143D1A656E3C00AACFEC /* sent-90.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sent-90.png"; sourceTree = "<group>"; };
 		4AA71FDA1A5C520C000A8B8E /* ZSSForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZSSForgotPasswordViewController.h; path = Shakd/ZSSForgotPasswordViewController.h; sourceTree = "<group>"; };
 		4AA71FDB1A5C520C000A8B8E /* ZSSForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZSSForgotPasswordViewController.m; path = Shakd/ZSSForgotPasswordViewController.m; sourceTree = "<group>"; };
 		4AA71FDC1A5C520C000A8B8E /* ZSSForgotPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ZSSForgotPasswordViewController.xib; path = Shakd/ZSSForgotPasswordViewController.xib; sourceTree = "<group>"; };
@@ -479,6 +509,8 @@
 			children = (
 				4A45C26F1A60730500080F1B /* ZSSMessagesTableViewController.h */,
 				4A45C2701A60730500080F1B /* ZSSMessagesTableViewController.m */,
+				4A45C2F61A6474E900080F1B /* UILabel+Bold.h */,
+				4A45C2F71A6474E900080F1B /* UILabel+Bold.m */,
 				4A45C2731A607CF500080F1B /* ZSSMessageCell.h */,
 				4A45C2741A607CF500080F1B /* ZSSMessageCell.m */,
 				4A45C2751A607CF500080F1B /* ZSSMessageCell.xib */,
@@ -512,6 +544,12 @@
 		4A823B651A5DF7EE00FDD58D /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				4A9D143B1A656E3C00AACFEC /* sent-30.png */,
+				4A9D143C1A656E3C00AACFEC /* sent-60 2.png */,
+				4A9D143D1A656E3C00AACFEC /* sent-90.png */,
+				4A6A67311A64896E00AB28D4 /* Shakd.png */,
+				4A6A67321A64896E00AB28D4 /* Shakd@2x.png */,
+				4A6A67331A64896E00AB28D4 /* Shakd@3x.png */,
 				4A45C28A1A6186AC00080F1B /* speech_bubble-30.png */,
 				4A45C28B1A6186AC00080F1B /* speech_bubble-60.png */,
 				4A45C28C1A6186AC00080F1B /* speech_bubble-90.png */,
@@ -554,6 +592,9 @@
 				4A45C2E41A63D75C00080F1B /* neutral_decision-30 (1).png */,
 				4A45C2E51A63D75C00080F1B /* neutral_decision-60 (1).png */,
 				4A45C2E61A63D75C00080F1B /* neutral_decision-90 (1).png */,
+				4A45C2F01A64722B00080F1B /* clock-20.png */,
+				4A45C2F11A64722B00080F1B /* clock-40.png */,
+				4A45C2F21A64722B00080F1B /* clock-60.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -564,6 +605,9 @@
 				4AA71FF91A5C5EDD000A8B8E /* ZSSHomeViewController.h */,
 				4AA71FFA1A5C5EDD000A8B8E /* ZSSHomeViewController.m */,
 				4AA71FFB1A5C5EDD000A8B8E /* ZSSHomeViewController.xib */,
+				4A9D14361A64B08D00AACFEC /* ZSSPrepForSendViewController.h */,
+				4A9D14371A64B08D00AACFEC /* ZSSPrepForSendViewController.m */,
+				4A9D14381A64B08D00AACFEC /* ZSSPrepForSendViewController.xib */,
 			);
 			name = Home;
 			path = ..;
@@ -661,6 +705,8 @@
 			isa = PBXGroup;
 			children = (
 				4A45C2D01A63ABBD00080F1B /* Keys.plist */,
+				4A45C2F91A6478A700080F1B /* MHPrettyDate.h */,
+				4A45C2FA1A6478A700080F1B /* MHPrettyDate.m */,
 				4A45C2341A5F4D1800080F1B /* UIBarButtonItem+MyBarButtons.h */,
 				4A45C2351A5F4D1800080F1B /* UIBarButtonItem+MyBarButtons.m */,
 				4A45C2661A5F75A000080F1B /* RKDropdownAlert+CommonAlerts.h */,
@@ -852,6 +898,7 @@
 			files = (
 				4A45C2BF1A6224C400080F1B /* voice_recognition_scan-60.png in Resources */,
 				4A45C2441A5F5D6400080F1B /* meeting-90.png in Resources */,
+				4A9D143E1A656E3C00AACFEC /* sent-30.png in Resources */,
 				4A45C2C71A62277F00080F1B /* left2-40.png in Resources */,
 				4A45C2B71A6224A400080F1B /* sent-20.png in Resources */,
 				4A45C2E91A63D75C00080F1B /* approve-90 (1).png in Resources */,
@@ -862,6 +909,8 @@
 				4A45C28F1A6186AC00080F1B /* speech_bubble-90.png in Resources */,
 				4A45C2BD1A6224C400080F1B /* voice_recognition_scan-20.png in Resources */,
 				4A45C2601A5F757E00080F1B /* ZSSFriendRequestCell.xib in Resources */,
+				4A6A67351A64896E00AB28D4 /* Shakd@2x.png in Resources */,
+				4A45C2F51A64722B00080F1B /* clock-60.png in Resources */,
 				4A45C2651A5F759000080F1B /* ZSSAddFriendViewController.xib in Resources */,
 				4A45C2D11A63ABBD00080F1B /* Keys.plist in Resources */,
 				4AA71FFE1A5C5EDD000A8B8E /* ZSSHomeViewController.xib in Resources */,
@@ -878,14 +927,17 @@
 				4A45C2CB1A62277F00080F1B /* right2-60.png in Resources */,
 				4A823B6B1A5E36E600FDD58D /* left-90.png in Resources */,
 				4A45C2C81A62277F00080F1B /* left2-60.png in Resources */,
+				4A9D143F1A656E3C00AACFEC /* sent-60 2.png in Resources */,
 				4A45C2CA1A62277F00080F1B /* right2-40.png in Resources */,
 				4A45C26D1A5F89EF00080F1B /* add_user-60.png in Resources */,
 				4A823B691A5E36E600FDD58D /* left-30.png in Resources */,
 				4A45C2D61A63B2E600080F1B /* ZSSSettingsViewController.xib in Resources */,
+				4A9D143A1A64B08D00AACFEC /* ZSSPrepForSendViewController.xib in Resources */,
 				4A45C2B31A62247F00080F1B /* play-60.png in Resources */,
 				4A45C2C61A62277F00080F1B /* left2-20.png in Resources */,
 				4A45C2EB1A63D75C00080F1B /* good_decision-60 (1).png in Resources */,
 				4A45C2B91A6224A400080F1B /* sent-60.png in Resources */,
+				4A45C2F41A64722B00080F1B /* clock-40.png in Resources */,
 				4A45C2C91A62277F00080F1B /* right2-20.png in Resources */,
 				4A823B621A5DF7BC00FDD58D /* group-30.png in Resources */,
 				4A45C2DD1A63B5B700080F1B /* settings-90.png in Resources */,
@@ -898,10 +950,14 @@
 				4A45C2421A5F5D6400080F1B /* meeting-30.png in Resources */,
 				4AA71FF01A5C5EAB000A8B8E /* ZSSLoginViewController.xib in Resources */,
 				4AFCD13A1A4FC2E400543CE1 /* LaunchScreen.xib in Resources */,
+				4A6A67341A64896E00AB28D4 /* Shakd.png in Resources */,
 				4AFCD1371A4FC2E400543CE1 /* Images.xcassets in Resources */,
 				4A45C2BE1A6224C400080F1B /* voice_recognition_scan-40.png in Resources */,
+				4A9D14401A656E3C00AACFEC /* sent-90.png in Resources */,
+				4A45C2F31A64722B00080F1B /* clock-20.png in Resources */,
 				4A45C2EE1A63D75C00080F1B /* neutral_decision-60 (1).png in Resources */,
 				4AA71FDE1A5C520C000A8B8E /* ZSSForgotPasswordViewController.xib in Resources */,
+				4A6A67361A64896E00AB28D4 /* Shakd@3x.png in Resources */,
 				4A45C2EC1A63D75C00080F1B /* good_decision-90 (1).png in Resources */,
 				4A45C2431A5F5D6400080F1B /* meeting-60.png in Resources */,
 				4A45C26E1A5F89EF00080F1B /* add_user-90.png in Resources */,
@@ -990,7 +1046,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A7E803E1A54C3210032D202 /* ZSSLocalSyncer.m in Sources */,
+				4A45C2F81A6474E900080F1B /* UILabel+Bold.m in Sources */,
 				4AA720221A5C8819000A8B8E /* ActionSheetDatePicker.m in Sources */,
+				4A9D14391A64B08D00AACFEC /* ZSSPrepForSendViewController.m in Sources */,
 				4AFCD1AE1A506B1A00543CE1 /* ZSSLocalFactory.m in Sources */,
 				4A4218091A50EDD3004B999B /* UIColor+ShakdColors.m in Sources */,
 				4AA720251A5C8819000A8B8E /* ActionSheetStringPicker.m in Sources */,
@@ -1008,6 +1066,7 @@
 				4AFCD1A01A50695D00543CE1 /* ZSSFriendRequest.m in Sources */,
 				4AA7202E1A5CA537000A8B8E /* ZSSFriendsTableViewController.m in Sources */,
 				4A6380D91A59CCED00D56AA4 /* NSString+Extras.m in Sources */,
+				4A45C2FB1A6478A700080F1B /* MHPrettyDate.m in Sources */,
 				4A45C2361A5F4D1800080F1B /* UIBarButtonItem+MyBarButtons.m in Sources */,
 				4AFCD12C1A4FC2E400543CE1 /* main.m in Sources */,
 				4A45C2CF1A63A67E00080F1B /* AppDelegate.m in Sources */,
@@ -1042,6 +1101,7 @@
 				4AA71FE81A5C5E9B000A8B8E /* ZSSSignUpViewController.m in Sources */,
 				4AA71FEF1A5C5EAB000A8B8E /* ZSSLoginViewController.m in Sources */,
 				4ACF3E1E1A5246D80030C07E /* testZSSCloudQuerier.m in Sources */,
+				4A45C2FC1A6478A700080F1B /* MHPrettyDate.m in Sources */,
 				4A6380DA1A59CCED00D56AA4 /* NSString+Extras.m in Sources */,
 				4A6380D61A59C61F00D56AA4 /* RKDropdownAlert.m in Sources */,
 				4AFCD1B11A50B8F800543CE1 /* testZSSLocalStore.m in Sources */,
@@ -1155,13 +1215,16 @@
 			baseConfigurationReference = B03047185DDCEB4CF7CBCC00 /* Pods-Shakd.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Shakd/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "0a05da7f-c46b-4a84-9d1f-33437c3ffb44";
 			};
 			name = Debug;
 		};
@@ -1170,13 +1233,16 @@
 			baseConfigurationReference = C01919734C78DF7080AD608F /* Pods-Shakd.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Shakd/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "0a05da7f-c46b-4a84-9d1f-33437c3ffb44";
 			};
 			name = Release;
 		};

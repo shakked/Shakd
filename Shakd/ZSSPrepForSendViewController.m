@@ -1,23 +1,19 @@
 //
-//  ZSSHomeViewController.m
+//  ZSSPrepForSendViewController.m
 //  Shakd
 //
-//  Created by Zachary Shakked on 1/6/15.
+//  Created by Zachary Shakked on 1/12/15.
 //  Copyright (c) 2015 Shakked Inc. All rights reserved.
 //
 
-#import "ZSSHomeViewController.h"
-#import "UIColor+ShakdColors.h"
-#import "UIView+Borders.h"
+#import "ZSSPrepForSendViewController.h"
 #import "ActionSheetStringPicker.h"
 #import <AVFoundation/AVFoundation.h>
+#import "UIColor+ShakdColors.h"
 #import "ZSSFriendsTableViewController.h"
-#import "ZSSCloudQuerier.h"
-#import "ZSSMessagesTableViewController.h"
-#import "RKNotificationHub.h"
-#import "ZSSSettingsViewController.h"
-@interface ZSSHomeViewController ()
+#import "ZSSMessage.h"
 
+@interface ZSSPrepForSendViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *messageTextView;
 @property (weak, nonatomic) IBOutlet UISlider *pitchSlider;
 @property (weak, nonatomic) IBOutlet UISlider *rateSlider;
@@ -29,35 +25,26 @@
 @property (nonatomic, strong) NSArray *voicesFullNames;
 @property (nonatomic) NSInteger indexOfSelectedVoice;
 
-@property (nonatomic, strong) RKNotificationHub *hub;
-
 @end
 
-@implementation ZSSHomeViewController
-
-- (void)configureViewForMessageInfo:(NSDictionary *)messageInfo {
-    self.voice = messageInfo[@"voice"];
-    [self.messageTextView setText:messageInfo[@"messageText"]];
-    self.indexOfSelectedVoice = [self.voiceShortCodes indexOfObjectIdenticalTo:self.voice];
-    [self.pitchSlider setValue:[messageInfo[@"pitch"] floatValue] animated:YES];
-    [self.rateSlider setValue:[messageInfo[@"rate"] floatValue] animated:YES];
-}
+@implementation ZSSPrepForSendViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureViews];
     [self configureSpeechSynthesizer];
     [self configureAccents];
+    [self configureMessageViews];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.hub setCount:(int)[[PFInstallation currentInstallation] badge]];
     [self.messageTextView becomeFirstResponder];
 }
 
 - (IBAction)accentsButtonPressed:(id)sender {
-
+    
     
     [ActionSheetStringPicker showPickerWithTitle:@"Select a Voice"
                                             rows:self.voicesFullNames
@@ -81,37 +68,27 @@
     
     UINavigationBar *navBar = self.navigationController.navigationBar;
     [navBar setTranslucent:NO];
+    [navBar setTintColor:[UIColor whiteColor]];
     [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],
                                      NSFontAttributeName : [UIFont fontWithName:@"Avenir" size:26.0]}];
     [navBar setBarTintColor:[UIColor charcoalColor]];
     [self configureNavBarButtons];
-
+    
 }
 
 - (void)configureNavBarButtons {
-    UIButton *friendsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    friendsButton.bounds = CGRectMake(0, 0, 30, 30);
-    [friendsButton setBackgroundImage:[UIImage imageNamed:@"FriendsIcon"] forState:UIControlStateNormal];
-    [friendsButton addTarget:self action:@selector(showFriendsView) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *friendsBarButton = [[UIBarButtonItem alloc] initWithCustomView:friendsButton];
 
-    UIButton *messagesButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    messagesButton.bounds = CGRectMake(0, 0, 30, 30);
-    self.hub = [[RKNotificationHub alloc] initWithView:messagesButton];
-    [self.hub scaleCircleSizeBy:0.6];
-    [self.hub setCount:(int)[[PFInstallation currentInstallation] badge]];
-    [messagesButton setBackgroundImage:[UIImage imageNamed:@"MessagesIcon"] forState:UIControlStateNormal];
-    [messagesButton addTarget:self action:@selector(showMessagesView) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *messagesBarButton = [[UIBarButtonItem alloc] initWithCustomView:messagesButton];
+    UIBarButtonItem *cancelBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                                                                                     target:self
+                                                                                     action:@selector(cancelView)];
+    UIButton *sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [sendButton setBounds:CGRectMake(0, 0, 30, 30)];
+    [sendButton setBackgroundImage:[UIImage imageNamed:@"SendIconWhite"] forState:UIControlStateNormal];
+    [sendButton addTarget:self action:@selector(sendMessage) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *sendBarButton = [[UIBarButtonItem alloc] initWithCustomView:sendButton];
     
-    UIButton *settingsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    settingsButton.bounds = CGRectMake(0, 0, 30, 30);
-    [settingsButton setBackgroundImage:[UIImage imageNamed:@"SettingsIcon"] forState:UIControlStateNormal];
-    [settingsButton addTarget:self action:@selector(showSettingsView) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *settingsBarButton = [[UIBarButtonItem alloc] initWithCustomView:settingsButton];
-    
-    self.navigationItem.leftBarButtonItem = settingsBarButton;
-    self.navigationItem.rightBarButtonItems = @[friendsBarButton, messagesBarButton];
+    self.navigationItem.leftBarButtonItem = cancelBarButton;
+    self.navigationItem.rightBarButtonItem = sendBarButton;
 }
 
 - (void)configureSpeechSynthesizer {
@@ -132,8 +109,27 @@
     }
 }
 
+- (void)configureMessageViews {
+    ZSSMessage *message = self.message;
+    if (message) {
+        NSDictionary *messageInfo = message.messageInfo;
+        [self.rateSlider setValue:[messageInfo[@"rate"] floatValue] animated:YES];
+        [self.pitchSlider setValue:[messageInfo[@"pitch"] floatValue] animated:YES];
+        [self.messageTextView setText:messageInfo[@"messageText"]];
+        [self setVoice:messageInfo[@"voice"]];
+        [self setIndexOfSelectedVoice:[self.voiceShortCodes indexOfObject:messageInfo[@"voice"]]];
+    } else {
+        [self configureDefaultMessageInfo];
+    }
+}
+
 - (void)configureButtons {
     
+}
+
+- (void)configureDefaultMessageInfo {
+    [self setVoice: @"en-GB"];
+    [self setIndexOfSelectedVoice:[self.voiceShortCodes indexOfObject:@"en-GB"]];
 }
 
 - (IBAction)playButtonPressed:(id)sender {
@@ -141,6 +137,10 @@
 }
 
 - (IBAction)sendButtonPressed:(id)sender {
+    [self sendMessage];
+}
+
+- (void)sendMessage {
     NSDictionary *messageInfo = [self getMessageInfo];
     ZSSFriendsTableViewController *ftvc = [[ZSSFriendsTableViewController alloc] initWithState:ZSSFriendsTableStateSendingMessage andMessageInfo:messageInfo];
     [self.navigationController pushViewController:ftvc animated:YES];
@@ -171,19 +171,13 @@
     [self.speaker speakUtterance:utterance];
 }
 
-- (void)showSettingsView {
-    ZSSSettingsViewController *svc = [[ZSSSettingsViewController alloc] init];
-    [self presentViewController:svc animated:YES completion:nil];
-}
-
 - (void)showFriendsView {
     ZSSFriendsTableViewController *ftvc = [[ZSSFriendsTableViewController alloc] init];
     [self.navigationController pushViewController:ftvc animated:YES];
 }
 
-- (void)showMessagesView {
-    ZSSMessagesTableViewController *mtvc = [[ZSSMessagesTableViewController alloc] init];
-    [self.navigationController pushViewController:mtvc animated:YES];
+- (void)cancelView {
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)dismissKeyboard {
@@ -195,13 +189,19 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)throwMessageIsntSetException {
+    @throw [NSException exceptionWithName:@"MessageIsntSetException"
+                                   reason:@"A message needs to be set for this view controller"
+                                 userInfo:nil];
+}
+
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _voice = @"en-GB";
+       
     }
     return self;
 }
-#pragma mark - TESTING MY FUCKING BROKEN FUNCTIONS
+
 
 @end
