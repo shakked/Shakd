@@ -144,7 +144,7 @@ static NSString *CELL_IDENTIFIER = @"cell";
     }
 }
 
-- (void)showAlertController:(ZSSFriendRequestCell *)cell {
+- (void)showAlertController:(ZSSFriendRequestCell *)cell {/*
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Delete Friend Request?" message:@"Do you want to delete this friend request?" preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete Friend Request"
                                                      style:UIAlertActionStyleDestructive
@@ -160,14 +160,24 @@ static NSString *CELL_IDENTIFIER = @"cell";
     [alertController addAction:delete];
     [alertController addAction:cancel];
     [self presentViewController:alertController animated:YES completion:nil];
+                                                           */
 }
 
 - (void)confirmFriendRequestForCell:(ZSSFriendRequestCell *)cell {
-    [RKDropdownAlert title:@"WOULD CONFIRM FQ" backgroundColor:[UIColor turquoiseColor] textColor:[UIColor whiteColor]];
+    [[ZSSCloudQuerier sharedQuerier] acceptFriendRequest:cell.friendRequest inBackgroundWithCompletionBlock:^(BOOL succeeded, NSError *error) {
+        if (!error && succeeded) {
+            [self assignCellCorrectState:cell];
+            [self configureBlocks:cell];
+            [self configureCell:cell];
+        } else {
+            [RKDropdownAlert error:error];
+        }
+    }];
 }
 
 - (void)deleteFriendRequestForCell:(ZSSFriendRequestCell *)cell {
     [RKDropdownAlert title:@"WOULD DELETE FQ"];
+    
 }
 
 - (void)configureCell:(ZSSFriendRequestCell *)cell {

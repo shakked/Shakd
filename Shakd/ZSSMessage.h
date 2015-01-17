@@ -23,5 +23,6 @@
 @property (nonatomic, retain) ZSSUser *sender;
 @property (nonatomic, retain) ZSSUser *receiver;
 - (BOOL)hasBeenViewed;
+- (BOOL)isNotTooLong;
 
 @end

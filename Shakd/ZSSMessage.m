@@ -30,4 +30,12 @@
     }
 }
 
+- (BOOL)isNotTooLong {
+    if ([self.messageInfo[@"messageText"] length] < 500) {
+        return YES;
+    }else {
+        return NO;
+    }
+}
+
 @end

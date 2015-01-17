@@ -22,6 +22,7 @@ static int THROTTLE_TIME = 2;
 @property (nonatomic, strong) NSDate *timeOfLastSignUpAttempt;
 @property (nonatomic, strong) NSDate *timeOfLastPasswordResetAttempt;
 @property (nonatomic, strong) NSDate *timeOfLastSendFriendRequestAttempt;
+@property (nonatomic, strong) NSDate *timeOfLastFriendRequestAcceptance;
 
 @end
 
@@ -122,6 +123,7 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
 }
 
 - (void)acceptFriendRequest:(ZSSFriendRequest *)localFriendRequest inBackgroundWithCompletionBlock:(void (^)(BOOL, NSError *))completionBlock {
+    
     PFQuery *friendRequestQuery = [PFQuery queryWithClassName:@"ZSSFriendRequest"];
     [friendRequestQuery whereKey:@"objectId" equalTo:localFriendRequest.objectId];
     [friendRequestQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -133,7 +135,7 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
             [cloudFriendRequest saveInBackground];
             localFriendRequest.confirmed = @YES;
             localFriendRequest.dateConfirmed = now;
-            
+            completionBlock(objects, error);
         } else if ([objects count] > 1) {
             [RKDropdownAlert title:@"Invalid object count"];
         } else {
@@ -164,26 +166,63 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
 }
 
 - (void)sendMessageToUsers:(NSArray *)users withMessageInfo:(NSDictionary *)messageInfo withCompletionBlock:(void (^)(BOOL, NSError *))completionBlock {
-    PFQuery *usersQuery = [PFUser query];
-    NSArray *userIds = [self userObjectIds:users];
-    [usersQuery whereKey:@"objectId" containedIn:userIds];
-    [usersQuery findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
-        NSMutableArray *messages = [[NSMutableArray alloc] init];
-
-        for (PFUser *receiver in users) {
-            PFObject *message = [self messageToUser:receiver withMessageInfo:messageInfo];
-            [messages addObject:message];
-        }
+    if ([messageInfo[@"messageText"] length] < 500) {
         
-        [PFObject saveAllInBackground:messages block:^(BOOL succeeded, NSError *error) {
-            completionBlock(succeeded, error);
+        PFQuery *usersQuery = [PFUser query];
+        NSArray *userIds = [self localUserObjectIds:users];
+        [usersQuery whereKey:@"objectId" containedIn:userIds];
+        [usersQuery findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
+            NSMutableArray *messages = [[NSMutableArray alloc] init];
+
+            for (PFUser *receiver in users) {
+                PFObject *message = [self messageToUser:receiver withMessageInfo:messageInfo];
+                [messages addObject:message];
+            }
+            
+            [PFObject saveAllInBackground:messages block:^(BOOL succeeded, NSError *error) {
+                completionBlock(succeeded, error);
+            }];
         }];
-    }];
+    } else {
+        [RKDropdownAlert title:@"Message is too long" backgroundColor:[UIColor salmonColor] textColor:[UIColor whiteColor]];
+    }
 }
 
 - (void)adjustBadge {
     NSInteger unreadMessagesCount = [[[ZSSLocalQuerier sharedQuerier] unreadMessages] count];
     [[PFInstallation currentInstallation] setBadge:unreadMessagesCount];
+}
+
+- (void)logOutUser {
+    PFInstallation *installation = [PFInstallation currentInstallation];
+    [installation removeObjectForKey:@"user"];
+    [installation saveEventually];
+    
+    [PFUser logOut];
+}
+
+- (void)deleteCloudMessagesForLocalMessages:(NSArray *)localMessages inBackgroundWithCompletionBlock:(void (^)(BOOL, NSError *))completionBlock {
+    if ([self userIsLoggedIn]) {
+        PFQuery *deleteMessagesQuery = [PFQuery queryWithClassName:@"ZSSMessage"];
+        [deleteMessagesQuery whereKey:@"objectId" containedIn:[self localMessageObjectIds:localMessages]];
+        [deleteMessagesQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (!error) {
+                [PFObject deleteAllInBackground:objects block:^(BOOL succeeded, NSError *error) {
+                    completionBlock(succeeded, error);
+                }];
+            } else {
+                [RKDropdownAlert title:@"Error deleting messages" backgroundColor:[UIColor salmonColor] textColor:[UIColor  whiteColor]];
+            }
+        }];
+    }
+}
+
+- (void)saveUserForCurrentInstallation {
+        PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+        PFUser *currentUser = [PFUser currentUser];
+        currentInstallation[@"user"] = currentUser;
+        [currentInstallation saveInBackground];
+        
 }
 
 - (void)executeQuery:(PFQuery *)query withCompletionBlock:(void (^)(NSArray *, NSError *))completionBlock {
@@ -208,7 +247,7 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
 
 - (NSArray *)filterUsers:(NSMutableArray *)users forSendlist:(NSArray *)sendlist {
 
-    NSArray *sendlistObjectIds = [self userObjectIds:sendlist];
+    NSArray *sendlistObjectIds = [self localUserObjectIds:sendlist];
     for (PFUser *user in users) {
         if (![sendlistObjectIds containsObject:user.objectId]) {
             [users removeObject:user];
@@ -217,10 +256,18 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
     return users;
 }
 
-- (NSArray *)userObjectIds:(NSArray *)users {
+- (NSArray *)localUserObjectIds:(NSArray *)users {
     NSMutableArray *objectIds = [[NSMutableArray alloc] init];
     for (ZSSUser *user in users) {
         [objectIds addObject:user.objectId];
+    }
+    return objectIds;
+}
+
+- (NSArray *)localMessageObjectIds:(NSArray *)messages {
+    NSMutableArray *objectIds = [[NSMutableArray alloc] init];
+    for (ZSSMessage *message in messages) {
+        [objectIds addObject:message.objectId];
     }
     return objectIds;
 }
@@ -328,6 +375,7 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
         _timeOfLastSignUpAttempt = [NSDate dateWithTimeIntervalSince1970:NSTimeIntervalSince1970];
         _timeOfLastPasswordResetAttempt = [NSDate dateWithTimeIntervalSince1970:NSTimeIntervalSince1970];
         _timeOfLastSendFriendRequestAttempt = [NSDate dateWithTimeIntervalSince1970:NSTimeIntervalSince1970];
+        _timeOfLastFriendRequestAcceptance = [NSDate dateWithTimeIntervalSinceNow:NSTimeIntervalSince1970];
     }
     return self;
 }

@@ -80,7 +80,7 @@
                                                     andPassword:self.passwordTextField.text
                                 InBackgroundWithCompletionBlock:^(PFUser *user, NSError *error) {
                                     if (!error) {
-                                        
+                                        [[ZSSCloudQuerier sharedQuerier] saveUserForCurrentInstallation];
                                         [self presentHomeViewController];
                                     } else {
                                         [RKDropdownAlert error:error];

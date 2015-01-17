@@ -18,7 +18,7 @@ typedef NS_ENUM(NSUInteger, AAPullToRefreshPosition) {
 @property (nonatomic, assign) CGFloat originalInsetTop;
 @property (nonatomic, assign) CGFloat originalInsetBottom;
 @property (nonatomic, assign, readonly) AAPullToRefreshPosition position;
-@property (nonatomic, weak) UIScrollView *scrollView;
+@property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, copy) void (^pullToRefreshHandler)(AAPullToRefresh *v);
 
 // user customizable.

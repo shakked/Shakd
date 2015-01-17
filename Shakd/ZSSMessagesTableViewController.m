@@ -38,9 +38,12 @@ static NSString *CELL_IDENTIFIER = @"cell";
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
 @property (nonatomic, strong) ZSSUser *currentLocalUser;
 @property (nonatomic, strong) NSArray *messages;
+@property (nonatomic, strong) NSMutableArray *localMessagesToDeleteInCloud;
 
 @property (nonatomic, strong) AVSpeechSynthesizer *speaker;
 @property (nonatomic, strong) ZSSMessageCell *currentlyPlayingCell;
+
+@property (nonatomic, strong) AAPullToRefresh *pullToRefresh;
 
 @end
 
@@ -50,6 +53,7 @@ static NSString *CELL_IDENTIFIER = @"cell";
     self = [super init];
     if (self) {
         _state = state;
+        _localMessagesToDeleteInCloud = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -57,7 +61,7 @@ static NSString *CELL_IDENTIFIER = @"cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureViews];
-    self.currentLocalUser = [[ZSSLocalStore sharedStore] fetchUserWithObjectId:[PFUser currentUser].objectId];
+    self.currentLocalUser = [[ZSSLocalQuerier sharedQuerier] localUserForCloudUser:[PFUser currentUser]];
     self.speaker = [[AVSpeechSynthesizer alloc] init];
     self.speaker.delegate = self;
 }
@@ -88,7 +92,7 @@ static NSString *CELL_IDENTIFIER = @"cell";
 
 - (void)configurePullToRefresh {
     __weak ZSSMessagesTableViewController *weakSelf = self;
-    AAPullToRefresh *tv = [self.tableView addPullToRefreshPosition:AAPullToRefreshPositionTop ActionHandler:^(AAPullToRefresh *v){
+    self.pullToRefresh = [self.tableView addPullToRefreshPosition:AAPullToRefreshPositionTop ActionHandler:^(AAPullToRefresh *v){
         ZSSMessagesTableViewController *strongSelf = weakSelf;
         [[ZSSLocalSyncer sharedSyncer] syncMessagesWithCompletionBlock:^(NSArray *messages, NSError *error) {
             if (!error) {
@@ -101,21 +105,29 @@ static NSString *CELL_IDENTIFIER = @"cell";
         }];
     }];
     
-    tv.imageIcon = [UIImage imageNamed:@"ShakdIcon"];
-    tv.borderColor = [UIColor whiteColor];
-    tv.borderWidth = 3.0f;
-    tv.threshold = 60.0f;
+    self.pullToRefresh.imageIcon = [UIImage imageNamed:@"ShakdIcon"];
+    self.pullToRefresh.borderColor = [UIColor whiteColor];
+    self.pullToRefresh.borderWidth = 3.0f;
+    self.pullToRefresh.threshold = 60.0f;
 }
 
 - (void)configureNavBar {
     self.navigationItem.title = @"Shakbox";
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self configureNavBarButtons];
 }
 
 - (void)configureNavBarButtons {
-    UIBarButtonItem *backButton = [UIBarButtonItem backBarButtonForVC:self];
-    self.navigationItem.leftBarButtonItem = backButton;
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    backButton.bounds = CGRectMake(0, 0, 30, 30);
+    [backButton setBackgroundImage:[UIImage imageNamed:@"BackIcon"] forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(showPreviousView) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *backBarButton = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
+//    UIBarButtonItem *editBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
+//                                                                                target:self
+//                                                                                action:@selector(enableEditingMode)];
+    self.navigationItem.leftBarButtonItem = backBarButton;
 }
 
 - (void)loadMessageData {
@@ -342,6 +354,47 @@ static NSString *CELL_IDENTIFIER = @"cell";
     [self.tableView reloadData];
 }
 
+//- (void)enableEditingMode
+//{
+//    [self.tableView setEditing:YES animated:YES];
+//    UIBarButtonItem *doneBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+//                                                                                      target:self
+//                                                                                      action:@selector(disbaleEditingMode)];
+//    self.navigationItem.rightBarButtonItem = doneBarButton;
+//}
+//
+//- (void)disbaleEditingMode
+//{
+//    [self.tableView setEditing:NO animated:YES];
+//    UIBarButtonItem *editBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
+//                                                                                   target:self
+//                                                                                   action:@selector(enableEditingMode)];
+//    self.navigationItem.rightBarButtonItem = editBarButton;
+//    if ([self.localMessagesToDeleteInCloud count] > 0) {
+//        [[ZSSCloudQuerier sharedQuerier] deleteCloudMessagesForLocalMessages:self.localMessagesToDeleteInCloud inBackgroundWithCompletionBlock:^(BOOL succeeded, NSError *error) {
+//            if (succeeded && !error) {
+//                [RKDropdownAlert title:@"Messages deleted successfully" backgroundColor:[UIColor turquoiseColor] textColor:[UIColor whiteColor]];
+//            } else {
+//                [RKDropdownAlert title:@"Error deleting messages" backgroundColor:[UIColor salmonColor] textColor:[UIColor whiteColor]];
+//            }
+//            self.localMessagesToDeleteInCloud = nil;
+//        }];
+//    }
+//    
+//}
+//
+//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    if (editingStyle == UITableViewCellEditingStyleDelete) {
+//        ZSSMessage *localMessage = self.messages[indexPath.row];
+//        self.localMessagesToDeleteInCloud = [[NSMutableArray alloc] init];
+//        [self.localMessagesToDeleteInCloud addObject:localMessage];
+//        [[ZSSLocalStore sharedStore] deleteMessage:localMessage];
+//        [tableView reloadData];
+//        [[ZSSLocalStore sharedStore] saveCoreDataChanges];
+//    }
+//}
+
 - (void)throwInvalidMessageState {
     @throw [NSException exceptionWithName:@"InvalidMessageState"
                                    reason:@"Message state is not valid"
@@ -351,8 +404,12 @@ static NSString *CELL_IDENTIFIER = @"cell";
 
 
 - (void)showPreviousView {
+    self.pullToRefresh = nil;
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -47,6 +47,7 @@
     
     
     if ([PFUser currentUser]) {
+        [[ZSSCloudQuerier sharedQuerier] saveUserForCurrentInstallation];
         ZSSHomeViewController *hvc = [[ZSSHomeViewController alloc] init];
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:hvc];
         self.window.rootViewController = nav;

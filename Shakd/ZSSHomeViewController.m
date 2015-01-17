@@ -16,6 +16,11 @@
 #import "ZSSMessagesTableViewController.h"
 #import "RKNotificationHub.h"
 #import "ZSSSettingsViewController.h"
+#import "ZSSLocalSyncer.h"
+#import "RKDropdownAlert.h"
+#import "GADBannerView.h"
+#import "GADRequest.h"
+
 @interface ZSSHomeViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextView *messageTextView;
@@ -48,11 +53,32 @@
     [self configureViews];
     [self configureSpeechSynthesizer];
     [self configureAccents];
+    
+    NSString *keyPath = [[NSBundle mainBundle] pathForResource:@"Keys" ofType:@"plist"];
+    NSDictionary *keyDict = [NSDictionary dictionaryWithContentsOfFile:keyPath];
+    
+    self.bannerView.adUnitID = keyDict[@"HomeAdUnit"];
+    self.bannerView.rootViewController = self;
+    
+    GADRequest *request = [GADRequest request];
+    // Enable test ads on simulators.
+    request.testDevices = @[ GAD_SIMULATOR_ID ];
+    [self.bannerView loadRequest:request];
+    
+    
+    [[ZSSCloudQuerier sharedQuerier] saveUserForCurrentInstallation];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.hub setCount:(int)[[PFInstallation currentInstallation] badge]];
+    [[ZSSLocalSyncer sharedSyncer] syncMessagesWithCompletionBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            [[ZSSCloudQuerier sharedQuerier] adjustBadge];
+            [self.hub setCount:(int)[[PFInstallation currentInstallation] badge]];
+        } else {
+            [RKDropdownAlert title:@"No internet connection" backgroundColor:[UIColor salmonColor] textColor:[UIColor whiteColor]];
+        }
+    }];
     [self.messageTextView becomeFirstResponder];
 }
 

@@ -28,4 +28,8 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock;
            withMessageInfo:(NSDictionary *)messageInfo
        withCompletionBlock:(void (^)(BOOL, NSError *))completionBlock;
 - (void)adjustBadge;
+- (void)logOutUser;
+- (void)deleteCloudMessagesForLocalMessages:(NSArray *)localMessage inBackgroundWithCompletionBlock:(void (^)(BOOL, NSError *))completionBlock;
+
+- (void)saveUserForCurrentInstallation;
 @end

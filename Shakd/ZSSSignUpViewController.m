@@ -12,6 +12,9 @@
 #import "ZSSCloudQuerier.h"
 #import "RKDropdownAlert.h"
 #import "NSString+Extras.h"
+#import "ZSSLoginViewController.h"
+#import "ZSSHomeViewController.h"
+
 @interface ZSSSignUpViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
@@ -55,7 +58,7 @@
         PFUser *user = [self createUserFromTextFields];
         [[ZSSCloudQuerier sharedQuerier] signUpUser:user inBackgroundWithCompletionBlock:^(BOOL succeeded, NSError *error) {
             if (!error && succeeded) {
-#warning TODO: Show next view
+                [self showHomeView];
             } else {
                 [self showSignUpError:error];
                 [self readyViewForSignUpAttempt];
@@ -111,6 +114,17 @@
 
 - (void)dismissKeyboard {
     [self.view endEditing:YES];
+}
+
+- (void)showLogin {
+    ZSSLoginViewController *lvc = [[ZSSLoginViewController alloc] init];
+    [self presentViewController:lvc animated:YES completion:nil];
+}
+
+- (void)showHomeView {
+    ZSSHomeViewController *hvc = [[ZSSHomeViewController alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:hvc];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)showEmptyFieldsError {

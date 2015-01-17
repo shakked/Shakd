@@ -9,6 +9,8 @@
 #import "ZSSSettingsViewController.h"
 #import "ZSSWelcomeViewController.h"
 #import <Parse/Parse.h>
+#import "ZSSCloudQuerier.h"
+#import "ZSSLocalStore.h"
 
 @interface ZSSSettingsViewController ()
 
@@ -51,12 +53,10 @@
 }
 
 - (void)logOut {
-    
-    PFInstallation *installation = [PFInstallation currentInstallation];
-    [installation removeObjectForKey:@"user"];
-    [installation saveEventually];
-    
-    [PFUser logOut];
+    [[ZSSCloudQuerier sharedQuerier] logOutUser];
+    [[ZSSLocalStore sharedStore] deleteAllObjects];
+    [[PFInstallation currentInstallation] removeObjectForKey:@"user"];
+    [[PFInstallation currentInstallation] saveInBackground];
     
     ZSSWelcomeViewController *wvc = [[ZSSWelcomeViewController alloc] init];
     [self presentViewController:wvc animated:YES completion:nil];

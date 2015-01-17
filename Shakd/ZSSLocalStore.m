@@ -185,6 +185,19 @@
     return friendRequest;
 }
 
+- (void)deleteAllObjects {
+    for (ZSSUser *user in self.users) {
+        [self deleteUser:user];
+    }
+    for (ZSSMessage *message in self.messages) {
+        [self deleteMessage:message];
+    }
+    for (ZSSFriendRequest *friendRequest in self.friendRequests) {
+        [self deleteFriendRequest:friendRequest];
+    }
+    [self saveCoreDataChanges];
+}
+
 - (void)throwUserDoesNotExistException:(NSString *)objectId {
     @throw [NSException exceptionWithName:@"UserDoesNotExist"
                                    reason:[NSString stringWithFormat:@"User with objectId: %@ does not exist", objectId]
@@ -208,8 +221,6 @@
     self = [super init];
     
     if (self) {
-        
-        
         _model = [NSManagedObjectModel mergedModelFromBundles:nil];
         NSPersistentStoreCoordinator *psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:_model];
         NSString *path = [self itemArchivePath];

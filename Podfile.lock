@@ -3,7 +3,7 @@ PODS:
   - DateTools (1.4.3)
   - Google-Mobile-Ads-SDK (6.12.2)
   - JFMinimalNotifications (0.0.2)
-  - KVNProgress (2.1.5)
+  - KVNProgress (2.1.6)
   - RKNotificationHub (1.0.2)
 
 DEPENDENCIES:
@@ -19,7 +19,7 @@ SPEC CHECKSUMS:
   DateTools: 7c2d233ea2d4bda3a717d0cd5f58da926a5998d0
   Google-Mobile-Ads-SDK: 9761186eb5dc5e1493e71dcce2b525159f763d42
   JFMinimalNotifications: 8d8953b7c64a9def469abbd6ba051b47ff53946e
-  KVNProgress: 7b92508a8e3e9ee6c41962f70d20f6f7403ee27d
+  KVNProgress: ac45e7ded3510560d1900de8747f49dcbbc92c55
   RKNotificationHub: 0d468c504375f104709e3603f169d1d07c44e3f6
 
 COCOAPODS: 0.35.0

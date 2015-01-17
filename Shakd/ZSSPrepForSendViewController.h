@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 @class ZSSMessage;
-
+@class GADBannerView;
 @interface ZSSPrepForSendViewController : UIViewController
 
 @property (nonatomic, strong) ZSSMessage *message;
+@property (weak, nonatomic) IBOutlet GADBannerView *bannerView;
 
 @end

@@ -116,7 +116,7 @@
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"dateSent"
                                                                    ascending:NO];
     
-    return [receivedMessages sortedArrayUsingDescriptors:@[sortDescriptor]];;
+    return [receivedMessages sortedArrayUsingDescriptors:@[sortDescriptor]];
 }
 
 - (NSArray *)sentFriendRequests {
@@ -144,7 +144,11 @@
 }
 
 - (NSArray *)friendRequests {
-    return [[ZSSLocalStore sharedStore] friendRequests];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"dateSent"
+                                                                   ascending:NO];
+    
+    NSArray *friendRequests = [[ZSSLocalStore sharedStore] friendRequests];
+    return [friendRequests sortedArrayUsingDescriptors:@[sortDescriptor]];
 }
 
 - (NSArray *)unreadMessages {

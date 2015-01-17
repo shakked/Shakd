@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+@class GADBannerView;
 
 @interface ZSSHomeViewController : UIViewController
 
 - (void)configureViewForMessageInfo:(NSDictionary *)messageInfo;
+@property (weak, nonatomic) IBOutlet GADBannerView *bannerView;
 
 @end

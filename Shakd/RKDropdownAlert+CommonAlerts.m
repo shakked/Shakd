@@ -9,6 +9,7 @@
 #import "RKDropdownAlert+CommonAlerts.h"
 #import "NSString+Extras.h"
 #import "UIColor+ShakdColors.h"
+#import <Parse/Parse.h>
 
 @implementation RKDropdownAlert (CommonAlerts)
 

@@ -12,6 +12,9 @@
 #import "UIColor+ShakdColors.h"
 #import "ZSSFriendsTableViewController.h"
 #import "ZSSMessage.h"
+#import "GADBannerView.h"
+#import "GADRequest.h"
+
 
 @interface ZSSPrepForSendViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *messageTextView;
@@ -35,6 +38,18 @@
     [self configureSpeechSynthesizer];
     [self configureAccents];
     [self configureMessageViews];
+
+    NSString *keyPath = [[NSBundle mainBundle] pathForResource:@"Keys" ofType:@"plist"];
+    NSDictionary *keyDict = [NSDictionary dictionaryWithContentsOfFile:keyPath];
+    
+    self.bannerView.adUnitID = keyDict[@"HomeAdUnit"];
+    self.bannerView.rootViewController = self;
+    
+    GADRequest *request = [GADRequest request];
+    // Enable test ads on simulators.
+    request.testDevices = @[ GAD_SIMULATOR_ID ];
+    [self.bannerView loadRequest:request];
+    
 
 }
 

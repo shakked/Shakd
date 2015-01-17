@@ -29,4 +29,5 @@
 - (ZSSUser *)fetchUserWithObjectId:(NSString *)objectId;
 - (ZSSMessage *)fetchMessageWithObjectId:(NSString *)objectId;
 - (ZSSFriendRequest *)fetchFriendRequestWithObjectId:(NSString *)objectId;
+- (void)deleteAllObjects;
 @end

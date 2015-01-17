@@ -226,6 +226,7 @@ static NSString *CELL_IDENTIFIER = @"cell";
 
 - (void)showPreviousView {
     [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController setToolbarHidden:YES animated:YES];
 }
 
 - (void)showFriendRequestsView {

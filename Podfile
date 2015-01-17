@@ -17,5 +17,7 @@ end
 
 target 'ShakdTests' do
 pod 'RKNotificationHub'
+pod 'Google-Mobile-Ads-SDK', '~> 6.10'
+
 end
 
