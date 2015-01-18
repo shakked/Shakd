@@ -150,7 +150,6 @@
 		4ACF3E2D1A5249B40030C07E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFCD1501A4FC4CB00543CE1 /* AVFoundation.framework */; };
 		4ACF3E2E1A5249C20030C07E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFCD14F1A4FC4CB00543CE1 /* AudioToolbox.framework */; };
 		4ACF3E2F1A5249C20030C07E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFCD16F1A4FC60000543CE1 /* CFNetwork.framework */; };
-		4ACF3E301A5249D60030C07E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFCD1571A4FC4CB00543CE1 /* StoreKit.framework */; };
 		4ACF3E311A5249D60030C07E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFCD1581A4FC4CB00543CE1 /* SystemConfiguration.framework */; };
 		4ACF3E321A5249E80030C07E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFCD1511A4FC4CB00543CE1 /* CoreGraphics.framework */; };
 		4ACF3E331A5249E80030C07E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFCD1761A4FC65C00543CE1 /* Security.framework */; };
@@ -173,7 +172,6 @@
 		4AFCD15E1A4FC4CB00543CE1 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFCD1541A4FC4CB00543CE1 /* EventKitUI.framework */; };
 		4AFCD15F1A4FC4CB00543CE1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFCD1551A4FC4CB00543CE1 /* Foundation.framework */; };
 		4AFCD1601A4FC4CB00543CE1 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFCD1561A4FC4CB00543CE1 /* MessageUI.framework */; };
-		4AFCD1611A4FC4CB00543CE1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFCD1571A4FC4CB00543CE1 /* StoreKit.framework */; };
 		4AFCD1621A4FC4CB00543CE1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFCD1581A4FC4CB00543CE1 /* SystemConfiguration.framework */; };
 		4AFCD16B1A4FC5CC00543CE1 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFCD1661A4FC5CC00543CE1 /* Parse.framework */; };
 		4AFCD16C1A4FC5CC00543CE1 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFCD1671A4FC5CC00543CE1 /* ParseCrashReporting.framework */; };
@@ -386,7 +384,6 @@
 		4AFCD1541A4FC4CB00543CE1 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		4AFCD1551A4FC4CB00543CE1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4AFCD1561A4FC4CB00543CE1 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		4AFCD1571A4FC4CB00543CE1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		4AFCD1581A4FC4CB00543CE1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		4AFCD1651A4FC5CC00543CE1 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		4AFCD1661A4FC5CC00543CE1 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -444,7 +441,6 @@
 				4AFCD17B1A4FC65C00543CE1 /* QuartzCore.framework in Frameworks */,
 				4AFCD17C1A4FC65C00543CE1 /* Security.framework in Frameworks */,
 				4AFCD15B1A4FC4CB00543CE1 /* CoreGraphics.framework in Frameworks */,
-				4AFCD1611A4FC4CB00543CE1 /* StoreKit.framework in Frameworks */,
 				4AFCD1621A4FC4CB00543CE1 /* SystemConfiguration.framework in Frameworks */,
 				4AFCD1701A4FC60000543CE1 /* CFNetwork.framework in Frameworks */,
 				4AFCD1591A4FC4CB00543CE1 /* AudioToolbox.framework in Frameworks */,
@@ -476,7 +472,6 @@
 				4ACF3E341A5249F70030C07E /* QuartzCore.framework in Frameworks */,
 				4ACF3E321A5249E80030C07E /* CoreGraphics.framework in Frameworks */,
 				4ACF3E331A5249E80030C07E /* Security.framework in Frameworks */,
-				4ACF3E301A5249D60030C07E /* StoreKit.framework in Frameworks */,
 				4ACF3E311A5249D60030C07E /* SystemConfiguration.framework in Frameworks */,
 				4ACF3E2E1A5249C20030C07E /* AudioToolbox.framework in Frameworks */,
 				4ACF3E2F1A5249C20030C07E /* CFNetwork.framework in Frameworks */,
@@ -846,7 +841,6 @@
 				4AFCD1541A4FC4CB00543CE1 /* EventKitUI.framework */,
 				4AFCD1551A4FC4CB00543CE1 /* Foundation.framework */,
 				4AFCD1561A4FC4CB00543CE1 /* MessageUI.framework */,
-				4AFCD1571A4FC4CB00543CE1 /* StoreKit.framework */,
 				4AFCD1581A4FC4CB00543CE1 /* SystemConfiguration.framework */,
 				6188D974F392498F33B02473 /* libPods-Shakd.a */,
 				B817CBA1B3A5363BE1794213 /* libPods-ShakdTests.a */,
@@ -908,6 +902,11 @@
 					4AFCD1251A4FC2E400543CE1 = {
 						CreatedOnToolsVersion = 6.1.1;
 						DevelopmentTeam = 9EFTW5NYHY;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
+						};
 					};
 					4AFCD13E1A4FC2E400543CE1 = {
 						CreatedOnToolsVersion = 6.1.1;
