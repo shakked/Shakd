@@ -160,7 +160,6 @@
 		4ACF3E381A524A2D0030C07E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFCD1711A4FC65C00543CE1 /* CoreLocation.framework */; };
 		4ACF3E391A524A3F0030C07E /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFCD1851A4FC8F900543CE1 /* libstdc++.6.dylib */; };
 		4AFCD12C1A4FC2E400543CE1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCD12B1A4FC2E400543CE1 /* main.m */; };
-		4AFCD1321A4FC2E400543CE1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCD1311A4FC2E400543CE1 /* ViewController.m */; };
 		4AFCD1371A4FC2E400543CE1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AFCD1361A4FC2E400543CE1 /* Images.xcassets */; };
 		4AFCD13A1A4FC2E400543CE1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4AFCD1381A4FC2E400543CE1 /* LaunchScreen.xib */; };
 		4AFCD1461A4FC2E400543CE1 /* ShakdTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCD1451A4FC2E400543CE1 /* ShakdTests.m */; };
@@ -193,7 +192,6 @@
 		4AFCD19F1A50695D00543CE1 /* ZSSMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCD19A1A50695D00543CE1 /* ZSSMessage.m */; };
 		4AFCD1A01A50695D00543CE1 /* ZSSFriendRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCD19C1A50695D00543CE1 /* ZSSFriendRequest.m */; };
 		4AFCD1A11A50695D00543CE1 /* ZSSUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCD19E1A50695D00543CE1 /* ZSSUser.m */; };
-		4AFCD1A41A506A0000543CE1 /* ZSSDictionaryTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCD1A31A506A0000543CE1 /* ZSSDictionaryTransformer.m */; };
 		4AFCD1AB1A506B0300543CE1 /* ZSSLocalStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCD1AA1A506B0300543CE1 /* ZSSLocalStore.m */; };
 		4AFCD1AE1A506B1A00543CE1 /* ZSSLocalFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCD1AD1A506B1A00543CE1 /* ZSSLocalFactory.m */; };
 		4AFCD1B11A50B8F800543CE1 /* testZSSLocalStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCD1B01A50B8F800543CE1 /* testZSSLocalStore.m */; };
@@ -338,7 +336,6 @@
 		4AA71FF91A5C5EDD000A8B8E /* ZSSHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZSSHomeViewController.h; path = Shakd/ZSSHomeViewController.h; sourceTree = "<group>"; };
 		4AA71FFA1A5C5EDD000A8B8E /* ZSSHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZSSHomeViewController.m; path = Shakd/ZSSHomeViewController.m; sourceTree = "<group>"; };
 		4AA71FFB1A5C5EDD000A8B8E /* ZSSHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ZSSHomeViewController.xib; path = Shakd/ZSSHomeViewController.xib; sourceTree = "<group>"; };
-		4AA720001A5C5EF7000A8B8E /* CloudQueryHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CloudQueryHeader.h; path = Shakd/CloudQueryHeader.h; sourceTree = "<group>"; };
 		4AA720011A5C5EF7000A8B8E /* ZSSCloudQuerier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZSSCloudQuerier.h; path = Shakd/ZSSCloudQuerier.h; sourceTree = "<group>"; };
 		4AA720021A5C5EF7000A8B8E /* ZSSCloudQuerier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZSSCloudQuerier.m; path = Shakd/ZSSCloudQuerier.m; sourceTree = "<group>"; };
 		4AA720091A5C5FD7000A8B8E /* ZSSLocalQuerier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSSLocalQuerier.h; sourceTree = "<group>"; };
@@ -369,8 +366,6 @@
 		4AFCD12A1A4FC2E400543CE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4AFCD12B1A4FC2E400543CE1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4AFCD12D1A4FC2E400543CE1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		4AFCD1301A4FC2E400543CE1 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		4AFCD1311A4FC2E400543CE1 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		4AFCD1361A4FC2E400543CE1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4AFCD1391A4FC2E400543CE1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		4AFCD13F1A4FC2E400543CE1 /* ShakdTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShakdTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -409,8 +404,6 @@
 		4AFCD19C1A50695D00543CE1 /* ZSSFriendRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSSFriendRequest.m; sourceTree = "<group>"; };
 		4AFCD19D1A50695D00543CE1 /* ZSSUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSSUser.h; sourceTree = "<group>"; };
 		4AFCD19E1A50695D00543CE1 /* ZSSUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSSUser.m; sourceTree = "<group>"; };
-		4AFCD1A21A506A0000543CE1 /* ZSSDictionaryTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSSDictionaryTransformer.h; sourceTree = "<group>"; };
-		4AFCD1A31A506A0000543CE1 /* ZSSDictionaryTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSSDictionaryTransformer.m; sourceTree = "<group>"; };
 		4AFCD1A91A506B0300543CE1 /* ZSSLocalStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSSLocalStore.h; sourceTree = "<group>"; };
 		4AFCD1AA1A506B0300543CE1 /* ZSSLocalStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSSLocalStore.m; sourceTree = "<group>"; };
 		4AFCD1AC1A506B1A00543CE1 /* ZSSLocalFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSSLocalFactory.h; sourceTree = "<group>"; };
@@ -556,7 +549,6 @@
 		4A7D505F1A5201E200C57F51 /* Cloud */ = {
 			isa = PBXGroup;
 			children = (
-				4AA720001A5C5EF7000A8B8E /* CloudQueryHeader.h */,
 				4AA720011A5C5EF7000A8B8E /* ZSSCloudQuerier.h */,
 				4AA720021A5C5EF7000A8B8E /* ZSSCloudQuerier.m */,
 			);
@@ -722,8 +714,6 @@
 				4A823B651A5DF7EE00FDD58D /* Images */,
 				4AFCD12D1A4FC2E400543CE1 /* AppDelegate.h */,
 				4A45C2CE1A63A67E00080F1B /* AppDelegate.m */,
-				4AFCD1301A4FC2E400543CE1 /* ViewController.h */,
-				4AFCD1311A4FC2E400543CE1 /* ViewController.m */,
 				4AFCD1361A4FC2E400543CE1 /* Images.xcassets */,
 				4AFCD1381A4FC2E400543CE1 /* LaunchScreen.xib */,
 				4A7D505F1A5201E200C57F51 /* Cloud */,
@@ -799,8 +789,6 @@
 				4AFCD19A1A50695D00543CE1 /* ZSSMessage.m */,
 				4AFCD19B1A50695D00543CE1 /* ZSSFriendRequest.h */,
 				4AFCD19C1A50695D00543CE1 /* ZSSFriendRequest.m */,
-				4AFCD1A21A506A0000543CE1 /* ZSSDictionaryTransformer.h */,
-				4AFCD1A31A506A0000543CE1 /* ZSSDictionaryTransformer.m */,
 				4AFCD1A91A506B0300543CE1 /* ZSSLocalStore.h */,
 				4AFCD1AA1A506B0300543CE1 /* ZSSLocalStore.m */,
 				4AFCD1AC1A506B1A00543CE1 /* ZSSLocalFactory.h */,
@@ -1110,7 +1098,6 @@
 				4AA720251A5C8819000A8B8E /* ActionSheetStringPicker.m in Sources */,
 				4AA720271A5C8819000A8B8E /* SWActionSheet.m in Sources */,
 				4A45C2261A5F4CE200080F1B /* ZSSFriendRequestsTableViewController.m in Sources */,
-				4AFCD1321A4FC2E400543CE1 /* ViewController.m in Sources */,
 				4AA720261A5C8819000A8B8E /* DistancePickerView.m in Sources */,
 				4AA720031A5C5EF7000A8B8E /* ZSSCloudQuerier.m in Sources */,
 				4A45C25F1A5F757E00080F1B /* ZSSFriendRequestCell.m in Sources */,
@@ -1137,7 +1124,6 @@
 				4A45C22A1A5F4CEE00080F1B /* ZSSFriendCell.m in Sources */,
 				4A4218011A50E68A004B999B /* UIView+Borders.m in Sources */,
 				4AA720201A5C8819000A8B8E /* AbstractActionSheetPicker.m in Sources */,
-				4AFCD1A41A506A0000543CE1 /* ZSSDictionaryTransformer.m in Sources */,
 				4AFCD19F1A50695D00543CE1 /* ZSSMessage.m in Sources */,
 				4AA720211A5C8819000A8B8E /* ActionSheetCustomPicker.m in Sources */,
 				4AA71FEE1A5C5EAB000A8B8E /* ZSSLoginViewController.m in Sources */,

@@ -36,7 +36,7 @@
 
 - (void)testFetchMessages {
 
-    [[ZSSCloudQuerier sharedQuerier] fetchMessagesInBackgroundWithCompletionBlock:^(NSArray *messages, NSError *error) {
+    [[ZSSCloudQuerier sharedQuerier] fetchMessagesWithCompletionBlock:^(NSArray *messages, NSError *error) {
         XCTAssertNotNil(messages);
         XCTAssertNil(messages);
         XCTAssertFalse([messages count] == 0);
@@ -50,7 +50,9 @@
 
 - (void)testFetchFriendRequests {
     
-    [[ZSSCloudQuerier sharedQuerier] fetchFriendRequestsInBackgroundWithCompletionBlock:^(NSArray *sentFriendRequests, NSError *error) {
+    XCTestExpectation *friendRequestExpectation = [self expectationWithDescription:@"friendRequests"];
+    
+    [[ZSSCloudQuerier sharedQuerier] fetchFriendRequestsWithCompletionBlock:^(NSArray *sentFriendRequests, NSError *error) {
         CFRunLoopStop(CFRunLoopGetCurrent());
         XCTAssertNotNil(sentFriendRequests);
         XCTAssertNil(sentFriendRequests);
@@ -59,6 +61,11 @@
             XCTAssertTrue([sentFriendRequests[i] isKindOfClass:[PFObject class]]);
             XCTAssertNotNil([[sentFriendRequests[i] valueForKey:@"receiver"] valueForKey:@"username"]);
         }
+        [friendRequestExpectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+        
     }];
 }
 
@@ -67,7 +74,7 @@
     [PFUser logOut];
     XCTAssertNoThrow([[ZSSCloudQuerier sharedQuerier] logInUserWithUsername:@"zach"
                                                                 andPassword:@"nets27"
-                                            InBackgroundWithCompletionBlock:^(PFUser *user, NSError *error) {
+                                                        withCompletionBlock:^(PFUser *user, NSError *error) {
                                XCTAssertNotNil(user);
                            }]);
 }
@@ -79,7 +86,7 @@
     test_user.username = @"test_user";
     test_user.password = @"test_password";
     test_user.email = @"test_user@test.com";
-    [[ZSSCloudQuerier sharedQuerier] signUpUser:test_user inBackgroundWithCompletionBlock:^(BOOL succeeded, NSError *error) {
+    [[ZSSCloudQuerier sharedQuerier] signUpUser:test_user withCompletionBlock:^(BOOL succeeded, NSError *error) {
         XCTAssertNil(error);
         XCTAssert(succeeded);
         [test_user delete];
@@ -90,7 +97,7 @@
     PFObject *cloudMessage = [PFObject objectWithClassName:@"ZSSMessage"];
     [cloudMessage save];
     ZSSMessage *localMessage = [[ZSSLocalQuerier sharedQuerier] localMessageForCloudMessage:cloudMessage];
-    [[ZSSCloudQuerier sharedQuerier] viewMessage:localMessage inBackgroundWithCompletionBlock:^(BOOL succeeded, NSError *error) {
+    [[ZSSCloudQuerier sharedQuerier] viewMessage:localMessage withCompletionBlock:^(BOOL succeeded, NSError *error) {
         XCTAssert(succeeded);
         XCTAssertNotNil(cloudMessage[@"dateViewed"]);
         XCTAssertNotNil(localMessage.dateViewed);

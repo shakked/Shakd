@@ -16,6 +16,7 @@
 
 @interface ZSSLocalSyncer ()
 
+
 @property (nonatomic, strong) ZSSUser *currentLocalUser;
 
 @end
@@ -35,7 +36,7 @@
 }
 
 - (void)syncMessagesWithCompletionBlock:(void (^)(NSArray *,NSError *))completionBlock {
-    [[ZSSCloudQuerier sharedQuerier] fetchMessagesInBackgroundWithCompletionBlock:^(NSArray *messages, NSError *error) {
+    [[ZSSCloudQuerier sharedQuerier] fetchMessagesWithCompletionBlock:^(NSArray *messages, NSError *error) {
         if (!error) {
             for (PFObject *message in messages) {
                 [[ZSSLocalQuerier sharedQuerier] localMessageForCloudMessage:message];
@@ -48,13 +49,12 @@
 
 - (void)syncFriendRequestsWithCompletionBlock:(void (^)(NSArray *,NSError *))completionBlock {
     
-    [[ZSSCloudQuerier sharedQuerier] fetchFriendRequestsInBackgroundWithCompletionBlock:^(NSArray *friendRequests, NSError *error) {
+    [[ZSSCloudQuerier sharedQuerier] fetchFriendRequestsWithCompletionBlock:^(NSArray *friendRequests, NSError *error) {
         if (!error) {
-                // Perform long running process
-                for (PFObject *friendRequest in friendRequests) {
-                    [[ZSSLocalQuerier sharedQuerier] localFriendRequestForCloudFriendRequest:friendRequest];
-                }
-                [[ZSSLocalStore sharedStore] saveCoreDataChanges];
+            for (PFObject *friendRequest in friendRequests) {
+                [[ZSSLocalQuerier sharedQuerier] localFriendRequestForCloudFriendRequest:friendRequest];
+            }
+            [[ZSSLocalStore sharedStore] saveCoreDataChanges];
         }
         
         completionBlock(friendRequests, error);

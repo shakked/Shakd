@@ -123,11 +123,9 @@ static NSString *CELL_IDENTIFIER = @"cell";
     [backButton setBackgroundImage:[UIImage imageNamed:@"BackIcon"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(showPreviousView) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *backBarButton = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    
-//    UIBarButtonItem *editBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
-//                                                                                target:self
-//                                                                                action:@selector(enableEditingMode)];
+
     self.navigationItem.leftBarButtonItem = backBarButton;
+
 }
 
 - (void)loadMessageData {
@@ -321,7 +319,7 @@ static NSString *CELL_IDENTIFIER = @"cell";
     [self configureViewedMessageCell:self.currentlyPlayingCell];
     
     if (self.currentlyPlayingCell) {
-        [[ZSSCloudQuerier sharedQuerier] viewMessage:self.currentlyPlayingCell.message inBackgroundWithCompletionBlock:^(BOOL succeeded, NSError *error) {
+        [[ZSSCloudQuerier sharedQuerier] viewMessage:self.currentlyPlayingCell.message withCompletionBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded && !error) {
 
             } else {
@@ -353,7 +351,7 @@ static NSString *CELL_IDENTIFIER = @"cell";
     [self loadMessageData];
     [self.tableView reloadData];
 }
-
+//
 //- (void)enableEditingMode
 //{
 //    [self.tableView setEditing:YES animated:YES];
@@ -371,7 +369,7 @@ static NSString *CELL_IDENTIFIER = @"cell";
 //                                                                                   action:@selector(enableEditingMode)];
 //    self.navigationItem.rightBarButtonItem = editBarButton;
 //    if ([self.localMessagesToDeleteInCloud count] > 0) {
-//        [[ZSSCloudQuerier sharedQuerier] deleteCloudMessagesForLocalMessages:self.localMessagesToDeleteInCloud inBackgroundWithCompletionBlock:^(BOOL succeeded, NSError *error) {
+//        [[ZSSCloudQuerier sharedQuerier] deleteCloudMessagesForLocalMessages:self.localMessagesToDeleteInCloud withCompletionBlock:^(BOOL succeeded, NSError *error) {
 //            if (succeeded && !error) {
 //                [RKDropdownAlert title:@"Messages deleted successfully" backgroundColor:[UIColor turquoiseColor] textColor:[UIColor whiteColor]];
 //            } else {
@@ -394,13 +392,12 @@ static NSString *CELL_IDENTIFIER = @"cell";
 //        [[ZSSLocalStore sharedStore] saveCoreDataChanges];
 //    }
 //}
-
+//
 - (void)throwInvalidMessageState {
     @throw [NSException exceptionWithName:@"InvalidMessageState"
                                    reason:@"Message state is not valid"
                                  userInfo:nil];
 }
-
 
 
 - (void)showPreviousView {
@@ -409,11 +406,26 @@ static NSString *CELL_IDENTIFIER = @"cell";
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)setCurrentLocalUser {
+    if ([PFUser currentUser]) {
+        self.currentLocalUser = [[ZSSLocalQuerier sharedQuerier] localUserForCloudUser:[PFUser currentUser]];
+    } else {
+        
+    }
+}
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        [self setCurrentLocalUser];
+    }
+    return self;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
+
 
 
 @end

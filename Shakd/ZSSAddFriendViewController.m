@@ -52,7 +52,7 @@
 - (void)sendFriendRequest {
     BOOL preparedForSendFriendRequestAttempt = [self preparedForSendFriendRequestAttempt];
     if (preparedForSendFriendRequestAttempt) {
-        [[ZSSCloudQuerier sharedQuerier] sendFriendRequestToUsername:self.usernameTextField.text inBackgroundWithCompletionBlock:^(BOOL succeeded, NSError *error) {
+        [[ZSSCloudQuerier sharedQuerier] sendFriendRequestToUsername:self.usernameTextField.text withCompletionBlock:^(BOOL succeeded, NSError *error) {
             if (!error && succeeded) {
                 [self dismissViewControllerAnimated:YES completion:^{
                     [RKDropdownAlert title:@"Friend Request Sent!" backgroundColor:[UIColor turquoiseColor] textColor:[UIColor whiteColor]];

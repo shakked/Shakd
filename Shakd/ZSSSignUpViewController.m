@@ -56,7 +56,7 @@
     BOOL preparedForSignUpAttempt = [self preparedForSignUpAttempt];
     if (preparedForSignUpAttempt) {
         PFUser *user = [self createUserFromTextFields];
-        [[ZSSCloudQuerier sharedQuerier] signUpUser:user inBackgroundWithCompletionBlock:^(BOOL succeeded, NSError *error) {
+        [[ZSSCloudQuerier sharedQuerier] signUpUser:user withCompletionBlock:^(BOOL succeeded, NSError *error) {
             if (!error && succeeded) {
                 [self showHomeView];
             } else {

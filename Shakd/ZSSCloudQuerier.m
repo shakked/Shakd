@@ -30,15 +30,16 @@ static int THROTTLE_TIME = 2;
 
 + (instancetype)sharedQuerier {
     static ZSSCloudQuerier *sharedQuerier = nil;
-    static dispatch_once_t onceToken; // onceToken = 0
+    static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+        
         sharedQuerier = [[self alloc] initPrivate];
     });
     
     return sharedQuerier;
 }
 
-- (void)fetchMessagesInBackgroundWithCompletionBlock:(void (^)(NSArray *, NSError *))completionBlock {
+- (void)fetchMessagesWithCompletionBlock:(void (^)(NSArray *, NSError *))completionBlock {
     if ([self hasBeenXSecondsSince:self.timeOfLastMessageFetch]) {
         PFQuery *messagesQuery = [self messagesQuery];
         [self executeQuery:messagesQuery withCompletionBlock:completionBlock];
@@ -46,7 +47,7 @@ static int THROTTLE_TIME = 2;
     }
 }
 
-- (void)fetchFriendRequestsInBackgroundWithCompletionBlock:(void (^)(NSArray *, NSError *))completionBlock {
+- (void)fetchFriendRequestsWithCompletionBlock:(void (^)(NSArray *, NSError *))completionBlock {
     if ([self hasBeenXSecondsSince:self.timeOfLastFriendRequestFetch]) {
         PFQuery *friendRequestsQuery = [self friendRequestsQuery];
         [self executeQuery:friendRequestsQuery withCompletionBlock:completionBlock];
@@ -56,7 +57,7 @@ static int THROTTLE_TIME = 2;
 
 - (void)logInUserWithUsername:(NSString *)username
                   andPassword:(NSString *)password
-InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
+          withCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
     if ([self hasBeenXSecondsSince:self.timeOfLastLogInAttempt]) {
         if (![self userIsLoggedIn]) {
             [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser *user, NSError *error) {
@@ -72,7 +73,7 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
     }
 }
 
-- (void)signUpUser:(PFUser *)user inBackgroundWithCompletionBlock:(void (^)(BOOL, NSError *))completionBlock {
+- (void)signUpUser:(PFUser *)user withCompletionBlock:(void (^)(BOOL, NSError *))completionBlock {
     if ([self hasBeenXSecondsSince:self.timeOfLastSignUpAttempt]) {
         if (![self userIsLoggedIn]) {
             [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -89,7 +90,7 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
     
 }
 
-- (void)resetPasswordForEmail:(NSString *)email inBackgroundWithCompletionBlock:(void (^)(BOOL, NSError *))completionBlock {
+- (void)resetPasswordForEmail:(NSString *)email withCompletionBlock:(void (^)(BOOL, NSError *))completionBlock {
     if ([self hasBeenXSecondsSince:self.timeOfLastPasswordResetAttempt]) {
         [PFUser requestPasswordResetForEmailInBackground:email block:^(BOOL succeeded, NSError *error) {
             completionBlock(succeeded, error);
@@ -97,7 +98,7 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
     }
 };
 
-- (void)sendFriendRequestToUsername:(NSString *)username inBackgroundWithCompletionBlock:(void (^)(BOOL, NSError *))completionBlock {
+- (void)sendFriendRequestToUsername:(NSString *)username withCompletionBlock:(void (^)(BOOL, NSError *))completionBlock {
     if ([self hasBeenXSecondsSince:self.timeOfLastSendFriendRequestAttempt]) {
         if ([self userIsLoggedIn]) {
             PFQuery *userQuery = [PFUser query];
@@ -122,7 +123,7 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
     }
 }
 
-- (void)acceptFriendRequest:(ZSSFriendRequest *)localFriendRequest inBackgroundWithCompletionBlock:(void (^)(BOOL, NSError *))completionBlock {
+- (void)acceptFriendRequest:(ZSSFriendRequest *)localFriendRequest withCompletionBlock:(void (^)(BOOL, NSError *))completionBlock {
     
     PFQuery *friendRequestQuery = [PFQuery queryWithClassName:@"ZSSFriendRequest"];
     [friendRequestQuery whereKey:@"objectId" equalTo:localFriendRequest.objectId];
@@ -135,7 +136,7 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
             [cloudFriendRequest saveInBackground];
             localFriendRequest.confirmed = @YES;
             localFriendRequest.dateConfirmed = now;
-            completionBlock(objects, error);
+            completionBlock(YES, error);
         } else if ([objects count] > 1) {
             [RKDropdownAlert title:@"Invalid object count"];
         } else {
@@ -144,7 +145,7 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
     }];
 }
 
-- (void)viewMessage:(ZSSMessage *)localMessage inBackgroundWithCompletionBlock:(void (^)(BOOL, NSError *))completionBlock {
+- (void)viewMessage:(ZSSMessage *)localMessage withCompletionBlock:(void (^)(BOOL, NSError *))completionBlock {
     PFQuery *messageQuery = [self messageQueryForObjectId:localMessage.objectId];
     [messageQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error && [objects count] == 1) {
@@ -201,7 +202,7 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
     [PFUser logOut];
 }
 
-- (void)deleteCloudMessagesForLocalMessages:(NSArray *)localMessages inBackgroundWithCompletionBlock:(void (^)(BOOL, NSError *))completionBlock {
+- (void)deleteCloudMessagesForLocalMessages:(NSArray *)localMessages withCompletionBlock:(void (^)(BOOL, NSError *))completionBlock {
     if ([self userIsLoggedIn]) {
         PFQuery *deleteMessagesQuery = [PFQuery queryWithClassName:@"ZSSMessage"];
         [deleteMessagesQuery whereKey:@"objectId" containedIn:[self localMessageObjectIds:localMessages]];
@@ -245,33 +246,6 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
     return friendRequest;
 }
 
-- (NSArray *)filterUsers:(NSMutableArray *)users forSendlist:(NSArray *)sendlist {
-
-    NSArray *sendlistObjectIds = [self localUserObjectIds:sendlist];
-    for (PFUser *user in users) {
-        if (![sendlistObjectIds containsObject:user.objectId]) {
-            [users removeObject:user];
-        }
-    }
-    return users;
-}
-
-- (NSArray *)localUserObjectIds:(NSArray *)users {
-    NSMutableArray *objectIds = [[NSMutableArray alloc] init];
-    for (ZSSUser *user in users) {
-        [objectIds addObject:user.objectId];
-    }
-    return objectIds;
-}
-
-- (NSArray *)localMessageObjectIds:(NSArray *)messages {
-    NSMutableArray *objectIds = [[NSMutableArray alloc] init];
-    for (ZSSMessage *message in messages) {
-        [objectIds addObject:message.objectId];
-    }
-    return objectIds;
-}
-
 - (PFObject *)messageToUser:(PFUser *)receiver withMessageInfo:(NSDictionary *)messageInfo {
     PFObject *message = [PFObject objectWithClassName:@"ZSSMessage"];
     message[@"dateSent"] = [NSDate date];
@@ -281,33 +255,15 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
     return message;
 }
 
-- (void)throwQueryNotPossibleException {
-    @throw [NSException exceptionWithName:@"QueryNotPossible"
-                                   reason:@"[PFUser currentUser] does not exist"
-                                 userInfo:nil];
-}
-
-- (void)throwMoreObjectsThanExpectedException {
-    @throw [NSException exceptionWithName:@"MoreObjectsThanExpected"
-                                   reason:@"More objects returned than expected"
-                                 userInfo:nil];
-}
-
-- (void)throwAlreadyLoggedInException {
-    @throw [NSException exceptionWithName:@"LogInNotPossible"
-                                   reason:@"PFUser is already logged in"
-                                 userInfo:nil];
-}
-
-- (void)throwQueryFailedException:(NSError *)error {
-    @throw [NSException exceptionWithName:@"QueryFailed"
-                                   reason:[error localizedDescription]
-                                 userInfo:nil];
-}
-
-- (NSError *)throttleError{
-    NSError *error = [NSError errorWithDomain:@"Throttle" code:123 userInfo:@{@"error": @"Try again in a few seconds."}];
-    return error;
+- (NSArray *)filterUsers:(NSMutableArray *)users forSendlist:(NSArray *)sendlist {
+    
+    NSArray *sendlistObjectIds = [self localUserObjectIds:sendlist];
+    for (PFUser *user in users) {
+        if (![sendlistObjectIds containsObject:user.objectId]) {
+            [users removeObject:user];
+        }
+    }
+    return users;
 }
 
 - (PFQuery *)messagesQuery {
@@ -346,6 +302,22 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
     return friendRequestsQuery;
 }
 
+- (NSArray *)localUserObjectIds:(NSArray *)users {
+    NSMutableArray *objectIds = [[NSMutableArray alloc] init];
+    for (ZSSUser *user in users) {
+        [objectIds addObject:user.objectId];
+    }
+    return objectIds;
+}
+
+- (NSArray *)localMessageObjectIds:(NSArray *)messages {
+    NSMutableArray *objectIds = [[NSMutableArray alloc] init];
+    for (ZSSMessage *message in messages) {
+        [objectIds addObject:message.objectId];
+    }
+    return objectIds;
+}
+
 - (BOOL)userIsLoggedIn {
     if ([PFUser currentUser]) {
         return YES;
@@ -365,8 +337,37 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
     }
 }
 
+- (NSError *)throttleError{
+    NSError *error = [NSError errorWithDomain:@"Throttle" code:123 userInfo:@{@"error": @"Try again in a few seconds."}];
+    return error;
+}
+
+- (void)throwQueryNotPossibleException {
+    @throw [NSException exceptionWithName:@"QueryNotPossible"
+                                   reason:@"[PFUser currentUser] does not exist"
+                                 userInfo:nil];
+}
+
+- (void)throwMoreObjectsThanExpectedException {
+    @throw [NSException exceptionWithName:@"MoreObjectsThanExpected"
+                                   reason:@"More objects returned than expected"
+                                 userInfo:nil];
+}
+
+- (void)throwAlreadyLoggedInException {
+    @throw [NSException exceptionWithName:@"LogInNotPossible"
+                                   reason:@"PFUser is already logged in"
+                                 userInfo:nil];
+}
+
+- (void)throwQueryFailedException:(NSError *)error {
+    @throw [NSException exceptionWithName:@"QueryFailed"
+                                   reason:[error localizedDescription]
+                                 userInfo:nil];
+}
+
+
 - (instancetype)initPrivate {
-    
     self = [super init];
     if (self) {
         _timeOfLastMessageFetch = [NSDate dateWithTimeIntervalSince1970:NSTimeIntervalSince1970];
@@ -380,8 +381,8 @@ InBackgroundWithCompletionBlock:(void (^)(PFUser *, NSError *))completionBlock {
     return self;
 }
 
+
 - (instancetype)init {
-    
     @throw [NSException exceptionWithName:@"Singleton"
                                    reason:@"Use [ZSSCloudQuerier sharedQuerier]"
                                  userInfo:nil];

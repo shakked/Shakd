@@ -31,11 +31,11 @@
                            alpha:1.0];
 }
 
-
 + (UIColor *)turquoiseColor {
     return [UIColor colorWithRed:0.0/255
                            green:199.0/255
                             blue:120.0/255
                            alpha:1.0];
 }
+
 @end

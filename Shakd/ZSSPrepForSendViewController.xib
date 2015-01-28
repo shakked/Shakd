@@ -19,7 +19,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P3B-cZ-IQa">
-                    <rect key="frame" x="10" y="8" width="580" height="270"/>
+                    <rect key="frame" x="10" y="50" width="580" height="228"/>
                     <color key="backgroundColor" red="0.88818008260000003" green="0.89924708149999999" blue="0.89968417550000002" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="16"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -225,7 +225,7 @@
                         <constraint firstAttribute="centerY" secondItem="6Na-dr-buX" secondAttribute="centerY" id="mDs-vO-Hdh"/>
                     </constraints>
                 </view>
-                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Qa-UK-uWx" customClass="GADBannerView">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Qa-UK-uWx" customClass="GADBannerView">
                     <rect key="frame" x="140" y="0.0" width="320" height="50"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -251,7 +251,7 @@
                 <constraint firstItem="lqq-Yo-K9R" firstAttribute="leading" secondItem="dPh-tC-iLi" secondAttribute="trailing" constant="10" id="dIT-RC-AiL"/>
                 <constraint firstItem="P3B-cZ-IQa" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="dVN-YW-Bgs"/>
                 <constraint firstAttribute="trailing" secondItem="lqq-Yo-K9R" secondAttribute="trailing" constant="10" id="fPG-yb-4zW"/>
-                <constraint firstItem="P3B-cZ-IQa" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="8" id="fVg-yy-hqb"/>
+                <constraint firstItem="P3B-cZ-IQa" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="50" id="fVg-yy-hqb"/>
                 <constraint firstItem="lTf-Jx-cuv" firstAttribute="top" secondItem="dPh-tC-iLi" secondAttribute="bottom" id="gM5-2l-gVs"/>
                 <constraint firstItem="dPh-tC-iLi" firstAttribute="leading" secondItem="A7I-45-nDv" secondAttribute="trailing" constant="10" id="iaa-go-hnz"/>
                 <constraint firstAttribute="trailing" secondItem="4Hf-8S-c4V" secondAttribute="trailing" constant="10" id="kK2-d7-o3j"/>

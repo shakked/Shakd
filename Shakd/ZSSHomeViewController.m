@@ -40,14 +40,6 @@
 
 @implementation ZSSHomeViewController
 
-- (void)configureViewForMessageInfo:(NSDictionary *)messageInfo {
-    self.voice = messageInfo[@"voice"];
-    [self.messageTextView setText:messageInfo[@"messageText"]];
-    self.indexOfSelectedVoice = [self.voiceShortCodes indexOfObjectIdenticalTo:self.voice];
-    [self.pitchSlider setValue:[messageInfo[@"pitch"] floatValue] animated:YES];
-    [self.rateSlider setValue:[messageInfo[@"rate"] floatValue] animated:YES];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureViews];
@@ -59,18 +51,17 @@
     
     self.bannerView.adUnitID = keyDict[@"HomeAdUnit"];
     self.bannerView.rootViewController = self;
-    
     GADRequest *request = [GADRequest request];
-    // Enable test ads on simulators.
     request.testDevices = @[ GAD_SIMULATOR_ID ];
     [self.bannerView loadRequest:request];
-    
     
     [[ZSSCloudQuerier sharedQuerier] saveUserForCurrentInstallation];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.messageTextView becomeFirstResponder];
+
     [[ZSSLocalSyncer sharedSyncer] syncMessagesWithCompletionBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             [[ZSSCloudQuerier sharedQuerier] adjustBadge];
@@ -79,22 +70,6 @@
             [RKDropdownAlert title:@"No internet connection" backgroundColor:[UIColor salmonColor] textColor:[UIColor whiteColor]];
         }
     }];
-    [self.messageTextView becomeFirstResponder];
-}
-
-- (IBAction)accentsButtonPressed:(id)sender {
-
-    
-    [ActionSheetStringPicker showPickerWithTitle:@"Select a Voice"
-                                            rows:self.voicesFullNames
-                                initialSelection:self.indexOfSelectedVoice
-                                       doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
-                                           self.voice = self.voiceShortCodes[selectedIndex];
-                                           self.indexOfSelectedVoice = selectedIndex;
-                                       }
-                                     cancelBlock:nil
-                                          origin:sender];
-    
 }
 
 - (void)configureViews {
@@ -137,6 +112,8 @@
     UIBarButtonItem *settingsBarButton = [[UIBarButtonItem alloc] initWithCustomView:settingsButton];
     
     self.navigationItem.leftBarButtonItem = settingsBarButton;
+    
+    
     self.navigationItem.rightBarButtonItems = @[friendsBarButton, messagesBarButton];
 }
 
@@ -161,6 +138,11 @@
 - (void)configureButtons {
     
 }
+
+- (IBAction)voicesButtonPressed:(id)sender {
+    [self showVoices:sender];
+}
+
 
 - (IBAction)playButtonPressed:(id)sender {
     [self playCurrentShak];
@@ -197,6 +179,18 @@
     [self.speaker speakUtterance:utterance];
 }
 
+- (void)showVoices:(id)sender {
+    [ActionSheetStringPicker showPickerWithTitle:@"Select a Voice"
+                                            rows:self.voicesFullNames
+                                initialSelection:self.indexOfSelectedVoice
+                                       doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
+                                           self.voice = self.voiceShortCodes[selectedIndex];
+                                           self.indexOfSelectedVoice = selectedIndex;
+                                       }
+                                     cancelBlock:nil
+                                          origin:sender];
+}
+
 - (void)showSettingsView {
     ZSSSettingsViewController *svc = [[ZSSSettingsViewController alloc] init];
     [self presentViewController:svc animated:YES completion:nil];
@@ -218,7 +212,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (instancetype)init {
@@ -228,6 +221,5 @@
     }
     return self;
 }
-#pragma mark - TESTING MY FUCKING BROKEN FUNCTIONS
 
 @end
