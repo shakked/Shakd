@@ -13,7 +13,7 @@
 #import "ZSSLocalQuerier.h"
 #import "ZSSLocalStore.h"
 
-static int THROTTLE_TIME = 2;
+static int THROTTLE_TIME = 0;
 @interface ZSSCloudQuerier ()
 
 @property (nonatomic, strong) NSDate *timeOfLastFriendRequestFetch;

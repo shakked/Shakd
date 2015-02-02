@@ -209,7 +209,7 @@
     [self presentViewController:svc animated:YES completion:nil];
 }
 
-- (void)showFriendsView {
+- (void)showFriendRequestsView {
     ZSSFriendRequestsTableViewController *frtvc = [[ZSSFriendRequestsTableViewController alloc] init];
     [self.navigationController pushViewController:frtvc animated:YES];
 }
