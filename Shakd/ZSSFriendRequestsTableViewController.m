@@ -183,18 +183,22 @@ static NSString *CELL_IDENTIFIER = @"cell";
     if (cell.state == ZSSFriendRequestCellSentConfirmedState) {
         [cell.selectFriendRequestButton setBackgroundImage:[UIImage imageNamed:@"FriendRequestConfirmed"] forState:UIControlStateNormal];
         [cell.friendLabel setText:cell.friendRequest.receiver.username];
+        [cell setBackgroundColor:[UIColor mintColor]];
         
     } else if (cell.state == ZSSFriendRequestCellReceivedConfirmedState) {
         [cell.selectFriendRequestButton setBackgroundImage:[UIImage imageNamed:@"FriendRequestConfirmed"] forState:UIControlStateNormal];
         [cell.friendLabel setText:cell.friendRequest.sender.username];
+        [cell setBackgroundColor:[UIColor mintColor]];
         
     } else if (cell.state == ZSSFriendRequestCellReceivedDeniedState) {
         [cell.selectFriendRequestButton setBackgroundImage:[UIImage imageNamed:@"FriendRequestApprove"] forState:UIControlStateNormal];
         [cell.friendLabel setText:cell.friendRequest.sender.username];
+        [cell setBackgroundColor:[UIColor sandColor]];
         
     } else if (cell.state == ZSSFriendRequestCellSentDeniedState) {
         [cell.selectFriendRequestButton setBackgroundImage:[UIImage imageNamed:@"FriendRequestPending"] forState:UIControlStateNormal];
         [cell.friendLabel setText:cell.friendRequest.receiver.username];
+        [cell setBackgroundColor:[UIColor sandColor]];
         
     } else {
         [RKDropdownAlert title:@"State not set for cell"];

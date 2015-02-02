@@ -167,6 +167,16 @@
     return unreadMessages;
 }
 
+- (int)friendRequestHubCount {
+    int count = 0;
+    for (ZSSFriendRequest *friendRequest in [self receivedFriendRequests]) {
+        if ([friendRequest.confirmed isEqual:@NO]) {
+            count++;
+        }
+    }
+    return count;
+}
+
 - (ZSSUser *)updateLocalUser:(ZSSUser *)localUser withDataOfCloudUser:(PFUser *)cloudUser {
     localUser.objectId = [cloudUser objectId];
     localUser.username = cloudUser[@"username"];

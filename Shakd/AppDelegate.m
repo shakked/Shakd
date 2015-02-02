@@ -58,7 +58,7 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
-
+ 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
 }
 
@@ -71,6 +71,7 @@
     // user tapped notification while app was in background
     if (state == UIApplicationStateInactive || state == UIApplicationStateBackground) {
         // go to screen relevant to Notification content
+        
     } else {
         NSString *alertMessage = userInfo[@"aps"][@"alert"];
         [RKDropdownAlert title:alertMessage backgroundColor:[UIColor charcoalColor] textColor:[UIColor whiteColor]];

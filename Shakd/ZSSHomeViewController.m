@@ -20,6 +20,8 @@
 #import "RKDropdownAlert.h"
 #import "GADBannerView.h"
 #import "GADRequest.h"
+#import "ZSSLocalQuerier.h"
+#import "ZSSFriendRequestsTableViewController.h"
 
 @interface ZSSHomeViewController ()
 
@@ -34,7 +36,8 @@
 @property (nonatomic, strong) NSArray *voicesFullNames;
 @property (nonatomic) NSInteger indexOfSelectedVoice;
 
-@property (nonatomic, strong) RKNotificationHub *hub;
+@property (nonatomic, strong) RKNotificationHub *messageHub;
+@property (nonatomic, strong) RKNotificationHub *friendRequestHub;
 
 @end
 
@@ -65,9 +68,17 @@
     [[ZSSLocalSyncer sharedSyncer] syncMessagesWithCompletionBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             [[ZSSCloudQuerier sharedQuerier] adjustBadge];
-            [self.hub setCount:(int)[[PFInstallation currentInstallation] badge]];
+            [self.messageHub setCount:(int)[[PFInstallation currentInstallation] badge]];
         } else {
-            [RKDropdownAlert title:@"No internet connection" backgroundColor:[UIColor salmonColor] textColor:[UIColor whiteColor]];
+            [RKDropdownAlert title:@"No Internet Connection" backgroundColor:[UIColor salmonColor] textColor:[UIColor whiteColor]];
+        }
+    }];
+    
+    [[ZSSLocalSyncer sharedSyncer] syncFriendRequestsWithCompletionBlock:^(NSArray *friendRequests, NSError *error) {
+        if (!error) {
+            [self.friendRequestHub setCount:[[ZSSLocalQuerier sharedQuerier] friendRequestHubCount]];
+        } else {
+            [RKDropdownAlert title:@"No Internet Connection" backgroundColor:[UIColor salmonColor] textColor:[UIColor whiteColor]];
         }
     }];
 }
@@ -92,15 +103,19 @@
 - (void)configureNavBarButtons {
     UIButton *friendsButton = [UIButton buttonWithType:UIButtonTypeCustom];
     friendsButton.bounds = CGRectMake(0, 0, 30, 30);
+    self.friendRequestHub = [[RKNotificationHub alloc] initWithView:friendsButton];
+    [self.friendRequestHub scaleCircleSizeBy:0.6];
+    [self.friendRequestHub setCount:[[ZSSLocalQuerier sharedQuerier] friendRequestHubCount]];
     [friendsButton setBackgroundImage:[UIImage imageNamed:@"FriendsIcon"] forState:UIControlStateNormal];
-    [friendsButton addTarget:self action:@selector(showFriendsView) forControlEvents:UIControlEventTouchUpInside];
+    [friendsButton addTarget:self action:@selector(showFriendRequestsView) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *friendsBarButton = [[UIBarButtonItem alloc] initWithCustomView:friendsButton];
+    
 
     UIButton *messagesButton = [UIButton buttonWithType:UIButtonTypeCustom];
     messagesButton.bounds = CGRectMake(0, 0, 30, 30);
-    self.hub = [[RKNotificationHub alloc] initWithView:messagesButton];
-    [self.hub scaleCircleSizeBy:0.6];
-    [self.hub setCount:(int)[[PFInstallation currentInstallation] badge]];
+    self.messageHub = [[RKNotificationHub alloc] initWithView:messagesButton];
+    [self.messageHub scaleCircleSizeBy:0.6];
+    [self.messageHub setCount:(int)[[PFInstallation currentInstallation] badge]];
     [messagesButton setBackgroundImage:[UIImage imageNamed:@"MessagesIcon"] forState:UIControlStateNormal];
     [messagesButton addTarget:self action:@selector(showMessagesView) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *messagesBarButton = [[UIBarButtonItem alloc] initWithCustomView:messagesButton];
@@ -112,8 +127,6 @@
     UIBarButtonItem *settingsBarButton = [[UIBarButtonItem alloc] initWithCustomView:settingsButton];
     
     self.navigationItem.leftBarButtonItem = settingsBarButton;
-    
-    
     self.navigationItem.rightBarButtonItems = @[friendsBarButton, messagesBarButton];
 }
 
@@ -197,8 +210,8 @@
 }
 
 - (void)showFriendsView {
-    ZSSFriendsTableViewController *ftvc = [[ZSSFriendsTableViewController alloc] init];
-    [self.navigationController pushViewController:ftvc animated:YES];
+    ZSSFriendRequestsTableViewController *frtvc = [[ZSSFriendRequestsTableViewController alloc] init];
+    [self.navigationController pushViewController:frtvc animated:YES];
 }
 
 - (void)showMessagesView {

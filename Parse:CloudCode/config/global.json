@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "Shakd": {
+            "applicationId": "fHUFmMSNqBgO4UZZaTNvMtbh6DsBxz8kljp8rTII", 
+            "masterKey": "nT5C2t1ph8tPV8GUKAYkDtwq9gb9VvCHrDKYBzs4"
+        }, 
+        "_default": {
+            "link": "Shakd"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.3.1"
+    }
+}

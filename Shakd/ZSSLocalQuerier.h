@@ -27,5 +27,6 @@
 - (NSArray *)friendRequests;
 - (NSArray *)unreadMessages;
 
+- (int)friendRequestHubCount;
 
 @end

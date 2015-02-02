@@ -211,6 +211,8 @@ static NSString *CELL_IDENTIFIER = @"cell";
 }
 
 - (void)sendMessages {
+    [self disableToolbarButtons];
+    
     [[ZSSCloudQuerier sharedQuerier] sendMessageToUsers:self.sendList withMessageInfo:self.messageInfo withCompletionBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded && !error) {
             [RKDropdownAlert title:@"Messages sent!" backgroundColor:[UIColor turquoiseColor] textColor:[UIColor whiteColor]];
@@ -220,8 +222,14 @@ static NSString *CELL_IDENTIFIER = @"cell";
             [RKDropdownAlert title:@"Something went wrong" backgroundColor:[UIColor charcoalColor] textColor:[UIColor whiteColor]];
         }
         [self.navigationController setToolbarHidden:YES animated:YES];
-        [self.navigationController popViewControllerAnimated:YES];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }];
+}
+
+- (void)disableToolbarButtons {
+    for (UIBarButtonItem *toolbarButton in self.navigationController.toolbar.items) {
+        toolbarButton.enabled = NO;
+    }
 }
 
 - (void)showPreviousView {

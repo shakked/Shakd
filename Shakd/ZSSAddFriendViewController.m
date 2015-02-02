@@ -11,7 +11,7 @@
 #import "UIColor+ShakdColors.h"
 #import "RKDropdownAlert+CommonAlerts.h"
 #import "ZSSCloudQuerier.h"
-
+#import <Parse/Parse.h>
 
 @interface ZSSAddFriendViewController () <UITextFieldDelegate>
 
@@ -73,13 +73,19 @@
 - (BOOL)preparedForSendFriendRequestAttempt {
     [self.dismissButton setEnabled:NO];
     [self.sendFriendRequestButton setEnabled:NO];
-    BOOL textFieldsAreFilledOut = [self textFieldsAreFilledOut];
-    if (textFieldsAreFilledOut) {
-        return YES;
-    } else {
+
+    if (![self textFieldsAreFilledOut]) {
         [self showEmptyFieldsError];
         return NO;
     }
+    
+    PFUser *currentUser = [PFUser currentUser];
+
+    if ([self.usernameTextField.text isEqual:currentUser.username]) {
+        [self showUserIsRequestingThemselfError];
+        return NO;
+    }
+    return YES;
 }
 
 - (void)readyViewForAnotherSendFriendRequestAttempt {
@@ -105,6 +111,12 @@
     }
     
     [RKDropdownAlert title:@"Ensure you fill out all fields" backgroundColor:[UIColor salmonColor] textColor:[UIColor whiteColor]];
+}
+
+- (void)showUserIsRequestingThemselfError {
+    [self.usernameTextField addLeftBorder:5.0 withColor:[UIColor salmonColor]];
+    [RKDropdownAlert title:@"You can't friend request yourself!" backgroundColor:[UIColor salmonColor] textColor:[UIColor whiteColor]];
+    
 }
 
 - (void)showUserNotFoundError {
