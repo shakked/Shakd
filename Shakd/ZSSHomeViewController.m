@@ -164,7 +164,8 @@
 - (IBAction)sendButtonPressed:(id)sender {
     NSDictionary *messageInfo = [self getMessageInfo];
     ZSSFriendsTableViewController *ftvc = [[ZSSFriendsTableViewController alloc] initWithState:ZSSFriendsTableStateSendingMessage andMessageInfo:messageInfo];
-    [self.navigationController pushViewController:ftvc animated:YES];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:ftvc];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (NSDictionary *)getMessageInfo {

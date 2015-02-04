@@ -14,6 +14,7 @@
 #import "ZSSMessage.h"
 #import "GADBannerView.h"
 #import "GADRequest.h"
+#import "UIBarButtonItem+MyBarButtons.h"
 
 
 @interface ZSSPrepForSendViewController ()
@@ -93,16 +94,15 @@
 
 - (void)configureNavBarButtons {
 
-    UIBarButtonItem *cancelBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-                                                                                     target:self
-                                                                                     action:@selector(cancelView)];
+    UIBarButtonItem *backBarButton = [UIBarButtonItem backBarButtonForVC:self];
+    
     UIButton *sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [sendButton setBounds:CGRectMake(0, 0, 30, 30)];
     [sendButton setBackgroundImage:[UIImage imageNamed:@"SendIconWhite"] forState:UIControlStateNormal];
     [sendButton addTarget:self action:@selector(sendMessage) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *sendBarButton = [[UIBarButtonItem alloc] initWithCustomView:sendButton];
     
-    self.navigationItem.leftBarButtonItem = cancelBarButton;
+    self.navigationItem.leftBarButtonItem = backBarButton;
     self.navigationItem.rightBarButtonItem = sendBarButton;
 }
 
@@ -157,8 +157,9 @@
 
 - (void)sendMessage {
     NSDictionary *messageInfo = [self getMessageInfo];
-    ZSSFriendsTableViewController *ftvc = [[ZSSFriendsTableViewController alloc] initWithState:ZSSFriendsTableStateSendingMessage andMessageInfo:messageInfo];
-    [self.navigationController pushViewController:ftvc animated:YES];
+    ZSSFriendsTableViewController *ftvc = [[ZSSFriendsTableViewController alloc] initWithState:ZSSFriendsTableStateReplyingMessage andMessageInfo:messageInfo];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:ftvc];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (NSDictionary *)getMessageInfo {
@@ -191,8 +192,8 @@
     [self.navigationController pushViewController:ftvc animated:YES];
 }
 
-- (void)cancelView {
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+- (void)showPreviousView {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)dismissKeyboard {

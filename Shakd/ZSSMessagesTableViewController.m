@@ -294,8 +294,7 @@ static NSString *CELL_IDENTIFIER = @"cell";
         ZSSMessageCell *strongCell = weakCell;
         ZSSPrepForSendViewController *pfsvc = [[ZSSPrepForSendViewController alloc] init];
         [pfsvc setMessage:strongCell.message];
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:pfsvc];
-        [self presentViewController:nav animated:YES completion:nil];
+        [self.navigationController pushViewController:pfsvc animated:YES];
     };
     
     cell.playButtonPressedBlock = ^{
@@ -305,9 +304,7 @@ static NSString *CELL_IDENTIFIER = @"cell";
     };
     
     cell.replyButtonPressedBlock = ^{
-        ZSSPrepForSendViewController *pfsvc = [[ZSSPrepForSendViewController alloc] init];
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:pfsvc];
-        [self presentViewController:nav animated:YES completion:nil];
+        [self.navigationController popViewControllerAnimated:YES];
     };
 }
 
