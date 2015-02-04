@@ -67,22 +67,29 @@ static NSString *CELL_IDENTIFIER = @"cell";
 
 - (void)configureNavBar {
     self.navigationItem.title = @"Friends";
+    self.navigationController.navigationBar.barTintColor = [UIColor charcoalColor];
+    self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor],
+                                                                    NSFontAttributeName : [UIFont fontWithName:@"Avenir" size:26.0]};
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self configureNavBarButtons];
     [self configureToolbar];
 }
 
 - (void)configureNavBarButtons {
-    UIBarButtonItem *backButton = [UIBarButtonItem backBarButtonForVC:self];
-    self.navigationItem.leftBarButtonItem = backButton;
+
+    UIBarButtonItem *cancelBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                                                                                     target:self
+                                                                                     action:@selector(dismissView)];
     
     UIButton *friendRequestsButton = [UIButton buttonWithType:UIButtonTypeCustom];
     friendRequestsButton.bounds = CGRectMake(0, 0, 30, 30);
     [friendRequestsButton setBackgroundImage:[UIImage imageNamed:@"FriendRequestsIcon"] forState:UIControlStateNormal];
     [friendRequestsButton addTarget:self action:@selector(showFriendRequestsView) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *friendRequestsBarButton = [[UIBarButtonItem alloc] initWithCustomView:friendRequestsButton];
+    
     self.navigationItem.rightBarButtonItem = friendRequestsBarButton;
-    
-    
+    self.navigationItem.leftBarButtonItem = cancelBarButton;
 }
 
 - (void)loadFriendData {
@@ -130,11 +137,7 @@ static NSString *CELL_IDENTIFIER = @"cell";
     
     [cell.friendLabel setText:friend.username];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    if (self.state == ZSSFriendsTableStateViewing) {
-        [self configureCellForViewingState:cell];
-    } else {
-        [self configureCellForSendingMessageState:cell];
-    }
+    [self configureCellForSendingMessageState:cell];
 }
 
 - (void)configureCellForViewingState:(ZSSFriendCell *)cell {
@@ -211,6 +214,8 @@ static NSString *CELL_IDENTIFIER = @"cell";
 }
 
 - (void)sendMessages {
+    [self disableToolbarButtons];
+    
     [[ZSSCloudQuerier sharedQuerier] sendMessageToUsers:self.sendList withMessageInfo:self.messageInfo withCompletionBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded && !error) {
             [RKDropdownAlert title:@"Messages sent!" backgroundColor:[UIColor turquoiseColor] textColor:[UIColor whiteColor]];
@@ -220,12 +225,18 @@ static NSString *CELL_IDENTIFIER = @"cell";
             [RKDropdownAlert title:@"Something went wrong" backgroundColor:[UIColor charcoalColor] textColor:[UIColor whiteColor]];
         }
         [self.navigationController setToolbarHidden:YES animated:YES];
-        [self.navigationController popViewControllerAnimated:YES];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }];
 }
 
-- (void)showPreviousView {
-    [self.navigationController popViewControllerAnimated:YES];
+- (void)disableToolbarButtons {
+    for (UIBarButtonItem *toolbarButton in self.navigationController.toolbar.items) {
+        toolbarButton.enabled = NO;
+    }
+}
+
+- (void)dismissView {
+    [self dismissViewControllerAnimated:YES completion:nil];
     [self.navigationController setToolbarHidden:YES animated:YES];
 }
 

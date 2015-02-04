@@ -124,7 +124,7 @@
 }
 
 - (void)testLocalMessageForCloudMessage {
-    [[ZSSCloudQuerier sharedQuerier] fetchMessagesInBackgroundWithCompletionBlock:^(NSArray *messages, NSError *error) {
+    [[ZSSCloudQuerier sharedQuerier] fetchMessagesWithCompletionBlock:^(NSArray *messages, NSError *error) {
         XCTAssertNil(error);
         for (PFObject *message in messages) {
             ZSSMessage *localMessage = [[ZSSLocalQuerier sharedQuerier] localMessageForCloudMessage:message];
@@ -145,7 +145,7 @@
 
 
 - (void)testLocalFriendRequestForCloudFriendRequest {
-    [[ZSSCloudQuerier sharedQuerier] fetchFriendRequestsInBackgroundWithCompletionBlock:^(NSArray *friendRequests, NSError *error) {
+    [[ZSSCloudQuerier sharedQuerier] fetchFriendRequestsWithCompletionBlock:^(NSArray *friendRequests, NSError *error) {
         XCTAssertNil(error);
         for (PFObject *friendRequest in friendRequests) {
             ZSSFriendRequest *localFriendRequest = [[ZSSLocalQuerier sharedQuerier] localFriendRequestForCloudFriendRequest:friendRequest];

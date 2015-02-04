@@ -14,5 +14,7 @@
 + (UIColor *)lighterGrayColor;
 + (UIColor *)salmonColor;
 + (UIColor *)turquoiseColor;
++ (UIColor *)mintColor;
++ (UIColor *)sandColor;
 
 @end

@@ -20,6 +20,8 @@
 #import "RKDropdownAlert.h"
 #import "GADBannerView.h"
 #import "GADRequest.h"
+#import "ZSSLocalQuerier.h"
+#import "ZSSFriendRequestsTableViewController.h"
 
 @interface ZSSHomeViewController ()
 
@@ -34,19 +36,12 @@
 @property (nonatomic, strong) NSArray *voicesFullNames;
 @property (nonatomic) NSInteger indexOfSelectedVoice;
 
-@property (nonatomic, strong) RKNotificationHub *hub;
+@property (nonatomic, strong) RKNotificationHub *messageHub;
+@property (nonatomic, strong) RKNotificationHub *friendRequestHub;
 
 @end
 
 @implementation ZSSHomeViewController
-
-- (void)configureViewForMessageInfo:(NSDictionary *)messageInfo {
-    self.voice = messageInfo[@"voice"];
-    [self.messageTextView setText:messageInfo[@"messageText"]];
-    self.indexOfSelectedVoice = [self.voiceShortCodes indexOfObjectIdenticalTo:self.voice];
-    [self.pitchSlider setValue:[messageInfo[@"pitch"] floatValue] animated:YES];
-    [self.rateSlider setValue:[messageInfo[@"rate"] floatValue] animated:YES];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -59,42 +54,33 @@
     
     self.bannerView.adUnitID = keyDict[@"HomeAdUnit"];
     self.bannerView.rootViewController = self;
-    
     GADRequest *request = [GADRequest request];
-    // Enable test ads on simulators.
     request.testDevices = @[ GAD_SIMULATOR_ID ];
     [self.bannerView loadRequest:request];
-    
     
     [[ZSSCloudQuerier sharedQuerier] saveUserForCurrentInstallation];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.messageTextView becomeFirstResponder];
+
     [[ZSSLocalSyncer sharedSyncer] syncMessagesWithCompletionBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             [[ZSSCloudQuerier sharedQuerier] adjustBadge];
-            [self.hub setCount:(int)[[PFInstallation currentInstallation] badge]];
+            [self.messageHub setCount:(int)[[PFInstallation currentInstallation] badge]];
         } else {
-            [RKDropdownAlert title:@"No internet connection" backgroundColor:[UIColor salmonColor] textColor:[UIColor whiteColor]];
+            [RKDropdownAlert title:@"No Internet Connection" backgroundColor:[UIColor salmonColor] textColor:[UIColor whiteColor]];
         }
     }];
-    [self.messageTextView becomeFirstResponder];
-}
-
-- (IBAction)accentsButtonPressed:(id)sender {
-
     
-    [ActionSheetStringPicker showPickerWithTitle:@"Select a Voice"
-                                            rows:self.voicesFullNames
-                                initialSelection:self.indexOfSelectedVoice
-                                       doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
-                                           self.voice = self.voiceShortCodes[selectedIndex];
-                                           self.indexOfSelectedVoice = selectedIndex;
-                                       }
-                                     cancelBlock:nil
-                                          origin:sender];
-    
+    [[ZSSLocalSyncer sharedSyncer] syncFriendRequestsWithCompletionBlock:^(NSArray *friendRequests, NSError *error) {
+        if (!error) {
+            [self.friendRequestHub setCount:[[ZSSLocalQuerier sharedQuerier] friendRequestHubCount]];
+        } else {
+            [RKDropdownAlert title:@"No Internet Connection" backgroundColor:[UIColor salmonColor] textColor:[UIColor whiteColor]];
+        }
+    }];
 }
 
 - (void)configureViews {
@@ -117,15 +103,19 @@
 - (void)configureNavBarButtons {
     UIButton *friendsButton = [UIButton buttonWithType:UIButtonTypeCustom];
     friendsButton.bounds = CGRectMake(0, 0, 30, 30);
+    self.friendRequestHub = [[RKNotificationHub alloc] initWithView:friendsButton];
+    [self.friendRequestHub scaleCircleSizeBy:0.6];
+    [self.friendRequestHub setCount:[[ZSSLocalQuerier sharedQuerier] friendRequestHubCount]];
     [friendsButton setBackgroundImage:[UIImage imageNamed:@"FriendsIcon"] forState:UIControlStateNormal];
-    [friendsButton addTarget:self action:@selector(showFriendsView) forControlEvents:UIControlEventTouchUpInside];
+    [friendsButton addTarget:self action:@selector(showFriendRequestsView) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *friendsBarButton = [[UIBarButtonItem alloc] initWithCustomView:friendsButton];
+    
 
     UIButton *messagesButton = [UIButton buttonWithType:UIButtonTypeCustom];
     messagesButton.bounds = CGRectMake(0, 0, 30, 30);
-    self.hub = [[RKNotificationHub alloc] initWithView:messagesButton];
-    [self.hub scaleCircleSizeBy:0.6];
-    [self.hub setCount:(int)[[PFInstallation currentInstallation] badge]];
+    self.messageHub = [[RKNotificationHub alloc] initWithView:messagesButton];
+    [self.messageHub scaleCircleSizeBy:0.6];
+    [self.messageHub setCount:(int)[[PFInstallation currentInstallation] badge]];
     [messagesButton setBackgroundImage:[UIImage imageNamed:@"MessagesIcon"] forState:UIControlStateNormal];
     [messagesButton addTarget:self action:@selector(showMessagesView) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *messagesBarButton = [[UIBarButtonItem alloc] initWithCustomView:messagesButton];
@@ -162,6 +152,11 @@
     
 }
 
+- (IBAction)voicesButtonPressed:(id)sender {
+    [self showVoices:sender];
+}
+
+
 - (IBAction)playButtonPressed:(id)sender {
     [self playCurrentShak];
 }
@@ -169,7 +164,8 @@
 - (IBAction)sendButtonPressed:(id)sender {
     NSDictionary *messageInfo = [self getMessageInfo];
     ZSSFriendsTableViewController *ftvc = [[ZSSFriendsTableViewController alloc] initWithState:ZSSFriendsTableStateSendingMessage andMessageInfo:messageInfo];
-    [self.navigationController pushViewController:ftvc animated:YES];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:ftvc];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (NSDictionary *)getMessageInfo {
@@ -197,14 +193,26 @@
     [self.speaker speakUtterance:utterance];
 }
 
+- (void)showVoices:(id)sender {
+    [ActionSheetStringPicker showPickerWithTitle:@"Select a Voice"
+                                            rows:self.voicesFullNames
+                                initialSelection:self.indexOfSelectedVoice
+                                       doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
+                                           self.voice = self.voiceShortCodes[selectedIndex];
+                                           self.indexOfSelectedVoice = selectedIndex;
+                                       }
+                                     cancelBlock:nil
+                                          origin:sender];
+}
+
 - (void)showSettingsView {
     ZSSSettingsViewController *svc = [[ZSSSettingsViewController alloc] init];
     [self presentViewController:svc animated:YES completion:nil];
 }
 
-- (void)showFriendsView {
-    ZSSFriendsTableViewController *ftvc = [[ZSSFriendsTableViewController alloc] init];
-    [self.navigationController pushViewController:ftvc animated:YES];
+- (void)showFriendRequestsView {
+    ZSSFriendRequestsTableViewController *frtvc = [[ZSSFriendRequestsTableViewController alloc] init];
+    [self.navigationController pushViewController:frtvc animated:YES];
 }
 
 - (void)showMessagesView {
@@ -218,7 +226,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (instancetype)init {
@@ -228,6 +235,5 @@
     }
     return self;
 }
-#pragma mark - TESTING MY FUCKING BROKEN FUNCTIONS
 
 @end

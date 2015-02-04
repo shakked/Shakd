@@ -35,6 +35,13 @@
     [self showSignUpView];
 }
 
+- (void)configureViews {
+    [self.loginButton addLowerBorder:5.0 withColor:[UIColor lighterGrayColor]];
+    [self.loginButton setClipsToBounds:YES];
+    [self.signUpButton addLowerBorder:5.0 withColor:[UIColor lighterGrayColor]];
+    [self.signUpButton setClipsToBounds:YES];
+}
+
 - (void)showLoginView {
     ZSSLoginViewController *loginViewController = [[ZSSLoginViewController alloc] init];
     [self presentViewController:loginViewController animated:YES completion:nil];
@@ -44,17 +51,6 @@
     ZSSSignUpViewController *signUpViewController = [[ZSSSignUpViewController alloc] init];
     [self presentViewController:signUpViewController animated:YES completion:nil];
 }
-
-- (void)configureViews {
-    [self.loginButton addLowerBorder:5.0 withColor:[UIColor lighterGrayColor]];
-    [self.loginButton setClipsToBounds:YES];
-    [self.signUpButton addLowerBorder:5.0 withColor:[UIColor lighterGrayColor]];
-    [self.signUpButton setClipsToBounds:YES];
-}
-
-
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

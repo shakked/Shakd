@@ -164,7 +164,7 @@ static NSString *CELL_IDENTIFIER = @"cell";
 }
 
 - (void)confirmFriendRequestForCell:(ZSSFriendRequestCell *)cell {
-    [[ZSSCloudQuerier sharedQuerier] acceptFriendRequest:cell.friendRequest inBackgroundWithCompletionBlock:^(BOOL succeeded, NSError *error) {
+    [[ZSSCloudQuerier sharedQuerier] acceptFriendRequest:cell.friendRequest withCompletionBlock:^(BOOL succeeded, NSError *error) {
         if (!error && succeeded) {
             [self assignCellCorrectState:cell];
             [self configureBlocks:cell];
@@ -177,25 +177,28 @@ static NSString *CELL_IDENTIFIER = @"cell";
 
 - (void)deleteFriendRequestForCell:(ZSSFriendRequestCell *)cell {
     [RKDropdownAlert title:@"WOULD DELETE FQ"];
-    
 }
 
 - (void)configureCell:(ZSSFriendRequestCell *)cell {
     if (cell.state == ZSSFriendRequestCellSentConfirmedState) {
         [cell.selectFriendRequestButton setBackgroundImage:[UIImage imageNamed:@"FriendRequestConfirmed"] forState:UIControlStateNormal];
         [cell.friendLabel setText:cell.friendRequest.receiver.username];
+        [cell setBackgroundColor:[UIColor mintColor]];
         
     } else if (cell.state == ZSSFriendRequestCellReceivedConfirmedState) {
         [cell.selectFriendRequestButton setBackgroundImage:[UIImage imageNamed:@"FriendRequestConfirmed"] forState:UIControlStateNormal];
         [cell.friendLabel setText:cell.friendRequest.sender.username];
+        [cell setBackgroundColor:[UIColor mintColor]];
         
     } else if (cell.state == ZSSFriendRequestCellReceivedDeniedState) {
         [cell.selectFriendRequestButton setBackgroundImage:[UIImage imageNamed:@"FriendRequestApprove"] forState:UIControlStateNormal];
         [cell.friendLabel setText:cell.friendRequest.sender.username];
+        [cell setBackgroundColor:[UIColor sandColor]];
         
     } else if (cell.state == ZSSFriendRequestCellSentDeniedState) {
         [cell.selectFriendRequestButton setBackgroundImage:[UIImage imageNamed:@"FriendRequestPending"] forState:UIControlStateNormal];
         [cell.friendLabel setText:cell.friendRequest.receiver.username];
+        [cell setBackgroundColor:[UIColor sandColor]];
         
     } else {
         [RKDropdownAlert title:@"State not set for cell"];
@@ -210,11 +213,7 @@ static NSString *CELL_IDENTIFIER = @"cell";
     }
 }
 
-- (void)throwInvalidFriendRequestException {
-    @throw [NSException exceptionWithName:@"InvalidFriendRequest"
-                                   reason:@"User is not receiver or sender"
-                                 userInfo:nil];
-}
+
 
 - (void)showPreviousView {
     [self.navigationController popViewControllerAnimated:YES];
@@ -225,8 +224,38 @@ static NSString *CELL_IDENTIFIER = @"cell";
     [self presentViewController:afvc animated:YES completion:nil];
 }
 
+- (void)setCurrentLocalUser {
+    if ([PFUser currentUser]) {
+        self.currentLocalUser = [[ZSSLocalQuerier sharedQuerier] localUserForCloudUser:[PFUser currentUser]];
+    } else {
+        [self throwPFUserIsNilException];
+    }
+}
+
+
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        [self setCurrentLocalUser];
+    }
+    return self;
+}
+
+- (void)throwPFUserIsNilException {
+    @throw [NSException exceptionWithName:@"PFUser is nil"
+                                   reason:@"[PFUser currentUser] does not exist"
+                                 userInfo:nil];
+}
+
+- (void)throwInvalidFriendRequestException {
+    @throw [NSException exceptionWithName:@"InvalidFriendRequest"
+                                   reason:@"User is not receiver or sender"
+                                 userInfo:nil];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
+
 @end

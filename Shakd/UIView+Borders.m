@@ -15,7 +15,6 @@
     upperBorder.backgroundColor = [color CGColor];
     upperBorder.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), thickness);
     [self.layer addSublayer:upperBorder];
-
 }
 
 - (void)addLowerBorder:(float)thickness withColor:(UIColor *)color {
@@ -38,11 +37,5 @@
     leftBorder.frame = CGRectMake(0, 0, thickness, CGRectGetHeight(self.frame));
     [self.layer addSublayer:leftBorder];
 }
-
-- (void)removeAllSublayers {
-#warning TODO
-}
-
-
 
 @end

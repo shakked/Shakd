@@ -11,7 +11,6 @@
 
 @interface ZSSHomeViewController : UIViewController
 
-- (void)configureViewForMessageInfo:(NSDictionary *)messageInfo;
 @property (weak, nonatomic) IBOutlet GADBannerView *bannerView;
 
 @end

@@ -31,11 +31,25 @@
                            alpha:1.0];
 }
 
-
 + (UIColor *)turquoiseColor {
     return [UIColor colorWithRed:0.0/255
                            green:199.0/255
                             blue:120.0/255
                            alpha:1.0];
 }
+
++ (UIColor *)mintColor {
+    return [UIColor colorWithRed:175.0/255
+                           green:255.0/255
+                            blue:184.0/255
+                           alpha:1.0];
+}
+
++ (UIColor *)sandColor {
+    return [UIColor  colorWithRed:255.0/255.0
+                            green:251.0/255.05
+                             blue:159.0/255
+                            alpha:1.0];
+}
+
 @end

@@ -21,28 +21,12 @@
 @end
 
 @implementation AppDelegate
-
+#warning BEGINE UPDATES/END UPDATES
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
-    [ZSSLocalStore sharedStore];
-    NSString *keyPath = [[NSBundle mainBundle] pathForResource:@"Keys" ofType:@"plist"];
-    NSDictionary *keyDict = [NSDictionary dictionaryWithContentsOfFile:keyPath];
-    NSString *parseApplicationId = keyDict[@"ParseApplicationId"];
-    NSString *parseClientKey = keyDict[@"ParseClientKey"];
-    [Parse setApplicationId:parseApplicationId
-                  clientKey:parseClientKey];
-    
-    UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
-                                                    UIUserNotificationTypeBadge |
-                                                    UIUserNotificationTypeSound);
-    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
-                                                                             categories:nil];
-    [application registerUserNotificationSettings:settings];
-    [application registerForRemoteNotifications];
+    [self configureParse:application];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
     
@@ -74,9 +58,8 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
-
+ 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -88,6 +71,7 @@
     // user tapped notification while app was in background
     if (state == UIApplicationStateInactive || state == UIApplicationStateBackground) {
         // go to screen relevant to Notification content
+        
     } else {
         NSString *alertMessage = userInfo[@"aps"][@"alert"];
         [RKDropdownAlert title:alertMessage backgroundColor:[UIColor charcoalColor] textColor:[UIColor whiteColor]];
@@ -98,6 +82,23 @@
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];
     [currentInstallation saveInBackground];
+}
+
+- (void)configureParse:(UIApplication *)application {
+    NSString *keyPath = [[NSBundle mainBundle] pathForResource:@"Keys" ofType:@"plist"];
+    NSDictionary *keyDict = [NSDictionary dictionaryWithContentsOfFile:keyPath];
+    NSString *parseApplicationId = keyDict[@"ParseApplicationId"];
+    NSString *parseClientKey = keyDict[@"ParseClientKey"];
+    [Parse setApplicationId:parseApplicationId
+                  clientKey:parseClientKey];
+    
+    UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
+                                                    UIUserNotificationTypeBadge |
+                                                    UIUserNotificationTypeSound);
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
+                                                                             categories:nil];
+    [application registerUserNotificationSettings:settings];
+    [application registerForRemoteNotifications];
 }
 
 

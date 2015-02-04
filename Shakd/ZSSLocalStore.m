@@ -49,14 +49,14 @@
 
 - (void)logCoreDataStatus {
     NSLog(@"privateUsers: %@", self.privateUsers);
-    NSLog(@"priveteUser count: %lu", [self.privateUsers count]);
+    NSLog(@"priveteUser count: %lu", (unsigned long)[self.privateUsers count]);
     for (ZSSUser *user in self.privateUsers) {
         NSLog(@"username: %@", user.username);
     }
     NSLog(@"priveateMessages: %@", self.privateMessages);
-    NSLog(@"privateMessages count: %lu", [self.privateMessages count]);
+    NSLog(@"privateMessages count: %lu", (unsigned long)[self.privateMessages count]);
     NSLog(@"privateFriendRequests: %@", self.privateFriendRequests);
-    NSLog(@"privateFriendRequests count: %lu", [self.privateFriendRequests count]);
+    NSLog(@"privateFriendRequests count: %lu", (unsigned long)[self.privateFriendRequests count]);
 }
 
 - (NSArray *)users {

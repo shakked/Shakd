@@ -41,7 +41,7 @@
     if (preparedForPasswordResetAttempt) {
         
         [[ZSSCloudQuerier sharedQuerier] resetPasswordForEmail:self.emailTextField.text
-                               inBackgroundWithCompletionBlock:^(BOOL succeeded, NSError *error) {
+                                           withCompletionBlock:^(BOOL succeeded, NSError *error) {
                                    if (succeeded && !error) {
                                        [self showPasswordResetSuccess];
                                    } else {

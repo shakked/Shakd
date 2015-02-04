@@ -78,7 +78,7 @@
     if (preparedForLogInAttempt) {
          [[ZSSCloudQuerier sharedQuerier] logInUserWithUsername:self.usernameTextField.text
                                                     andPassword:self.passwordTextField.text
-                                InBackgroundWithCompletionBlock:^(PFUser *user, NSError *error) {
+                                            withCompletionBlock:^(PFUser *user, NSError *error) {
                                     if (!error) {
                                         [[ZSSCloudQuerier sharedQuerier] saveUserForCurrentInstallation];
                                         [self presentHomeViewController];
@@ -162,7 +162,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 

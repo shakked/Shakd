@@ -34,7 +34,6 @@
 }
 
 - (ZSSUser *)localUserForCloudUser:(PFUser *)cloudUser {
-    
     ZSSUser *userInSearchOf;
     NSArray *users = [[ZSSLocalStore sharedStore] users];
     for (ZSSUser *user in users) {
@@ -52,6 +51,12 @@
 
 - (ZSSMessage *)localMessageForCloudMessage:(PFObject *)cloudMessage {
     ZSSMessage *messageInSearchOf = [[ZSSLocalStore sharedStore] fetchMessageWithObjectId:cloudMessage.objectId];
+    NSArray *messages = [[ZSSLocalStore sharedStore] messages];
+    for (ZSSMessage *message in messages) {
+        if ([message.objectId isEqual:cloudMessage.objectId]) {
+            messageInSearchOf = message;
+        }
+    }
     
     if (!messageInSearchOf) {
         messageInSearchOf = [[ZSSLocalFactory sharedFactory] createMessage];
@@ -162,8 +167,20 @@
     return unreadMessages;
 }
 
+- (int)friendRequestHubCount {
+    int count = 0;
+    for (ZSSFriendRequest *friendRequest in [self receivedFriendRequests]) {
+        if ([friendRequest.confirmed isEqual:@NO]) {
+            count++;
+        }
+    }
+    
+    
+    
+    return count;
+}
+
 - (ZSSUser *)updateLocalUser:(ZSSUser *)localUser withDataOfCloudUser:(PFUser *)cloudUser {
-    NSDate *startTime = [NSDate date];
     localUser.objectId = [cloudUser objectId];
     localUser.username = cloudUser[@"username"];
     localUser.email = cloudUser[@"email"];
@@ -201,15 +218,8 @@
     localFriendRequest.dateConfirmed = cloudFriendRequest[@"dateConfirmed"];
     localFriendRequest.lastSynced = cloudFriendRequest[@"lastSynced"];
     localFriendRequest.createdAt = [cloudFriendRequest createdAt];
+    
     return localFriendRequest;
-}
-
-- (instancetype)initPrivate {
-    self = [super init];
-    if (self) {
-        [self setCurrentLocalUser];
-    }
-    return self;
 }
 
 - (void)setCurrentLocalUser {
@@ -278,6 +288,13 @@
                                  userInfo:nil];
 }
 
+- (instancetype)initPrivate {
+    self = [super init];
+    if (self) {
+        [self setCurrentLocalUser];
+    }
+    return self;
+}
 
 - (instancetype)init {
     @throw [NSException exceptionWithName:@"Singleton"
